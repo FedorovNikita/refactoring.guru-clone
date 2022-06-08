@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from refactoring.guru/design-patterns/visitor by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:14:35 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+    <meta charset="utf-8">
+    <title>Visitor</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="alternate" href="visitor.html" hreflang="x-default"/>
+    <link rel="alternate" href="../es/design-patterns/visitor.html" hreflang="es"/>
+    <link rel="alternate" href="../fr/design-patterns/visitor.html" hreflang="fr"/>
+    <link rel="alternate" href="../ja/design-patterns/visitor.html" hreflang="ja"/>
+    <link rel="alternate" href="../ko/design-patterns/visitor.html" hreflang="ko"/>
+    <link rel="alternate" href="../pl/design-patterns/visitor.html" hreflang="pl"/>
+    <link rel="alternate" href="../pt-br/design-patterns/visitor.html" hreflang="pt-br"/>
+    <link rel="alternate" href="../ru/design-patterns/visitor.html" hreflang="ru"/>
+    <link rel="alternate" href="../uk/design-patterns/visitor.html" hreflang="uk"/>
+    <link rel="alternate" href="https://refactoringguru.cn/design-patterns/visitor" hreflang="zh"/>
+
+    <meta name="description" content="Visitor is a behavioral design pattern that lets you separate algorithms from the objects on which they operate.">
+
+    <link rel="canonical" href="visitor.html"/>
+
+    <link rel="icon" type="image/x-icon" href="../favicon.png"/>
+
+<script type="application/ld+json">
+{"@context": "http://schema.org", "@graph": [{"@type":"Person","@id":"https://refactoring.guru/#founder","name":"Alexander Shvets"},{"@type":"Organization","@id":"https://refactoring.guru/#organization","name":"Refactoring.Guru","description":"Refactoring.Guru makes it easy for you to discover everything you need to know about refactoring, design patterns, SOLID principles, and other smart programming topics.","image":{"@type":"ImageObject","@id":"https://refactoring.guru/#organizationlogo","url":"https://refactoring.guru/images/content-public/logos/logo-plain.png","caption":"Refactoring.Guru"},"logo":{"@id":"https://refactoring.guru/#organizationlogo"},"founder":{"@id":"https://refactoring.guru/#founder"},"sameAs":["https://www.facebook.com/refactoring.guru","https://twitter.com/RefactoringGuru","https://github.com/RefactoringGuru"]},{"@type":"WebSite","@id":"https://refactoring.guru/#website","url":"https://refactoring.guru/","name":"Refactoring.Guru","description":"Refactoring.Guru makes it easy for you to discover everything you need to know about refactoring, design patterns, SOLID principles, and other smart programming topics.","author":{"@id":"https://refactoring.guru/#founder"},"publisher":{"@id":"https://refactoring.guru/#organization"},"copyrightYear":2014},{"@type":"WebPage","@id":"https://refactoring.guru/design-patterns/visitor#webpage","url":"https://refactoring.guru/design-patterns/visitor","inLanguage":"en","name":"Visitor","description":"Visitor is a behavioral design pattern that lets you separate algorithms from the objects on which they operate.","isPartOf":{"@id":"https://refactoring.guru#website"},"breadcrumb":{"@id":"https://refactoring.guru/design-patterns/visitor#breadcrumb"},"primaryImageOfPage":{"@id":"https://refactoring.guru/design-patterns/visitor#primaryimage"},"image":{"@type":"ImageObject","@id":"https://refactoring.guru/design-patterns/visitor#primaryimage","url":"https://refactoring.guru/images/patterns/content/visitor/visitor-3x.png","width":1920,"height":1200}},{"@type":"Article","@id":"https://refactoring.guru/design-patterns/visitor#article","isPartOf":{"@id":"https://refactoring.guru/design-patterns/visitor#webpage"},"mainEntityOfPage":{"@id":"https://refactoring.guru/design-patterns/visitor#webpage"},"author":{"@id":"https://refactoring.guru#founder"},"publisher":{"@id":"https://refactoring.guru#organization"},"headline":"Visitor","datePublished":"2021-01-01","dateModified":"2022-01-01","articleSection":"Design Patterns","image":{"@id":"https://refactoring.guru/design-patterns/visitor#primaryimage"}},{"@type":"BreadcrumbList","@id":"https://refactoring.guru/design-patterns/visitor#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://refactoring.guru"},{"@type":"ListItem","position":2,"name":"Design Patterns","item":"https://refactoring.guru/design-patterns"},{"@type":"ListItem","position":3,"name":"Behavioral Patterns","item":"https://refactoring.guru/design-patterns/behavioral-patterns"}]}] }
+</script>
+
+<meta property="fb:app_id" content="666819623386327" />
+<meta property="og:type"  content="website" />
+<meta property="og:image" content="https://refactoring.guru/images/refactoring/social/facebook-share-preview.png?id=dbf9e98269595be86eb668f365be6868"/>
+
+        <link rel="stylesheet" href="../css/public-packed.min29c2.css?id=72df70415a2662bdd8f64ffd40983c30">
+
+<style type="text/css">
+    @font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<link rel="preload" href="../fonts/PTSans/ptsans-regular_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/PTSans/ptsans-bold_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/fontello/fontawesomea92a.woff2?15843843" as="font" type="font/woff2" crossorigin>
+
+
+<script defer src="../js/public.min1749.js?id=77d40430343920ca57d184f85668a382"></script>
+
+
+
+</head>
+<body class="locale-en    announcement   visitor" data-body_class="visitor">
+
+<div class="body-holder">
+
+
+            <div class="announcement-block prom" data-id="DIDP-announcement" data-creative-id="en" data-position="top"><div class="announcement-block-inner">
+            <img src="../images/content-public/announcement-en-17032.svg?id=2b6bba0470947f2a60cdac20b809cf3d" loading="lazy" style="width: 36px; height:36px;">
+                Hey, I have just reduced the price for all products. Let's prepare our programming skills for the post-COVID era. <a href="../store.html">Check it out »</a>
+            <img src="../images/content-public/announcement-en-26d3b.svg?id=d0c7bf36cfcc7c733fad50a30fd99920" loading="lazy" style="width: 36px; height:36px;">
+        </div></div>
+    
+    <div class="cart-placeholder">
+    <div class="cart-block-container" style="display:none">
+        <div class="cart-block btn-group">
+            <a href="#checkout" class="btn cart open-checkout">
+                <span class="cart-text"></span>&nbsp;<strong class="cart-total font-money"></strong>
+            </a><a href="#checkout" class="btn btn-secondary checkout open-checkout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="btn-text-span d-none d-sm-inline-block d-lg-none d-hg-inline-block"></span></a>
+        </div>
+    </div>
+</div>
+    <main role="main" class="main-content top-content center-content " data-page_class="">
+        <div class="main-content-container center-content-container">
+                        <div class="pattern page text">
+<article>
+    <div class="breadcrumb">
+                                    <a class="home" href="../index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                                / <a class="type" href="../design-patterns.html">Design Patterns</a>
+                                                / <a class="type" href="behavioral-patterns.html">Behavioral Patterns</a>
+                        </div>
+    <h1 class="title">Visitor</h1>
+
+    <script type="text/javascript">
+        // Shorten examples titles for users.
+        var h1 = document.getElementsByTagName("H1")[0];
+        if (h1.offsetHeight > 160) {
+            h1.className += ' smaller';
+        }
+
+        // Small beautification for pattern examples.
+        var title = h1.innerHTML;
+        title = title.replace(/^(Java|C\+\+|C#|PHP|Python|Ruby|Delphi): (.*)$/, '<strong>$1:</strong> $2');
+        h1.innerHTML = title;
+    </script>
+
+    
+    
+
+    <div class="section intent">
+<h2 id="intent"><i class="fa fa-flip-horizontal fa-comment-alt-dots" aria-hidden="true"></i> Intent</h2>
+<p><strong>Visitor</strong> is a behavioral design pattern that lets you separate algorithms from the objects on which they operate.</p>
+<figure class="image"><img src="../images/patterns/content/visitor/visitor4a4c.png?id=f36d100188340db7a18854ef7916f972" alt="Visitor Design&amp;nbsp;Pattern" width="640" srcset="/images/patterns/content/visitor/visitor-2x.png?id=2c5d9ab3046d782c19809d3b80650d65 2x" /></figure>
+</div>
+<div class="section problem">
+<h2 id="problem"><i class="fa fa-frown" aria-hidden="true"></i> Problem</h2>
+<p>Imagine that your team develops an app which works with geographic information structured as one colossal graph. Each node of the graph may represent a complex entity such as a city, but also more granular things like industries, sightseeing areas, etc. The nodes are connected with others if there’s a road between the real objects that they represent. Under the hood, each node type is represented by its own class, while each specific node is an object.</p>
+<figure class="image"><img src="../images/patterns/diagrams/visitor/problem14338.png?id=e7076532da1e936f3519c63270da8454" alt="Exporting the graph into XML" width="560" srcset="/images/patterns/diagrams/visitor/problem1-2x.png?id=2e5d5143ac55af218754f28761bec17e 2x" loading="lazy" /><figcaption>
+<p>Exporting the graph into XML.</p>
+</figcaption></figure>
+<p>At some point, you got a task to implement exporting the graph into XML format. At first, the job seemed pretty straightforward. You planned to add an export method to each node class and then leverage recursion to go over each node of the graph, executing the export method. The solution was simple and elegant: thanks to polymorphism, you weren’t coupling the code which called the export method to concrete classes of nodes.</p>
+<p>Unfortunately, the system architect refused to allow you to alter existing node classes. He said that the code was already in production and he didn’t want to risk breaking it because of a potential bug in your changes.</p>
+<figure class="image"><img src="../images/patterns/diagrams/visitor/problem2-end5a4.png?id=f53c592d755890f5d027d7950b9967fc" alt="The XML export method had to be added into all node classes" width="500" srcset="/images/patterns/diagrams/visitor/problem2-en-2x.png?id=8a241a88057253b879e7b756023b52a1 2x" loading="lazy" /><figcaption>
+<p>The XML export method had to be added into all node classes, which bore the risk of breaking the whole application if any bugs slipped through along with the change.</p>
+</figcaption></figure>
+<p>Besides, he questioned whether it makes sense to have the XML export code within the node classes. The primary job of these classes was to work with geodata. The XML export behavior would look alien there.</p>
+<p>There was another reason for the refusal. It was highly likely that after this feature was implemented, someone from the marketing department would ask you to provide the ability to export into a different format, or request some other weird stuff. This would force you to change those precious and fragile classes again.</p>
+</div>
+<div class="section solution">
+<h2 id="solution"><i class="fa fa-smile-beam" aria-hidden="true"></i> Solution</h2>
+<p>The Visitor pattern suggests that you place the new behavior into a separate class called <em>visitor</em>, instead of trying to integrate it into existing classes. The original object that had to perform the behavior is now passed to one of the visitor’s methods as an argument, providing the method access to all necessary data contained within the object.</p>
+<p>Now, what if that behavior can be executed over objects of different classes? For example, in our case with XML export, the actual implementation will probably be a little bit different across various node classes. Thus, the visitor class may define not one, but a set of methods, each of which could take arguments of different types, like this:</p>
+<figure class="code">
+<pre class="code" lang="pseudocode">class ExportVisitor implements Visitor is
+    method doForCity(City c) { ... }
+    method doForIndustry(Industry f) { ... }
+    method doForSightSeeing(SightSeeing ss) { ... }
+    // ...
+</pre>
+</figure>
+<p>But how exactly would we call these methods, especially when dealing with the whole graph? These methods have different signatures, so we can’t use polymorphism. To pick a proper visitor method that’s able to process a given object, we’d need to check its class. Doesn’t this sound like a nightmare?</p>
+<figure class="code">
+<pre class="code" lang="pseudocode">foreach (Node node in graph)
+    if (node instanceof City)
+        exportVisitor.doForCity((City) node)
+    if (node instanceof Industry)
+        exportVisitor.doForIndustry((Industry) node)
+    // ...
+}
+</pre>
+</figure>
+<p>You might ask, why don’t we use method overloading? That’s when you give all methods the same name, even if they support different sets of parameters. Unfortunately, even assuming that our programming language supports it at all (as Java and C# do), it won’t help us. Since the exact class of a node object is unknown in advance, the overloading mechanism won’t be able to determine the correct method to execute. It’ll default to the method that takes an object of the base <code>Node</code> class.</p>
+<p>However, the Visitor pattern addresses this problem. It uses a technique called <a href="visitor-double-dispatch.html">Double Dispatch</a>, which helps to execute the proper method on an object without cumbersome conditionals. Instead of letting the client select a proper version of the method to call, how about we delegate this choice to objects we’re passing to the visitor as an argument? Since the objects know their own classes, they’ll be able to pick a proper method on the visitor less awkwardly. They “accept” a visitor and tell it what visiting method should be executed.</p>
+<figure class="code">
+<pre class="code" lang="pseudocode">// Client code
+foreach (Node node in graph)
+    node.accept(exportVisitor)
+
+// City
+class City is
+    method accept(Visitor v) is
+        v.doForCity(this)
+    // ...
+
+// Industry
+class Industry is
+    method accept(Visitor v) is
+        v.doForIndustry(this)
+    // ...
+</pre>
+</figure>
+<p>I confess. We had to change the node classes after all. But at least the change is trivial and it lets us add further behaviors without altering the code once again.</p>
+<p>Now, if we extract a common interface for all visitors, all existing nodes can work with any visitor you introduce into the app. If you find yourself introducing a new behavior related to nodes, all you have to do is implement a new visitor class.</p>
+</div>
+<div class="section analogy">
+<h2 id="analogy"><i class="fa fa-car-side" aria-hidden="true"></i> Real-World Analogy</h2>
+<figure class="image"><img src="../images/patterns/content/visitor/visitor-comic-17f02.png?id=7ee4fa8800f7c4df4e1aa3b1aca2b7f1" alt="Insurance agent" width="600" srcset="/images/patterns/content/visitor/visitor-comic-1-2x.png?id=439032451eb49ebbcb5257f25ecee790 2x" loading="lazy" /><figcaption>
+<p>A good insurance agent is always ready to offer different policies to various types of organizations.</p>
+</figcaption></figure>
+<p>Imagine a seasoned insurance agent who’s eager to get new customers. He can visit every building in a neighborhood, trying to sell insurance to everyone he meets. Depending on the type of organization that occupies the building, he can offer specialized insurance policies:</p>
+<ul>
+<li>If it’s a residential building, he sells medical insurance.</li>
+<li>If it’s a bank, he sells theft insurance.</li>
+<li>If it’s a coffee shop, he sells fire and flood insurance.</li>
+</ul>
+</div>
+<div class="section structure-container">
+<h2 id="structure"><i class="fa fa-sitemap" aria-hidden="true"></i> Structure</h2>
+<div class="structure">
+<div class="struct-image1 struct-image">
+<figure class="image"><img class="structure-img-non-indexed d-none d-xl-block" src="../images/patterns/diagrams/visitor/structure-en2b12.png?id=f8060067eabf52357491a92a2fe2aef0" alt="Structure of the Visitor design pattern" width="520" srcset="/images/patterns/diagrams/visitor/structure-en-2x.png?id=2a03708e991155899ff9a8458fe18919 2x" loading="lazy" /><img class="structure-img-indexed d-xl-none" src="../images/patterns/diagrams/visitor/structure-en-indexed58ba.png?id=fe3ae98239c27f4d238181387c0e80bc" alt="Structure of the Visitor design pattern" width="520" srcset="/images/patterns/diagrams/visitor/structure-en-indexed-2x.png?id=26b2a7652ad3edd165e717b4c7c44a23 2x" loading="lazy" /></figure>
+</div>
+<ol><li class="struct-li1">
+<p>The <strong>Visitor</strong> interface declares a set of visiting methods that can take concrete elements of an object structure as arguments. These methods may have the same names if the program is written in a language that supports overloading, but the type of their parameters must be different.</p>
+</li>
+<li class="struct-li2">
+<p>Each <strong>Concrete Visitor</strong> implements several versions of the same behaviors, tailored for different concrete element classes.</p>
+</li>
+<li class="struct-li3">
+<p>The <strong>Element</strong> interface declares a method for “accepting” visitors. This method should have one parameter declared with the type of the visitor interface.</p>
+</li>
+<li class="struct-li4">
+<p>Each <strong>Concrete Element</strong> must implement the acceptance method. The purpose of this method is to redirect the call to the proper visitor’s method corresponding to the current element class. Be aware that even if a base element class implements this method, all subclasses must still override this method in their own classes and call the appropriate method on the visitor object.</p>
+</li>
+<li class="struct-li5">
+<p>The <strong>Client</strong> usually represents a collection or some other complex object (for example, a <a href="composite.html">Composite</a> tree). Usually, clients aren’t aware of all the concrete element classes because they work with objects from that collection via some abstract interface.</p>
+</li></ol>
+<style structure type="text/css" >
+@media (min-width: 1200px) {
+.structure {
+margin: 0;
+width: auto;
+height: 600px;
+}
+
+.struct-image1 {
+left: 180px;
+top: 50px;
+}
+
+.struct-li1 {
+left: 0px;
+top: 10px;
+width: 180px;
+height: 290px;
+}
+
+.struct-li2 {
+left: 0px;
+top: 320px;
+width: 180px;
+height: 150px;
+}
+
+.struct-li3 {
+left: 700px;
+top: 10px;
+width: 220px;
+height: 150px;
+}
+
+.struct-li4 {
+left: 700px;
+top: 180px;
+width: 220px;
+height: 290px;
+}
+
+.struct-li5 {
+left: 600px;
+top: 490px;
+width: 320px;
+height: 150px;
+}
+}
+
+</style>
+</div></div>
+<div class="section pseudocode">
+<h2 id="pseudocode"><i class="fa fa-hashtag" aria-hidden="true"></i> Pseudocode</h2>
+<p>In this example, the <strong>Visitor</strong> pattern adds XML export support to the class hierarchy of geometric shapes.</p>
+<figure class="image"><img src="../images/patterns/diagrams/visitor/example9405.png?id=d66acd1b9096c47db17ab3bb82b54a59" alt="Structure of the Visitor pattern example" width="560" srcset="/images/patterns/diagrams/visitor/example-2x.png?id=f44438b98f13fcb50898baefad67ffff 2x" loading="lazy" /><figcaption>
+<p>Exporting various types of objects into XML format via a visitor object.</p>
+</figcaption></figure>
+<figure class="code">
+<pre class="code" lang="pseudocode">// The element interface declares an `accept` method that takes
+// the base visitor interface as an argument.
+interface Shape is
+    method move(x, y)
+    method draw()
+    method accept(v: Visitor)
+
+// Each concrete element class must implement the `accept`
+// method in such a way that it calls the visitor's method that
+// corresponds to the element's class.
+class Dot implements Shape is
+    // ...
+
+    // Note that we're calling `visitDot`, which matches the
+    // current class name. This way we let the visitor know the
+    // class of the element it works with.
+    method accept(v: Visitor) is
+        v.visitDot(this)
+
+class Circle implements Shape is
+    // ...
+    method accept(v: Visitor) is
+        v.visitCircle(this)
+
+class Rectangle implements Shape is
+    // ...
+    method accept(v: Visitor) is
+        v.visitRectangle(this)
+
+class CompoundShape implements Shape is
+    // ...
+    method accept(v: Visitor) is
+        v.visitCompoundShape(this)
+
+
+// The Visitor interface declares a set of visiting methods that
+// correspond to element classes. The signature of a visiting
+// method lets the visitor identify the exact class of the
+// element that it's dealing with.
+interface Visitor is
+    method visitDot(d: Dot)
+    method visitCircle(c: Circle)
+    method visitRectangle(r: Rectangle)
+    method visitCompoundShape(cs: CompoundShape)
+
+// Concrete visitors implement several versions of the same
+// algorithm, which can work with all concrete element classes.
+//
+// You can experience the biggest benefit of the Visitor pattern
+// when using it with a complex object structure such as a
+// Composite tree. In this case, it might be helpful to store
+// some intermediate state of the algorithm while executing the
+// visitor's methods over various objects of the structure.
+class XMLExportVisitor implements Visitor is
+    method visitDot(d: Dot) is
+        // Export the dot's ID and center coordinates.
+
+    method visitCircle(c: Circle) is
+        // Export the circle's ID, center coordinates and
+        // radius.
+
+    method visitRectangle(r: Rectangle) is
+        // Export the rectangle's ID, left-top coordinates,
+        // width and height.
+
+    method visitCompoundShape(cs: CompoundShape) is
+        // Export the shape's ID as well as the list of its
+        // children's IDs.
+
+
+// The client code can run visitor operations over any set of
+// elements without figuring out their concrete classes. The
+// accept operation directs a call to the appropriate operation
+// in the visitor object.
+class Application is
+    field allShapes: array of Shapes
+
+    method export() is
+        exportVisitor = new XMLExportVisitor()
+
+        foreach (shape in allShapes) do
+            shape.accept(exportVisitor)
+</pre>
+</figure>
+<p>If you wonder why we need the <code>accept</code> method in this example,  my article <a href="visitor-double-dispatch.html">Visitor and Double Dispatch</a> addresses this question in detail.</p>
+</div>
+<div class="section applicability-container">
+<h2 id="applicability"><i class="fa fa-lightbulb-on" aria-hidden="true"></i> Applicability</h2>
+<div class="applicability">
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Use the Visitor when you need to perform an operation on all elements of a complex object structure (for example, an object tree).</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> The Visitor pattern lets you execute an operation over a set of objects with different classes by having a visitor object implement several variants of the same operation, which correspond to all target classes.</p>
+</div>
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Use the Visitor to clean up the business logic of auxiliary behaviors.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> The pattern lets you make the primary classes of your app more focused on their main jobs by extracting all other behaviors into a set of visitor classes.</p>
+</div>
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Use the pattern when a behavior makes sense only in some classes of a class hierarchy, but not in others.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> You can extract this behavior into a separate visitor class and implement only those visiting methods that accept objects of relevant classes, leaving the rest empty.</p>
+</div>
+</div></div>
+<div class="section checklist">
+<h2 id="checklist"><i class="fa fa-clipboard-list-check" aria-hidden="true"></i> How to Implement</h2>
+<ol>
+<li>
+<p>Declare the visitor interface with a set of “visiting” methods, one per each concrete element class that exists in the program.</p>
+</li>
+<li>
+<p>Declare the element interface. If you’re working with an existing element class hierarchy, add the abstract “acceptance” method to the base class of the hierarchy. This method should accept a visitor object as an argument.</p>
+</li>
+<li>
+<p>Implement the acceptance methods in all concrete element classes. These methods must simply redirect the call to a visiting method on the incoming visitor object which matches the class of the current element.</p>
+</li>
+<li>
+<p>The element classes should only work with visitors via the visitor interface. Visitors, however, must be aware of all concrete element classes, referenced as parameter types of the visiting methods.</p>
+</li>
+<li>
+<p>For each behavior that can’t be implemented inside the element hierarchy, create a new concrete visitor class and implement all of the visiting methods.</p>
+<p>You might encounter a situation where the visitor will need access to some private members of the element class. In this case, you can either make these fields or methods public, violating the element’s encapsulation, or nest the visitor class in the element class. The latter is only possible if you’re lucky to work with a programming language that supports nested classes.</p>
+</li>
+<li>
+<p>The client must create visitor objects and pass them into elements via “acceptance” methods.</p>
+</li>
+</ol>
+</div>
+<div class="section pros-cons">
+<h2 id="pros-cons"><i class="fa fa-balance-scale" aria-hidden="true"></i> Pros and Cons</h2>
+<div class="row"><div class="col-sm-6">
+<ul>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> <em>Open/Closed Principle</em>. You can introduce a new behavior that can work with objects of different classes without changing these classes.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> <em>Single Responsibility Principle</em>. You can move multiple versions of the same behavior into the same class.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> A visitor object can accumulate some useful information while working with various objects. This might be handy when you want to traverse some complex object structure, such as an object tree, and apply the visitor to each object of this structure.</li>
+</ul>
+</div><div class="col-sm-6">
+<ul>
+<li>
+<i class="fa fa-fw fa-times" aria-hidden="true"></i> You need to update all visitors each time a class gets added to or removed from the element hierarchy.</li>
+<li>
+<i class="fa fa-fw fa-times" aria-hidden="true"></i> Visitors might lack the necessary access to the private fields and methods of the elements that they’re supposed to work with.</li>
+</ul>
+</div></div></div>
+<div class="section relations">
+<h2 id="relations"><i class="fa fa-exchange-alt" aria-hidden="true"></i> Relations with Other Patterns</h2>
+<ul>
+<li>
+<p>You can treat <a href="visitor.html">Visitor</a> as a powerful version of the <a href="command.html">Command</a> pattern. Its objects can execute operations over various objects of different classes.</p>
+</li>
+<li>
+<p>You can use <a href="visitor.html">Visitor</a> to execute an operation over an entire <a href="composite.html">Composite</a> tree.</p>
+</li>
+<li>
+<p>You can use <a href="visitor.html">Visitor</a> along with <a href="iterator.html">Iterator</a> to traverse a complex data structure and execute some operation over its elements, even if they all have different classes.</p>
+</li>
+</ul>
+</div>
+<div class="section implementations">
+<h2 id="implementations"><i class="fa fa-code" aria-hidden="true"></i> Code Examples</h2>
+<p><a href="visitor/java/example.html" title="Design Patterns: Visitor in Java" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/java9ca9.svg?id=e6d87e2dca08c953fe3acd1275ed4f4e" alt="Design Patterns: Visitor in Java"></a>
+<a href="visitor/csharp/example.html" title="Design Patterns: Visitor in C#" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/csharp8c8a.svg?id=da64592defc6e86d57c39c66e9de3e58" alt="Design Patterns: Visitor in C#"></a>
+<a href="visitor/cpp/example.html" title="Design Patterns: Visitor in C++" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/cpp9770.svg?id=f7782ed8b8666246bfcc3f8fefc3b858" alt="Design Patterns: Visitor in C++"></a>
+<a href="visitor/php/example.html" title="Design Patterns: Visitor in PHP" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/phpb8be.svg?id=be1906eb26b71ec1d3b93720d6156618" alt="Design Patterns: Visitor in PHP"></a>
+<a href="visitor/python/example.html" title="Design Patterns: Visitor in Python" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/python25f6.svg?id=6d815d43c0f7050a1151b43e51569c9f" alt="Design Patterns: Visitor in Python"></a>
+<a href="visitor/ruby/example.html" title="Design Patterns: Visitor in Ruby" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/ruby3275.svg?id=b065b718c914bf8e960ef731600be1eb" alt="Design Patterns: Visitor in Ruby"></a>
+<a href="visitor/swift/example.html" title="Design Patterns: Visitor in Swift" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/swift68dd.svg?id=0b716c2d52ec3a48fbe91ac031070c1d" alt="Design Patterns: Visitor in Swift"></a>
+<a href="visitor/typescript/example.html" title="Design Patterns: Visitor in TypeScript" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/typescript325e.svg?id=2239d0f16cb703540c205dd8cb0c0cb7" alt="Design Patterns: Visitor in TypeScript"></a>
+<a href="visitor/go/example.html" title="Design Patterns: Visitor in Go" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/go3287.svg?id=1a89927eb99b1ea3fde7701d97970aca" alt="Design Patterns: Visitor in Go"></a></p>
+</div>
+<div class="section extras">
+<h2 id="extras"><i class="fa fa-gift" aria-hidden="true"></i> Extra Content</h2>
+<ul>
+<li>Puzzled why we can’t simply replace the Visitor pattern with method overloading? Read my article <a href="visitor-double-dispatch.html">Visitor and Double Dispatch</a> to learn about the nasty details.</li>
+</ul>
+</div>
+
+
+    <div class="banner-set2" id="book-promo">
+            <div class="prom banner-content banner-bg banner-striped banner-with-image" data-id="DP: 1: Support our free website and own the eBook!" data-creative-id="standard-en" data-position="content_bottom">
+                <div class="banner-image">
+                    <a href="book.html">
+                        <img width="200" height="200" loading="lazy" src="../images/patterns/banners/patterns-book-banner-3a29e.png?id=7d445df13c80287beaab234b4f3b698c" srcset="/images/patterns/banners/patterns-book-banner-3-2x.png?id=0cc3f77ab421d1a5c02ee46488231c3a 2x">
+                    </a>
+                </div>
+
+                <div class="banner-text">
+                    <h3 class="title">Support our free website and own the eBook!</h3>
+                    <ul style="font-size: 14px;">
+                        <li style="margin: 0;">22 design patterns and 8 principles explained in depth.</li>
+                        <li style="margin: 0;">409 well-structured, easy to read, jargon-free pages.</li>
+                        <li style="margin: 0;">225 clear and helpful illustrations and diagrams.</li>
+                        <li style="margin: 0;">An archive with code examples in 9 languages.</li>
+                        <li style="margin: 0;">All devices supported: PDF/EPUB/MOBI/KFX formats.</li>
+                    </ul>
+                    <a class="btn btn-secondary" href="book.html"><i class="fa fa-book" aria-hidden="true"></i> Learn more…</a>
+                </div>
+            </div>
+        </div>
+
+    </article>
+
+<nav class="prev-next">
+                    <div class="next">
+                <h4>Read next</h4>
+                <a rel="next" href="visitor-double-dispatch.html" class="btn btn-primary">Visitor and Double Dispatch&nbsp;<span class="fa fa-arrow-right"></span></a>
+            </div>
+                            <div class="prev">
+                <h4>Return</h4>
+                <a rel="prev" href="template-method.html" class="btn btn-default"><span class="fa fa-arrow-left"></span>&nbsp;Template Method </a>
+            </div>
+            </nav>
+</div>
+
+<aside class="feature content-secondary">
+    <div class="prom banner-sidebar" data-id="DP: Sidebar" data-creative-id="standard-sidebar-en" data-position="sidebar">
+        <div class="banner-inner">
+            <div class="image3d-book-right">
+                <div class="image3d-cover" style="background: #0b3752;">
+                    <a href="book.html">
+                        <img width="250" height="375" loading="lazy" src="../images/patterns/book/web-cover-en00eb.png?id=328861769fd11617674e3b8a7e2dd9e7" srcset="/images/patterns/book/web-cover-en-2x.png?id=02940141c5652ed5a426d87390b16366 2x">
+                    </a>
+                </div>
+            </div>
+            <div style="margin-top: 1rem">
+                <p class="text-center">This article is a part of our eBook<br/><strong>Dive Into Design Patterns</strong>.</p>
+                <a href="book.html" class="btn btn-secondary btn-block"><i class="fa fa-book" aria-hidden="true"></i> Learn more…</a>
+            </div>
+        </div>
+    </div>
+
+
+</aside>
+                    </div>
+    </main>
+
+    <nav class="navigation" role="navigation">
+    <div class="navigation-container">
+        <a href="#menu" class="navigation-toggle"><i class="fa fa-bars"></i></a>
+        <a class="navigation-brand" href="../index.html">
+            <img alt="Refactoring.Guru" src="../images/content-public/logos/logo-military-mobile78b4.png?id=65ecbd1e688fc695bc20c22a1e8450d9" srcset="/images/content-public/logos/logo-military-mobile-2x.png?id=0f52141f57f67fb678da8407e254b0a3 2x"
+                  width="94"                   height="64"             >
+        </a>
+        <div class="social-likes-block" data-url="../index.html">
+    <div data-service="facebook" class="facebook" title="Share on Facebook">Facebook</div>
+        <div data-service="twitter" class="twitter" title="Share on Twitter">Twitter</div>
+</div>        <ul class="navigation-menu">
+                        <li class="dropdown d-lg-none">
+                <a class="dropdown-toggle" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-globe" aria-hidden="true"></i> <span class="caption d-none d-xl-inline-block">Language</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguage">
+                                                                                                        <a href="visitor.html" class="dropdown-item locale-link active" data-locale="en" title="English">English</a>
+                                                                                                                <a href="../es/design-patterns/visitor.html" class="dropdown-item locale-link " data-locale="es" title="Español">Español</a>
+                                                                                                                <a href="../fr/design-patterns/visitor.html" class="dropdown-item locale-link " data-locale="fr" title="Français">Français</a>
+                                                                                                                                                                                                                        <a href="../pl/design-patterns/visitor.html" class="dropdown-item locale-link " data-locale="pl" title="Polski">Polski</a>
+                                                                                                                <a href="../pt-br/design-patterns/visitor.html" class="dropdown-item locale-link " data-locale="pt-br" title="Português Brasileiro">Português Brasileiro</a>
+                                                                                                                <a href="../ru/design-patterns/visitor.html" class="dropdown-item locale-link " data-locale="ru" title="Русский">Русский</a>
+                                                                                                                <a href="../uk/design-patterns/visitor.html" class="dropdown-item locale-link " data-locale="uk" title="Українська">Українська</a>
+                                                                                                                <a href="https://refactoringguru.cn/design-patterns/visitor" class="dropdown-item locale-link " data-locale="zh" title="中文">中文</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+            </li>
+                        <li class="nav-contact">
+                <a class="userecho-private" href="https://feedback.refactoring.guru/?show_feedback_form_private=true" rel="nofollow" title="Contact us">
+                    <i class="fa fa-envelope"></i> <span class="caption d-none d-xl-inline-block">Contact us</span>
+                </a>
+            </li>
+                                                <li class="nav-login">
+                        <a href="../login.html" title="Log in"><i class="fa fa-user"></i> <span class="caption d-none d-xl-inline-block">Log in</span></a>
+                    </li>
+                                    </ul>
+    </div>
+    <div>
+        <a class="russia-stop" href="../help-ukraine.html">
+                            HELP UKRAINE <b>STOP RUSSIA</b>
+                    </a>
+    </div>
+</nav>
+    <aside class="sidebar main-menu nano">
+    <a href="#menu-close" class="navigation-toggle"><i class="fa fa-fw fa-times"></i></a>
+    <div class="nano-content">
+                    <div class="main-menu-lang d-none d-lg-flex main-menu-lang-count-8">
+                                                                                        <a href="visitor.html" class="locale-link locale-link-en active" data-locale="en" title="English"><span class="d-lg-none">English</span><span class="d-none d-lg-inline">English</span></a>
+                                                                                                <a href="../es/design-patterns/visitor.html" class="locale-link locale-link-es " data-locale="es" title="Español"><span class="d-lg-none">Español</span><span class="d-none d-lg-inline">Español</span></a>
+                                                                                                <a href="../fr/design-patterns/visitor.html" class="locale-link locale-link-fr " data-locale="fr" title="Français"><span class="d-lg-none">Français</span><span class="d-none d-lg-inline">Français</span></a>
+                                                                                                                                                                                        <a href="../pl/design-patterns/visitor.html" class="locale-link locale-link-pl " data-locale="pl" title="Polski"><span class="d-lg-none">Polski</span><span class="d-none d-lg-inline">Polski</span></a>
+                                                                                                <a href="../pt-br/design-patterns/visitor.html" class="locale-link locale-link-pt-br " data-locale="pt-br" title="Português Brasileiro"><span class="d-lg-none">Português Brasileiro</span><span class="d-none d-lg-inline">Português-Br</span></a>
+                                                                                                <a href="../ru/design-patterns/visitor.html" class="locale-link locale-link-ru " data-locale="ru" title="Русский"><span class="d-lg-none">Русский</span><span class="d-none d-lg-inline">Русский</span></a>
+                                                                                                <a href="../uk/design-patterns/visitor.html" class="locale-link locale-link-uk " data-locale="uk" title="Українська"><span class="d-lg-none">Українська</span><span class="d-none d-lg-inline">Українська</span></a>
+                                                                                                <a href="https://refactoringguru.cn/design-patterns/visitor" class="locale-link locale-link-zh " data-locale="zh" title="中文"><span class="d-lg-none">中文</span><span class="d-none d-lg-inline">中文</span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+        
+        <a class="menu-brand" href="../index.html">
+                            <img width=200 height=241 loading="lazy" alt="Refactoring.Guru" src="../images/content-public/logos/logo-militaryd1c3.png?id=3eaf203cb26279327252e2c5f5d37c7f" srcset="/images/content-public/logos/logo-military-2x.png?id=5af1a599d8a4170c9a42e6fa18148b98 2x">
+                    </a>
+        <div>
+            <a class="russia-stop" href="../help-ukraine.html">
+                                    HELP UKRAINE
+                    <br><b>STOP RUSSIA</b>
+                            </a>
+        </div>
+
+
+        <div class="menu-container" style="position: relative">
+                        <ul class="menu-list trail">
+                            <li class="featured">
+            <a href="../store.html">
+                <i class="fa fa-fw fa-star" aria-hidden="true"></i> Premium Content
+            </a>
+    
+            <ul >
+                            <li class="featured menu-fs15">
+            <a href="book.html">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Design Patterns eBook
+            </a>
+    
+    
+            </li>
+                                <li class="featured menu-fs15">
+            <a href="../refactoring/course.html">
+                <i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Refactoring Course
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring.html">
+                <i class="fa fa-fw fa-scissors" aria-hidden="true"></i> Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                What is Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                Clean code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/technical-debt.html">
+                Technical debt
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/when.html">
+                When to refactor
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/how-to.html">
+                How to refactor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells.html">
+                Code Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/smells/bloaters.html">
+                Bloaters
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/long-method.html">
+                Long Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/large-class.html">
+                Large Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/primitive-obsession.html">
+                Primitive Obsession
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/long-parameter-list.html">
+                Long Parameter List
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-clumps.html">
+                Data Clumps
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/oo-abusers.html">
+                Object-Orientation Abusers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/switch-statements.html">
+                Switch Statements
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/temporary-field.html">
+                Temporary Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/refused-bequest.html">
+                Refused Bequest
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/alternative-classes-with-different-interfaces.html">
+                Alternative Classes with Different Interfaces
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/change-preventers.html">
+                Change Preventers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/divergent-change.html">
+                Divergent Change
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/shotgun-surgery.html">
+                Shotgun Surgery
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/parallel-inheritance-hierarchies.html">
+                Parallel Inheritance Hierarchies
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/dispensables.html">
+                Dispensables
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/comments.html">
+                Comments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/duplicate-code.html">
+                Duplicate Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/lazy-class.html">
+                Lazy Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-class.html">
+                Data Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/dead-code.html">
+                Dead Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/speculative-generality.html">
+                Speculative Generality
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/couplers.html">
+                Couplers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/feature-envy.html">
+                Feature Envy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/inappropriate-intimacy.html">
+                Inappropriate Intimacy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/message-chains.html">
+                Message Chains
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/middle-man.html">
+                Middle Man
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/other.html">
+                Other Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/incomplete-library-class.html">
+                Incomplete Library Class
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques.html">
+                Refactorings
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/techniques/composing-methods.html">
+                Composing Methods
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../extract-method.html">
+                Extract Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-method.html">
+                Inline Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-variable.html">
+                Extract Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-temp.html">
+                Inline Temp
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-temp-with-query.html">
+                Replace Temp with Query
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../split-temporary-variable.html">
+                Split Temporary Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-assignments-to-parameters.html">
+                Remove Assignments to Parameters
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-method-with-method-object.html">
+                Replace Method with Method Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../substitute-algorithm.html">
+                Substitute Algorithm
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/moving-features-between-objects.html">
+                Moving Features between Objects
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../move-method.html">
+                Move Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../move-field.html">
+                Move Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-class.html">
+                Extract Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-class.html">
+                Inline Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-delegate.html">
+                Hide Delegate
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-middle-man.html">
+                Remove Middle Man
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-foreign-method.html">
+                Introduce Foreign Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-local-extension.html">
+                Introduce Local Extension
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/organizing-data.html">
+                Organizing Data
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../self-encapsulate-field.html">
+                Self Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-data-value-with-object.html">
+                Replace Data Value with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-value-to-reference.html">
+                Change Value to Reference
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-reference-to-value.html">
+                Change Reference to Value
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-array-with-object.html">
+                Replace Array with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../duplicate-observed-data.html">
+                Duplicate Observed Data
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-unidirectional-association-to-bidirectional.html">
+                Change Unidirectional Association to Bidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-bidirectional-association-to-unidirectional.html">
+                Change Bidirectional Association to Unidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-magic-number-with-symbolic-constant.html">
+                Replace Magic Number with Symbolic Constant
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-field.html">
+                Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-collection.html">
+                Encapsulate Collection
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-class.html">
+                Replace Type Code with Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-subclasses.html">
+                Replace Type Code with Subclasses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-state-strategy.html">
+                Replace Type Code with State/Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-subclass-with-fields.html">
+                Replace Subclass with Fields
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-conditional-expressions.html">
+                Simplifying Conditional Expressions
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../decompose-conditional.html">
+                Decompose Conditional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-conditional-expression.html">
+                Consolidate Conditional Expression
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-duplicate-conditional-fragments.html">
+                Consolidate Duplicate Conditional Fragments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-control-flag.html">
+                Remove Control Flag
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-nested-conditional-with-guard-clauses.html">
+                Replace Nested Conditional with Guard Clauses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-conditional-with-polymorphism.html">
+                Replace Conditional with Polymorphism
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-null-object.html">
+                Introduce Null Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-assertion.html">
+                Introduce Assertion
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-method-calls.html">
+                Simplifying Method Calls
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../rename-method.html">
+                Rename Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../add-parameter.html">
+                Add Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-parameter.html">
+                Remove Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../separate-query-from-modifier.html">
+                Separate Query from Modifier
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../parameterize-method.html">
+                Parameterize Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-explicit-methods.html">
+                Replace Parameter with Explicit Methods
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../preserve-whole-object.html">
+                Preserve Whole Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-method-call.html">
+                Replace Parameter with Method Call
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-parameter-object.html">
+                Introduce Parameter Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-setting-method.html">
+                Remove Setting Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-method.html">
+                Hide Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-constructor-with-factory-method.html">
+                Replace Constructor with Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-error-code-with-exception.html">
+                Replace Error Code with Exception
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-exception-with-test.html">
+                Replace Exception with Test
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/dealing-with-generalization.html">
+                Dealing with Generalization
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../pull-up-field.html">
+                Pull Up Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-method.html">
+                Pull Up Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-constructor-body.html">
+                Pull Up Constructor Body
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-method.html">
+                Push Down Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-field.html">
+                Push Down Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-subclass.html">
+                Extract Subclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-superclass.html">
+                Extract Superclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-interface.html">
+                Extract Interface
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../collapse-hierarchy.html">
+                Collapse Hierarchy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../form-template-method.html">
+                Form Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-inheritance-with-delegation.html">
+                Replace Inheritance with Delegation
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-delegation-with-inheritance.html">
+                Replace Delegation with Inheritance
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="trail">
+            <a href="../design-patterns.html">
+                <i class="fa fa-fw fa-puzzle-piece" aria-hidden="true"></i> Design Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                What is a Pattern
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                What's a design pattern?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="history.html">
+                History of patterns
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="why-learn-patterns.html">
+                Why should I learn patterns?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="criticism.html">
+                Criticism of patterns
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="classification.html">
+                Classification of patterns
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="creational-patterns.html">
+                Creational Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="factory-method.html">
+                Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="abstract-factory.html">
+                Abstract Factory
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="builder.html">
+                Builder
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="prototype.html">
+                Prototype
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="singleton.html">
+                Singleton
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="structural-patterns.html">
+                Structural Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="adapter.html">
+                Adapter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="bridge.html">
+                Bridge
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="composite.html">
+                Composite
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="decorator.html">
+                Decorator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="facade.html">
+                Facade
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="flyweight.html">
+                Flyweight
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="proxy.html">
+                Proxy
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level trail">
+            <a href="behavioral-patterns.html">
+                Behavioral Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="chain-of-responsibility.html">
+                Chain of Responsibility
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="command.html">
+                Command
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="iterator.html">
+                Iterator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="mediator.html">
+                Mediator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="memento.html">
+                Memento
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="observer.html">
+                Observer
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="state.html">
+                State
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="strategy.html">
+                Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="template-method.html">
+                Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="trail active">
+            <a href="visitor.html">
+                Visitor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-code-examples">
+            <a href="examples.html">
+                Code Examples
+            </a>
+    
+            <ul >
+                            <li class="menu-code-examples-item">
+            <a href="csharp.html">
+                C#
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="cpp.html">
+                C++
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="go.html">
+                Go
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="java.html">
+                Java
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="php.html">
+                PHP
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="python.html">
+                Python
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="ruby.html">
+                Ruby
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="swift.html">
+                Swift
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="typescript.html">
+                TypeScript
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </div>
+        <div class="sidebar-controls">
+            <div class="sidebar-controls-container">
+                <a href="../login.html" title="Log in"><i
+                            class="fa fa-fw fa-fw fa-user"></i> Log in</a>
+                <a href="https://feedback.refactoring.guru/" class="userecho-public" rel="nofollow" title="Feedback"><i class="fa fa-fw fa-fw fa-envelope" aria-hidden="true"></i> Contact us</a>
+            </div>
+        </div>
+    </div>
+</aside>
+    <footer class="footer center-content">
+    <div class="footer-container center-content-container">
+        <div class="footer-inner container-fluid">
+            <div class="row">
+                <div class="col-8 col-md-10">
+                    <ul class="footer-list footer-list-horizontal">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../refactoring.html">Refactoring</a></li>
+                        <li><a href="../design-patterns.html">Design Patterns</a></li>
+                        <li><a href="../store.html">Premium Content</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-public">Forum</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-private">Contact us</a></li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-2">
+                    <ul class="footer-list footer-list-iconic">
+                                                    <li><a href="https://www.facebook.com/refactoring.guru"><i class="fa fa-facebook-official"></i></a></li>
+                                                <li><a href="../sendy/form.html" rel="nofollow"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/RefactoringGuru"><i class="fa fa-github-circled"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-second">
+        <div class="footer-container center-content-container">
+            <div class="footer-inner container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <i class="fa fa-fw fa-copyright"></i> 2014-2022 <a href="../index.html">Refactoring.Guru</a>. <span style="white-space: nowrap">All rights reserved.</span><br>
+                        <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234">
+                            <img class="fa-fw" style="height: 0.8rem;" src="../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                        </object> Khmelnitske shosse 19 / 27, Kamianets-Podilskyi, Ukraine, 32305<br>
+                        <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+
+                        <div class="mt-2">
+                            <i class="fa fa-fw fa-image"></i> Illustrations by <a href="http://zhart.us/" rel="nofollow"><span style="white-space: nowrap">Dmitry Zhart</span></a></div>
+                    </div>
+                    <div class="footer-links-right col-12 col-sm-4 mt-4 mt-sm-0">
+                        <div class="row">
+                            <div class="col-8 col-sm-12">
+                                <ul class="footer-list">
+                                    <li><a href="../terms.html"><span>Terms &amp; Conditions</span></a>
+                                    </li>
+                                    <li><a href="../privacy-policy.html"><span>Privacy Policy</span></a>
+                                    </li>
+                                    <li><a href="../content-usage-policy.html"><span>Content Usage Policy</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+
+    <script>
+function extend(){var extended={};var deep=false;var i=0;var length=arguments["length"];if(Object["prototype"]["toString"]["call"](arguments[0])=== '[object Boolean]'){deep= arguments[0];i++};var merge=function(obj){for(var prop in obj){if(Object["prototype"]["hasOwnProperty"]["call"](obj,prop)){if(deep&& Object["prototype"]["toString"]["call"](obj[prop])=== '[object Object]'){extended[prop]= extend(true,extended[prop],obj[prop])}else {extended[prop]= obj[prop]}}}};for(;i< length;i++){var obj=arguments[i];merge(obj)};return extended}
+function defer(method) {if (window.jQuery) {method();} else {setTimeout(function() { defer(method) }, 50);}}
+</script>
+<script>
++function(sd){sd = (typeof sd === "string") ? JSON.parse(atob(sd)) : sd;for(var property in sd){if(window[property]!== null&&  typeof window[property]=== 'object'){window[property]= extend(true,window[property],sd[property])}else {window[property]= sd[property]}}}("eyJsb2NhbGUiOiJlbiIsImxvY2FsZV9wcmVmaXgiOiIiLCJsb2NhbGl6ZWRfdXJsX3ByZWZpeF9tIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsInVybF9wcmVmaXhfbSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC8iLCJsb2NhbGl6ZWRfdXJsX3ByZWZpeCI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImNoaW5lc2VfaG9tZSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZ2d1cnUuY25cLyIsInVzZXJfZWNob19hbGlhcyI6InJlZmFjdG9yaW5nIiwidXNlcl9lY2hvX2hvc3QiOiJmZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1IiwidXNlcl9lY2hvX3ByaXZhdGVfZm9ydW0iOiIyIiwidXNlcl9lY2hvX2xvY2FsZSI6ImVuIiwidXNlcl9lY2hvX3B1YmxpY19mb3J1bSI6IjMiLCJ1c2VyX2VjaG9fcHVibGljX2ZvcnVtX3VybCI6Imh0dHBzOlwvXC9mZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1c2VyX2VjaG9fc3NvX3Rva2VuIjoiIn0=");
+</script>
+
+    <script defer>
+        if (window.dataLayer && window.google_optimize) {
+            window.dataLayer.push({'event': 'optimize.activate'});
+        }
+    </script>
+ 
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+        {'GTM-M58XZN4':true});</script>
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com/">
+<script>
+    var getCookie = function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    };
+    var eraseCookie = function (name) {
+        document.cookie = name+'=; Path=/; Max-Age=-99999999;';
+    };
+
+    window.google_analytics = 'UA-521840-40';
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../www.google-analytics.com/analytics.js','ga');
+
+    var ga_queue = [];
+    window.gaOnCreate = function(){
+        ga_queue.push(arguments);
+    };
+
+            doTracking();
+    
+    function doTracking(clientId) {
+        window.gaOnCreate = function(){
+            ga.apply(this, arguments);
+        };
+
+        var options = {
+            'siteSpeedSampleRate': 100
+        };
+        if (clientId) {
+            options.clientId = clientId;
+        }
+        ga('create', 'UA-521840-40', options);
+
+                    ga('require', 'GTM-M58XZN4');
+            window.google_optimize = 'GTM-M58XZN4';
+        
+        // Fix broken Social Login referrer.
+        window.social_login_provider = window.social_login_provider || getCookie('social_login_provider');
+        if (window.social_login_provider) {
+            ga('set', 'referrer', null);
+            ga('send', 'social', window.social_login_provider, 'login', window.location.href);
+            eraseCookie('social_login_provider');
+        }
+
+        var user_id = getCookie('user_id');
+        if (user_id) {
+            ga('set', 'userId', user_id);
+        } else {
+            ga('set', 'userId', null);
+        }
+
+        var location = document.location.href;
+        if (typeof window.analytics_path_prefix === 'string') {
+            if (/^(https?:\/\/[^\/]+?)\/$/.test(location)) {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix);
+            }
+            else {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix + '/');
+            }
+            ga('set', 'location', location);
+        }
+
+        if (typeof window.analytics_location_prefix === 'string') {
+            location = location.replace(/(https?:\/\/[^\/]+?)\//, window.analytics_location_prefix);
+            ga('set', 'location', location);
+        }
+
+        ga('require', 'ec');
+        ga('send', 'pageview', (typeof window.analytics_path_prefix === 'string' ? window.analytics_path_prefix : '') + document.location.pathname);
+
+        ga_queue.forEach(function(item){
+            ga.apply(this, item);
+        });
+    }
+</script>
+
+<script defer>
+    window.socialLikesButtons = {
+                facebook: {
+            counterUrl: "",
+            convertNumber: null
+        },
+                        };
+</script>
+
+<script defer>
+    var CodeMirrorScripts = ["/js/codemirror.min.js?id=24aa863dfde7c99eb17d4102684aea27"];
+</script>
+
+
+
+    <script>window.loadContent = true;window.loadCart = true;</script>
+</body>
+
+<!-- Mirrored from refactoring.guru/design-patterns/visitor by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:14:37 GMT -->
+</html>

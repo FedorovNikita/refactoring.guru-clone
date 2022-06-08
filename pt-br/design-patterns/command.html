@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<!-- Mirrored from refactoring.guru/pt-br/design-patterns/command by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:21:28 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+    <meta charset="utf-8">
+    <title>Command</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="alternate" href="../../design-patterns/command.html" hreflang="x-default"/>
+    <link rel="alternate" href="../../es/design-patterns/command.html" hreflang="es"/>
+    <link rel="alternate" href="../../fr/design-patterns/command.html" hreflang="fr"/>
+    <link rel="alternate" href="../../ja/design-patterns/command.html" hreflang="ja"/>
+    <link rel="alternate" href="../../ko/design-patterns/command.html" hreflang="ko"/>
+    <link rel="alternate" href="../../pl/design-patterns/command.html" hreflang="pl"/>
+    <link rel="alternate" href="command.html" hreflang="pt-br"/>
+    <link rel="alternate" href="../../ru/design-patterns/command.html" hreflang="ru"/>
+    <link rel="alternate" href="../../uk/design-patterns/command.html" hreflang="uk"/>
+    <link rel="alternate" href="https://refactoringguru.cn/design-patterns/command" hreflang="zh"/>
+
+    <meta name="description" content="O Command é um padrão de projeto comportamental que transforma um pedido em um objeto independente que contém toda a informação sobre o pedido. Essa transformação permite que você parametrize métodos com diferentes pedidos, atrase ou coloque a execução do pedido em uma fila, e suporte operações que não podem ser feitas.">
+
+    <link rel="canonical" href="command.html"/>
+
+    <link rel="icon" type="image/x-icon" href="../../favicon.png"/>
+
+<script type="application/ld+json">
+{"@context": "http://schema.org", "@graph": [{"@type":"Person","@id":"https://refactoring.guru/pt-br#founder","name":"Alexander Shvets"},{"@type":"Organization","@id":"https://refactoring.guru/pt-br#organization","name":"Refactoring.Guru","description":"O Refactoring.Guru torna mais fácil para você descobrir tudo que você precisa saber sobre refatoração, padrões de projeto, princípios SOLID, e outros tópicos de programação inteligente.","image":{"@type":"ImageObject","@id":"https://refactoring.guru/pt-br#organizationlogo","url":"https://refactoring.guru/pt-brimages/content-public/logos/logo-plain.png","caption":"Refactoring.Guru"},"logo":{"@id":"https://refactoring.guru/pt-br#organizationlogo"},"founder":{"@id":"https://refactoring.guru/pt-br#founder"},"sameAs":["https://www.facebook.com/refactoring.guru","https://twitter.com/RefactoringGuru","https://github.com/RefactoringGuru"]},{"@type":"WebSite","@id":"https://refactoring.guru/pt-br#website","url":"https://refactoring.guru/pt-br","name":"Refactoring.Guru","description":"O Refactoring.Guru torna mais fácil para você descobrir tudo que você precisa saber sobre refatoração, padrões de projeto, princípios SOLID, e outros tópicos de programação inteligente.","author":{"@id":"https://refactoring.guru/pt-br#founder"},"publisher":{"@id":"https://refactoring.guru/pt-br#organization"},"copyrightYear":2014},{"@type":"WebPage","@id":"https://refactoring.guru/pt-br/design-patterns/command#webpage","url":"https://refactoring.guru/pt-br/design-patterns/command","inLanguage":"pt-br","name":"Command","description":"O Command é um padrão de projeto comportamental que transforma um pedido em um objeto independente que contém toda a informação sobre o pedido. Essa transformação permite que você parametrize métodos com diferentes pedidos, atrase ou coloque a execução do pedido em uma fila, e suporte operações que não podem ser feitas.","isPartOf":{"@id":"https://refactoring.guru/pt-br#website"},"breadcrumb":{"@id":"https://refactoring.guru/pt-br/design-patterns/command#breadcrumb"},"primaryImageOfPage":{"@id":"https://refactoring.guru/pt-br/design-patterns/command#primaryimage"},"image":{"@type":"ImageObject","@id":"https://refactoring.guru/pt-br/design-patterns/command#primaryimage","url":"https://refactoring.guru/images/patterns/content/command/command-pt-br-3x.png","width":1920,"height":1200}},{"@type":"Article","@id":"https://refactoring.guru/pt-br/design-patterns/command#article","isPartOf":{"@id":"https://refactoring.guru/pt-br/design-patterns/command#webpage"},"mainEntityOfPage":{"@id":"https://refactoring.guru/pt-br/design-patterns/command#webpage"},"author":{"@id":"https://refactoring.guru/pt-br#founder"},"publisher":{"@id":"https://refactoring.guru/pt-br#organization"},"headline":"Command","datePublished":"2021-01-01","dateModified":"2022-01-01","articleSection":"Padrões de Projeto","image":{"@id":"https://refactoring.guru/pt-br/design-patterns/command#primaryimage"}},{"@type":"BreadcrumbList","@id":"https://refactoring.guru/pt-br/design-patterns/command#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Página inicial","item":"https://refactoring.guru/pt-br"},{"@type":"ListItem","position":2,"name":"Padrões de Projeto","item":"https://refactoring.guru/pt-br/design-patterns"},{"@type":"ListItem","position":3,"name":"Padrões comportamentais","item":"https://refactoring.guru/pt-br/design-patterns/behavioral-patterns"}]}] }
+</script>
+
+<meta property="fb:app_id" content="666819623386327" />
+<meta property="og:type"  content="website" />
+<meta property="og:image" content="https://refactoring.guru/pt-br/images/refactoring/social/facebook-share-preview.png?id=dbf9e98269595be86eb668f365be6868"/>
+
+        <link rel="stylesheet" href="../../css/public-packed.min29c2.css?id=72df70415a2662bdd8f64ffd40983c30">
+
+<style type="text/css">
+    @font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<link rel="preload" href="../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/fontello/fontawesomea92a.woff2?15843843" as="font" type="font/woff2" crossorigin>
+
+
+<script defer src="../../js/public.min1749.js?id=77d40430343920ca57d184f85668a382"></script>
+
+
+
+</head>
+<body class="locale-pt-br    announcement   command" data-body_class="command">
+
+<div class="body-holder">
+
+
+            <div class="announcement-block prom" data-id="DIDP-announcement" data-creative-id="pt-br" data-position="top"><div class="announcement-block-inner">
+            <img src="../../images/content-public/announcement-pt-br-13368.svg?id=b246783e4968337574a9760c56b0835d" loading="lazy" style="width: 36px; height:36px;">
+            Ei, acabamos de reduzir o preço de todos os produtos. Vamos capacitar nossas habilidades de programação para a era pós-COVID. <a href="../store.html">Veja as ofertas »</a>
+            </div></div>
+    
+    <div class="cart-placeholder">
+    <div class="cart-block-container" style="display:none">
+        <div class="cart-block btn-group">
+            <a href="#checkout" class="btn cart open-checkout">
+                <span class="cart-text"></span>&nbsp;<strong class="cart-total font-money"></strong>
+            </a><a href="#checkout" class="btn btn-secondary checkout open-checkout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="btn-text-span d-none d-sm-inline-block d-lg-none d-hg-inline-block"></span></a>
+        </div>
+    </div>
+</div>
+    <main role="main" class="main-content top-content center-content " data-page_class="">
+        <div class="main-content-container center-content-container">
+                        <div class="pattern page text">
+<article>
+    <div class="breadcrumb">
+                                    <a class="home" href="../../index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                                / <a class="type" href="../design-patterns.html">Padrões de Projeto</a>
+                                                / <a class="type" href="behavioral-patterns.html">Padrões comportamentais</a>
+                        </div>
+    <h1 class="title">Command</h1>
+
+    <script type="text/javascript">
+        // Shorten examples titles for users.
+        var h1 = document.getElementsByTagName("H1")[0];
+        if (h1.offsetHeight > 160) {
+            h1.className += ' smaller';
+        }
+
+        // Small beautification for pattern examples.
+        var title = h1.innerHTML;
+        title = title.replace(/^(Java|C\+\+|C#|PHP|Python|Ruby|Delphi): (.*)$/, '<strong>$1:</strong> $2');
+        h1.innerHTML = title;
+    </script>
+
+            <div class="aka">
+            Também conhecido como: <span style="display:inline-block">Comando,&nbsp;</span><span style="display:inline-block">Ação,&nbsp;</span><span style="display:inline-block">Action,&nbsp;</span><span style="display:inline-block">Transação,&nbsp;</span><span style="display:inline-block">Transaction</span>
+        </div>
+    
+    
+
+    <div class="section intent">
+<h2 id="intent"><i class="fa fa-flip-horizontal fa-comment-alt-dots" aria-hidden="true"></i> Propósito</h2>
+<p>O <strong>Command</strong> é um padrão de projeto comportamental que transforma um pedido em um objeto independente que contém toda a informação sobre o pedido. Essa transformação permite que você parametrize métodos com diferentes pedidos, atrase ou coloque a execução do pedido em uma fila, e suporte operações que não podem ser feitas.</p>
+<figure class="image"><img src="../../images/patterns/content/command/command-pt-br9a1d.png?id=36096f8c2cd7783284eb80ce92db1a96" alt="Padr&atilde;o de projeto&amp;nbsp;Command" width="640" srcset="/images/patterns/content/command/command-pt-br-2x.png?id=51156130ac5860b2b9146f63e872cce3 2x" /></figure>
+</div>
+<div class="section problem">
+<h2 id="problem"><i class="fa fa-frown" aria-hidden="true"></i> Problema</h2>
+<p>Imagine que você está trabalhando em uma nova aplicação de editor de texto. Sua tarefa atual é criar uma barra de tarefas com vários botões para várias operações do editor. Você criou uma classe <code>Botão</code> muito bacana que pode ser usada para botões na barra de tarefas, bem como para botões genéricos de diversas caixas de diálogo.</p>
+<figure class="image"><img src="../../images/patterns/diagrams/command/problem163e2.png?id=84189315a0e8d91da262792979005ab4" alt="Problema resolvido pelo padr&atilde;o Command" width="230" srcset="/images/patterns/diagrams/command/problem1-2x.png?id=af4c4e9c1d1b4fa2c4104c5f6bb18719 2x" loading="lazy" /><figcaption>
+<p>Todos os botões de uma aplicação são derivadas de uma mesma classe.</p>
+</figcaption></figure>
+<p>Embora todos esses botões pareçam similares, eles todos devem fazer coisas diferentes. Aonde você deveria colocar o código para os vários handlers de cliques desses botões? A solução mais simples é criar um monte de subclasses para cada local que o botão for usado. Essas subclasses conteriam o código que teria que ser executado em um clique de botão.</p>
+<figure class="image"><img src="../../images/patterns/diagrams/command/problem2f2f9.png?id=f0e33da1842b3a3ee3b4857de0b6ec93" alt="V&aacute;rias subclasses de bot&otilde;es" width="400" srcset="/images/patterns/diagrams/command/problem2-2x.png?id=5eea7d0f6247da011150bb63e423f405 2x" loading="lazy" /><figcaption>
+<p>Várias subclasses de botões. O que pode dar errado?</p>
+</figcaption></figure>
+<p>Não demora muito e você percebe que essa abordagem é falha. Primeiro você tem um enorme número de subclasses, e isso seria okay se você não arriscasse quebrar o código dentro dessas subclasses cada vez que você modificar a classe base <code>Botão</code>. Colocando em miúdos: seu código GUI se torna absurdamente dependente de um código volátil da lógica do negócio.</p>
+<figure class="image"><img src="../../images/patterns/diagrams/command/problem3-pt-br1820.png?id=65467aa7a8e9545ba387cf0f62ed52cc" alt="V&aacute;rias classes implementam a mesma funcionalidade" width="480" srcset="/images/patterns/diagrams/command/problem3-pt-br-2x.png?id=f91f74e46951797c12cc37f61eb27d46 2x" loading="lazy" /><figcaption>
+<p>Várias classes implementam a mesma funcionalidade.</p>
+</figcaption></figure>
+<p>E aqui está a parte mais feia. Algumas operações, tais como copiar/colar texto, precisariam ser invocadas de diversos lugares. Por exemplo, um usuário poderia criar um pequeno botão “Copiar” na barra de ferramentas, ou copiar alguma coisa através do menu de contexto, ou apenas apertando <code>Crtl+C</code> no teclado.</p>
+<p>Inicialmente, quando sua aplicação só tinha a barra de ferramentas, tudo bem colocar a implementação de várias operações dentro das subclasses do botão. Em outras palavras, ter o código de cópia de texto dentro da subclasse <code>BotãoCópia</code> parecia certo. Mas então, quando você implementou menus de contexto, atalhos, e outras coisas, você teve que ou duplicar o código da operação em muitas classes ou fazer menus dependentes de botões, o que é uma opção ainda pior.</p>
+</div>
+<div class="section solution">
+<h2 id="solution"><i class="fa fa-smile-beam" aria-hidden="true"></i> Solução</h2>
+<p>Um bom projeto de software quase sempre se baseia no princípio da separação de interesses, o que geralmente resulta em dividir a aplicação em camadas. O exemplo mais comum: uma camada para a interface gráfica do usuário e outra camada para a lógica do negócio. A camada GUI é responsável por renderizar uma bonita imagem na tela, capturando quaisquer dados e mostrando resultados do que o usuário e a aplicação estão fazendo. Contudo, quando se trata de fazer algo importante, como calcular a trajetória da lua ou compor um relatório anual, a camada GUI delega o trabalho para a camada inferior da lógica do negócio.</p>
+<p>Dentro do código pode parecer assim: um objeto GUI chama um método da lógica do negócio, passando alguns argumentos. Este processo é geralmente descrito como um objeto mandando um <em>pedido</em> para outro.</p>
+<figure class="image"><img src="../../images/patterns/diagrams/command/solution1-pt-br5b1b.png?id=16cf91c77bfa26438a6992e25bd73a02" alt="A camada GUI pode acessar a camada da l&oacute;gica do neg&oacute;cio diretamente" width="470" srcset="/images/patterns/diagrams/command/solution1-pt-br-2x.png?id=7409772f1849947aeaf868bcd0129fe0 2x" loading="lazy" /><figcaption>
+<p>Os objetos GUI podem acessar os objetos da lógica do negócio diretamente.</p>
+</figcaption></figure>
+<p>O padrão Command sugere que os objetos GUI não enviem esses pedidos diretamente. Ao invés disso, você deve extrair todos os detalhes do pedido, tais como o objeto a ser chamado, o nome do método, e a lista de argumentos em uma classe <em>comando</em> separada que tem apenas um método que aciona esse pedido.</p>
+<p>Objetos comando servem como links entre vários objetos GUI e de lógica de negócio. De agora em diante, o objeto GUI não precisa saber qual objeto de lógica do negócio irá receber o pedido e como ele vai ser processado. O objeto GUI deve acionar o comando, que irá lidar com todos os detalhes.</p>
+<figure class="image"><img src="../../images/patterns/diagrams/command/solution2-pt-br8411.png?id=b88e0eda96b684286e09fdd76c1c7b45" alt="Acessando a l&oacute;gica de neg&oacute;cio atrav&eacute;s do comando." width="550" srcset="/images/patterns/diagrams/command/solution2-pt-br-2x.png?id=1fe72ad5955eca0af48cca23e6997134 2x" loading="lazy" /><figcaption>
+<p>Acessando a lógica do negócio através do comando.</p>
+</figcaption></figure>
+<p>O próximo passo é fazer seus comandos implementarem a mesma interface. Geralmente é apenas um método de execução que não pega parâmetros. Essa interface permite que você use vários comandos com o mesmo remetente do pedido, sem acoplá-lo com as classes concretas dos comandos. Como um bônus, agora você pode trocar os objetos comando ligados ao remetente, efetivamente mudando o comportamento do remetente no momento da execução.</p>
+<p>Você pode ter notado uma peça faltante nesse quebra cabeças, que são os parâmetros do pedido. Um objeto GUI pode ter fornecido ao objeto da camada de negócio com alguns parâmetros, como deveremos passar os detalhes do pedido para o destinatário? Parece que o comando deve ser ou pré configurado com esses dados, ou ser capaz de obtê-los por conta própria.</p>
+<figure class="image"><img src="../../images/patterns/diagrams/command/solution3-pt-brfb9f.png?id=fa9bc757cceb92fd03e9b8a49fd49a93" alt="Os objetos GUI delegam o trabalho aos comandos" width="440" srcset="/images/patterns/diagrams/command/solution3-pt-br-2x.png?id=b398836186fcdea28e04b915b85f8695 2x" loading="lazy" /><figcaption>
+<p>Os objetos GUI delegam o trabalho aos comandos.</p>
+</figcaption></figure>
+<p>Vamos voltar ao nosso editor de texto. Após aplicarmos o padrão Command, nós não mais precisamos de todas aquelas subclasses de botões para implementar vários comportamentos de cliques. É suficiente colocar apenas um campo na classe <code>Botão</code> base que armazena a referência para um objeto comando e faz o botão executar aquele comando com um clique.</p>
+<p>Você vai implementar um monte de classes comando para cada possível operação e ligá-los aos seus botões em particular, dependendo do comportamento desejado para os botões.</p>
+<p>Outros elementos GUI, tais como menus, atalhos, ou caixas de diálogo inteiras, podem ser implementados da mesma maneira. Eles serão ligados a um comando que será executado quando um usuário interage com um elemento GUI. Como você provavelmente adivinhou, os elementos relacionados a mesma operação serão ligados aos mesmos comandos, prevenindo a duplicação de código.</p>
+<p>Como resultado, os comandos se tornam uma camada intermédia conveniente que reduz o acoplamento entre as camadas GUI e de lógica do negócio. E isso é apenas uma fração dos benefícios que o padrão Command pode oferecer.</p>
+</div>
+<div class="section analogy">
+<h2 id="analogy"><i class="fa fa-car-side" aria-hidden="true"></i> Analogia com o mundo real</h2>
+<figure class="image"><img src="../../images/patterns/content/command/command-comic-16e6f.png?id=551df832f445080976f3116e0dc120c9" alt="Fazendo um pedido em um restaurante" width="600" srcset="/images/patterns/content/command/command-comic-1-2x.png?id=47b3c00b2cfbda7157a1ed9da6ce2948 2x" loading="lazy" /><figcaption>
+<p>Fazendo um pedido em um restaurante.</p>
+</figcaption></figure>
+<p>Após uma longa caminhada pela cidade, você chega a um restaurante bacana e senta numa mesa perto da janela. Um garçom amigável se aproxima e rapidamente recebe seu pedido, escrevendo-o em um pedaço de papel. O garçom vai até a cozinha e prende o pedido em uma parede. Após algum tempo, o pedido chega até o chef, que o lê e cozinha a refeição de acordo. O cozinheiro coloca a refeição em uma bandeja junto com o pedido. O garçom acha a bandeja, verifica o pedido para garantir que é aquilo que você queria, e o traz para sua mesa.</p>
+<p>O pedido no papel serve como um comando. Ele permanece em uma fila até que o chef esteja pronto para serví-lo. O pedido contém todas as informações relevantes necessárias para cozinhar a refeição. Ele permite ao chef começar a cozinhar imediatamente ao invés de ter que ir até você para clarificar os detalhes do pedido pessoalmente.</p>
+</div>
+<div class="section structure-container">
+<h2 id="structure"><i class="fa fa-sitemap" aria-hidden="true"></i> Estrutura</h2>
+<div class="structure">
+<div class="struct-image1 struct-image">
+<figure class="image"><img class="structure-img-non-indexed d-none d-xl-block" src="../../images/patterns/diagrams/command/structure95d2.png?id=3a0f59016d616d29fe90ccc45d8ebb49" alt="Estrutura do padrão de projeto Command" width="630" srcset="/images/patterns/diagrams/command/structure-2x.png?id=176b5f4f1939340f44b1fdb2ac6bbfc7 2x" loading="lazy" /><img class="structure-img-indexed d-xl-none" src="../../images/patterns/diagrams/command/structure-indexed8fb2.png?id=d3212d2fa754a85afe1acb35775fee3e" alt="Estrutura do padrão de projeto Command" width="640" srcset="/images/patterns/diagrams/command/structure-indexed-2x.png?id=1e9475af7aa4e3c6ae53b4942b859235 2x" loading="lazy" /></figure>
+</div>
+<ol><li class="struct-li1">
+<p>A classe <strong>Remetente</strong> (também conhecida como <em>invocadora</em>) é responsável por iniciar os pedidos. Essa classe deve ter um campo para armazenar a referência para um objeto comando. O remetente aciona aquele comando ao invés de enviar o pedido diretamente para o destinatário. Observe que o remetente não é responsável por criar o objeto comando. Geralmente ele é pré criado através de um construtor do cliente.</p>
+</li>
+<li class="struct-li2">
+<p>A interface <strong>Comando</strong> geralmente declara apenas um único método para executar o comando.</p>
+</li>
+<li class="struct-li3">
+<p><strong>Comandos Concretos</strong> implementam vários tipos de pedidos. Um comando concreto não deve realizar o trabalho por conta própria, mas passar a chamada para um dos objetos da lógica do negócio. Contudo, para simplificar o código, essas classes podem ser fundidas.</p>
+<p>Os parâmetros necessários para executar um método em um objeto destinatário podem ser declarados como campos no comando concreto. Você pode tornar os objetos comando imutáveis ao permitir que apenas inicializem esses campos através do construtor.</p>
+</li>
+<li class="struct-li4">
+<p>A classe <strong>Destinatária</strong> contém a lógica do negócio. Quase qualquer objeto pode servir como um destinatário. A maioria dos comandos apenas lida com os detalhes de como um pedido é passado para o destinatário, enquanto que o destinatário em si executa o verdadeiro trabalho.</p>
+</li>
+<li class="struct-li5">
+<p>O <strong>Cliente</strong> cria e configura objetos comando concretos. O cliente deve passar todos os parâmetros do pedido, incluindo uma instância do destinatário, para o construtor do comando. Após isso, o comando resultante pode ser associado com um ou múltiplos destinatários.</p>
+</li></ol>
+<style structure type="text/css" >
+@media (min-width: 1200px) {
+.structure {
+margin: 0;
+width: auto;
+height: 620px;
+}
+
+.struct-image1 {
+left: 40px;
+top: 150px;
+}
+
+.struct-li1 {
+left: 10px;
+top: 10px;
+width: 550px;
+height: 130px;
+}
+
+.struct-li2 {
+left: 600px;
+top: 70px;
+width: 230px;
+height: 90px;
+}
+
+.struct-li3 {
+left: 680px;
+top: 190px;
+width: 200px;
+height: 450px;
+}
+
+.struct-li4 {
+left: 180px;
+top: 530px;
+width: 480px;
+height: 110px;
+}
+
+.struct-li5 {
+left: 0px;
+top: 230px;
+width: 160px;
+height: 310px;
+}
+}
+
+</style>
+</div></div>
+<div class="section pseudocode">
+<h2 id="pseudocode"><i class="fa fa-hashtag" aria-hidden="true"></i> Pseudocódigo</h2>
+<p>Neste exemplo, o padrão <strong>Command</strong> ajuda a manter um registro da história de operações executadas e torna possível reverter uma operação se necessário.</p>
+<figure class="image"><img src="../../images/patterns/diagrams/command/example31bf.png?id=1f42c8395fe54d0e409026b91881e2a0" alt="Exemplo de estrutura do padr&atilde;o Command" width="640" srcset="/images/patterns/diagrams/command/example-2x.png?id=ed44dfd9b02eccf1ae7e2714d018ed36 2x" loading="lazy" /><figcaption>
+<p>Operações não executáveis em um editor de texto.</p>
+</figcaption></figure>
+<p>Os comandos que resultam de mudanças de estado do editor (por exemplo, cortando e colando) fazem uma cópia de backup do estado do editor antes de executarem  uma operação associada com o comando. Após o comando ser executado, ele é colocado em um histórico de comando (uma pilha de objetos comando) junto com a cópia de backup do estado do editor naquele momento. Mais tarde, se o usuário precisa reverter uma operação, a aplicação pode pegar o comando mais recente do histórico, ler o backup associado ao estado do editor, e restaurá-lo.</p>
+<p>O código cliente (elementos GUI, histórico de comandos, etc.) não é acoplado às classes comando concretas porque ele trabalha com comandos através da interface comando. Essa abordagem permite que você introduza novos comandos na aplicação sem quebrar o código existente.</p>
+<figure class="code">
+<pre class="code" lang="pseudocode">// A classe comando base define a interface comum para todos
+// comandos concretos.
+abstract class Command is
+    protected field app: Application
+    protected field editor: Editor
+    protected field backup: text
+
+    constructor Command(app: Application, editor: Editor) is
+        this.app = app
+        this.editor = editor
+
+    // Faz um backup do estado do editor.
+    method saveBackup() is
+        backup = editor.text
+
+    // Restaura o estado do editor.
+    method undo() is
+        editor.text = backup
+
+    // O método de execução é declarado abstrato para forçar
+    // todos os comandos concretos a fornecer suas próprias
+    // implementações. O método deve retornar verdadeiro ou
+    // falso dependendo se o comando muda o estado do editor.
+    abstract method execute()
+
+
+// Comandos concretos vêm aqui.
+class CopyCommand extends Command is
+    // O comando copy (copiar) não é salvo no histórico já que
+    // não muda o estado do editor.
+    method execute() is
+        app.clipboard = editor.getSelection()
+        return false
+
+class CutCommand extends Command is
+    // O comando cut (cortar) muda o estado do editor, portanto
+    // deve ser salvo no histórico. E ele será salvo desde que o
+    // método retorne verdadeiro.
+    method execute() is
+        saveBackup()
+        app.clipboard = editor.getSelection()
+        editor.deleteSelection()
+        return true
+
+class PasteCommand extends Command is
+    method execute() is
+        saveBackup()
+        editor.replaceSelection(app.clipboard)
+        return true
+
+// A operação undo (desfazer) também é um comando.
+class UndoCommand extends Command is
+    method execute() is
+        app.undo()
+        return false
+
+
+// O comando global history (histórico) é apenas uma pilha.
+class CommandHistory is
+    private field history: array of Command
+
+    // Último a entrar...
+    method push(c: Command) is
+        // Empurra o comando para o fim do vetor do histórico.
+
+    // ...primeiro a sair.
+    method pop():Command is
+        // Obter o comando mais recente do histórico.
+
+
+// A classe do editor tem verdadeiras operações de edição de
+// texto. Ela faz o papel de destinatária: todos os comandos
+// acabam delegando a execução para os métodos do editor.
+class Editor is
+    field text: string
+
+    method getSelection() is
+        // Retorna o texto selecionado.
+
+    method deleteSelection() is
+        // Deleta o texto selecionado.
+
+    method replaceSelection(text) is
+        // Insere os conteúdos da área de transferência na
+        // posição atual.
+
+
+// A classe da aplicação define as relações de objeto. Ela age
+// como uma remetente: quando alguma coisa precisa ser feita,
+// ela cria um objeto comando e executa ele.
+class Application is
+    field clipboard: string
+    field editors: array of Editors
+    field activeEditor: Editor
+    field history: CommandHistory
+
+    // O código que assinala comandos para objetos UI pode se
+    // parecer como este.
+    method createUI() is
+        // ...
+        copy = function() { executeCommand(
+            new CopyCommand(this, activeEditor)) }
+        copyButton.setCommand(copy)
+        shortcuts.onKeyPress(&quot;Ctrl+C&quot;, copy)
+
+        cut = function() { executeCommand(
+            new CutCommand(this, activeEditor)) }
+        cutButton.setCommand(cut)
+        shortcuts.onKeyPress(&quot;Ctrl+X&quot;, cut)
+
+        paste = function() { executeCommand(
+            new PasteCommand(this, activeEditor)) }
+        pasteButton.setCommand(paste)
+        shortcuts.onKeyPress(&quot;Ctrl+V&quot;, paste)
+
+        undo = function() { executeCommand(
+            new UndoCommand(this, activeEditor)) }
+        undoButton.setCommand(undo)
+        shortcuts.onKeyPress(&quot;Ctrl+Z&quot;, undo)
+
+    // Executa um comando e verifica se ele foi adicionado ao
+    // histórico.
+    method executeCommand(command) is
+        if (command.execute)
+            history.push(command)
+
+    // Pega o comando mais recente do histórico e executa seu
+    // método undo(desfazer). Observe que nós não sabemos a
+    // classe desse comando. Mas nós não precisamos saber, já
+    // que o comando sabe como desfazer sua própria ação.
+    method undo() is
+        command = history.pop()
+        if (command != null)
+            command.undo()
+</pre>
+</figure>
+</div>
+<div class="section applicability-container">
+<h2 id="applicability"><i class="fa fa-lightbulb-on" aria-hidden="true"></i> Aplicabilidade</h2>
+<div class="applicability">
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Utilize o padrão Command quando você quer parametrizar objetos com operações.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> O padrão Command podem tornar uma chamada específica para um método em um objeto separado. Essa mudança abre várias possibilidades de usos interessantes: você pode passar comandos como argumentos do método, armazená-los dentro de outros objetos, trocar comandos ligados no momento de execução, etc.</p>
+<p>Aqui está um exemplo: você está desenvolvendo um componente GUI como um menu de contexto, e você quer que os usuários sejam capazes de configurar os items do menu que aciona as operações quando um usuário clica em um item.</p>
+</div>
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Utilize o padrão Command quando você quer colocar operações em fila, agendar sua execução, ou executá-las remotamente.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> Como qualquer outro objeto, um comando pode ser serializado, o que significa convertê-lo em uma string que pode ser facilmente escrita em um arquivo ou base de dados. Mais tarde a string pode ser restaurada no objeto comando inicial. Dessa forma você pode adiar e agendar execuções do comando. Mas isso não é tudo! Da mesma forma, você pode colocar em fila, fazer registro de log ou enviar comandos por uma rede.</p>
+</div>
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Utilize o padrão Command quando você quer implementar operações reversíveis.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> Embora haja muitas formas de implementar o desfazer/refazer, o padrão Command é talvez a mais popular de todas.</p>
+<p>Para ser capaz de reverter operações, você precisa implementar o histórico de operações realizadas. O histórico do comando é uma pilha que contém todos os objetos comando executados junto com seus backups do estado da aplicação relacionados.</p>
+<p>Esse método tem duas desvantagens. Primeiro, se não for fácil salvar o estado da aplicação por parte dela ser privada. Esse problema pode ser facilmente mitigado com o padrão <a href="memento.html">Memento</a>.</p>
+<p>Segundo, os backups de estado podem consumir uma considerável quantidade de RAM. Portanto, algumas vezes você pode recorrer a uma implementação alternativa: ao invés de restaurar a um estado passado, o comando faz a operação inversa. A operação reversa também cobra um preço: ela pode ter sua implementação difícil ou até impossível.</p>
+</div>
+</div></div>
+<div class="section checklist">
+<h2 id="checklist"><i class="fa fa-clipboard-list-check" aria-hidden="true"></i> Como implementar</h2>
+<ol>
+<li>
+<p>Declare a interface comando com um único método de execução.</p>
+</li>
+<li>
+<p>Comece extraindo pedidos para dentro de classes concretas comando que implementam a interface comando. Cada classe deve ter um conjunto de campos para armazenar os argumentos dos pedidos junto com uma referência ao objeto destinatário real. Todos esses valores devem ser inicializados através do construtor do comando.</p>
+</li>
+<li>
+<p>Identifique classes que vão agir como <em>remetentes</em>. Adicione os campos para armazenar comandos nessas classes. Remetentes devem sempre comunicar-se com seus comandos através da interface comando. Remetentes geralmente não criam objetos comando por conta própria, mas devem obtê-los do código cliente.</p>
+</li>
+<li>
+<p>Mude os remetentes para que executem o comando ao invés de enviar o pedido para o destinatário diretamente.</p>
+</li>
+<li>
+<p>O cliente deve inicializar objetos na seguinte ordem:</p>
+<ul>
+<li>Crie os destinatários.</li>
+<li>Crie os comandos, e os associe com os destinatários se necessário.</li>
+<li>Crie os remetentes, e os associe com os comandos específicos.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section pros-cons">
+<h2 id="pros-cons"><i class="fa fa-balance-scale" aria-hidden="true"></i> Prós e contras</h2>
+<div class="row"><div class="col-sm-6">
+<ul>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> <em>Princípio de responsabilidade única</em>. Você pode desacoplar classes que invocam operações de classes que fazem essas operações.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> <em>Princípio aberto/fechado</em>. Você pode introduzir novos comandos na aplicação sem quebrar o código cliente existente.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> Você pode implementar desfazer/refazer.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> Você pode implementar a execução adiada de operações.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> Você pode montar um conjunto de comandos simples em um complexo.</li>
+</ul>
+</div><div class="col-sm-6">
+<ul>
+<li>
+<i class="fa fa-fw fa-times" aria-hidden="true"></i> O código pode ficar mais complicado uma vez que você está introduzindo uma nova camada entre remetentes e destinatários.</li>
+</ul>
+</div></div></div>
+<div class="section relations">
+<h2 id="relations"><i class="fa fa-exchange-alt" aria-hidden="true"></i> Relações com outros padrões</h2>
+<ul>
+<li>
+<p>O <a href="chain-of-responsibility.html">Chain of Responsibility</a>, <a href="command.html">Command</a>, <a href="mediator.html">Mediator</a> e <a href="observer.html">Observer</a> abrangem várias maneiras de se conectar remetentes e destinatários de pedidos:</p>
+<ul>
+<li>O <em>Chain of Responsibility</em> passa um pedido sequencialmente ao longo de um corrente dinâmica de potenciais destinatários até que um deles atua no pedido.</li>
+<li>O <em>Command</em> estabelece conexões unidirecionais entre remetentes e destinatários.</li>
+<li>O <em>Mediator</em> elimina as conexões diretas entre remetentes e destinatários, forçando-os a se comunicar indiretamente através de um objeto mediador.</li>
+<li>O <em>Observer</em> permite que destinatários inscrevam-se ou cancelem sua inscrição dinamicamente para receber pedidos.</li>
+</ul>
+</li>
+<li>
+<p>Handlers em uma <a href="chain-of-responsibility.html">Chain of Responsibility</a> podem ser implementados como <a href="command.html">comandos</a>. Neste caso, você pode executar várias operações diferentes sobre o mesmo objeto contexto, representado por um pedido.</p>
+<p>Contudo, há outra abordagem, onde o próprio pedido é um objeto <em>comando</em>. Neste caso, você pode executar a mesma operação em uma série de diferentes contextos ligados em uma corrente.</p>
+</li>
+<li>
+<p>Você pode usar o <a href="command.html">Command</a> e o <a href="memento.html">Memento</a> juntos quando implementando um “desfazer”. Neste caso, os comandos são responsáveis pela realização de várias operações sobre um objeto alvo, enquanto que os mementos salvam o estado daquele objeto momentos antes de um comando ser executado.</p>
+</li>
+<li>
+<p>O <a href="command.html">Command</a> e o <a href="strategy.html">Strategy</a> podem ser parecidos porque você pode usar ambos para parametrizar um objeto com alguma ação. Contudo, eles têm propósitos bem diferentes.</p>
+<ul>
+<li>
+<p>Você pode usar o <em>Command</em> para converter qualquer operação em um objeto. Os parâmetros da operação se transformam em campos daquele objeto. A conversão permite que você atrase a execução de uma operação, transforme-a em uma fila, armazene o histórico de comandos, envie comandos para serviços remotos, etc.</p>
+</li>
+<li>
+<p>Por outro lado, o <em>Strategy</em> geralmente descreve diferentes maneiras de fazer a mesma coisa, permitindo que você troque esses algoritmos dentro de uma única classe contexto.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>O <a href="prototype.html">Prototype</a> pode ajudar quando você precisa salvar cópias de <a href="command.html">comandos</a> no histórico.</p>
+</li>
+<li>
+<p>Você pode tratar um <a href="visitor.html">Visitor</a> como uma poderosa versão do padrão <a href="command.html">Command</a>. Seus objetos podem executar operações sobre vários objetos de diferentes classes.</p>
+</li>
+</ul>
+</div>
+<div class="section implementations">
+<h2 id="implementations"><i class="fa fa-code" aria-hidden="true"></i> Exemplos de código</h2>
+<p><a href="command/java/example.html" title="Padrões de Projeto: Command em Java" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/java9ca9.svg?id=e6d87e2dca08c953fe3acd1275ed4f4e" alt="Padrões de Projeto: Command em Java"></a>
+<a href="command/csharp/example.html" title="Padrões de Projeto: Command em C#" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/csharp8c8a.svg?id=da64592defc6e86d57c39c66e9de3e58" alt="Padrões de Projeto: Command em C#"></a>
+<a href="command/cpp/example.html" title="Padrões de Projeto: Command em C++" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/cpp9770.svg?id=f7782ed8b8666246bfcc3f8fefc3b858" alt="Padrões de Projeto: Command em C++"></a>
+<a href="command/php/example.html" title="Padrões de Projeto: Command em PHP" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/phpb8be.svg?id=be1906eb26b71ec1d3b93720d6156618" alt="Padrões de Projeto: Command em PHP"></a>
+<a href="command/python/example.html" title="Padrões de Projeto: Command em Python" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/python25f6.svg?id=6d815d43c0f7050a1151b43e51569c9f" alt="Padrões de Projeto: Command em Python"></a>
+<a href="command/ruby/example.html" title="Padrões de Projeto: Command em Ruby" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/ruby3275.svg?id=b065b718c914bf8e960ef731600be1eb" alt="Padrões de Projeto: Command em Ruby"></a>
+<a href="command/swift/example.html" title="Padrões de Projeto: Command em Swift" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/swift68dd.svg?id=0b716c2d52ec3a48fbe91ac031070c1d" alt="Padrões de Projeto: Command em Swift"></a>
+<a href="command/typescript/example.html" title="Padrões de Projeto: Command em TypeScript" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/typescript325e.svg?id=2239d0f16cb703540c205dd8cb0c0cb7" alt="Padrões de Projeto: Command em TypeScript"></a>
+<a href="command/go/example.html" title="Padrões de Projeto: Command em Go" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/go3287.svg?id=1a89927eb99b1ea3fde7701d97970aca" alt="Padrões de Projeto: Command em Go"></a></p>
+</div>
+
+
+    <div class="banner-set2" id="book-promo">
+            <div class="prom banner-content banner-bg banner-striped banner-with-image" data-id="DP: 1: Support our free website and own the eBook!" data-creative-id="standard-pt-br" data-position="content_bottom">
+                <div class="banner-image">
+                    <a href="book.html">
+                        <img width="200" height="200" loading="lazy" src="../../images/patterns/banners/patterns-book-banner-3a29e.png?id=7d445df13c80287beaab234b4f3b698c" srcset="/images/patterns/banners/patterns-book-banner-3-2x.png?id=0cc3f77ab421d1a5c02ee46488231c3a 2x">
+                    </a>
+                </div>
+
+                <div class="banner-text">
+                    <h3 class="title">Apoie nosso website gratuito e ganhe o eBook!</h3>
+                    <ul style="font-size: 14px;">
+                        <li style="margin: 0;">22 padrões de projeto e 8 princípios explicados a fundo.</li>
+                        <li style="margin: 0;">439 páginas bem estruturadas, fáceis de se ler e livres de jargões.</li>
+                        <li style="margin: 0;">225 diagramas e ilustrações claras e úteis.</li>
+                        <li style="margin: 0;">Um arquivo com exemplos de código em 9 línguas.</li>
+                        <li style="margin: 0;">Suportado por todos os dispositivos: formatos PDF/EPUB/MOBI/KFX.</li>
+                    </ul>
+                    <a class="btn btn-secondary" href="book.html"><i class="fa fa-book" aria-hidden="true"></i> Saiba mais…</a>
+                </div>
+            </div>
+        </div>
+
+    </article>
+
+<nav class="prev-next">
+                    <div class="next">
+                <h4>Leia a seguir</h4>
+                <a rel="next" href="iterator.html" class="btn btn-primary">Iterator&nbsp;<span class="fa fa-arrow-right"></span></a>
+            </div>
+                            <div class="prev">
+                <h4>Voltar</h4>
+                <a rel="prev" href="chain-of-responsibility.html" class="btn btn-default"><span class="fa fa-arrow-left"></span>&nbsp;Chain of Responsibility </a>
+            </div>
+            </nav>
+</div>
+
+<aside class="feature content-secondary">
+    <div class="prom banner-sidebar" data-id="DP: Sidebar" data-creative-id="standard-sidebar-pt-br" data-position="sidebar">
+        <div class="banner-inner">
+            <div class="image3d-book-right">
+                <div class="image3d-cover" style="background: #0b3752;">
+                    <a href="book.html">
+                        <img width="250" height="375" loading="lazy" src="../../images/patterns/book/web-cover-pt-brb3eb.png?id=cc7d821610ba9186e987ffc0f83476a8" srcset="/images/patterns/book/web-cover-pt-br-2x.png?id=95380743a2833ed832101aa568c16373 2x">
+                    </a>
+                </div>
+            </div>
+            <div style="margin-top: 1rem">
+                <p class="text-center">Este artigo é parte de nosso eBook<br><strong>Mergulho nos Padrões de Projeto</strong>.</p>
+                <a href="book.html" class="btn btn-secondary btn-block"><i class="fa fa-book" aria-hidden="true"></i> Saiba mais…</a>
+            </div>
+        </div>
+    </div>
+
+
+</aside>
+                    </div>
+    </main>
+
+    <nav class="navigation" role="navigation">
+    <div class="navigation-container">
+        <a href="#menu" class="navigation-toggle"><i class="fa fa-bars"></i></a>
+        <a class="navigation-brand" href="../../pt-br.html">
+            <img alt="Refactoring.Guru" src="../../images/content-public/logos/logo-military-mobile78b4.png?id=65ecbd1e688fc695bc20c22a1e8450d9" srcset="/images/content-public/logos/logo-military-mobile-2x.png?id=0f52141f57f67fb678da8407e254b0a3 2x"
+                  width="94"                   height="64"             >
+        </a>
+        <div class="social-likes-block" data-url="../../index.html">
+    <div data-service="facebook" class="facebook" title="Compartilhe no Facebook">Facebook</div>
+        <div data-service="twitter" class="twitter" title="Compartilhe no Twiter">Twitter</div>
+</div>        <ul class="navigation-menu">
+                        <li class="dropdown d-lg-none">
+                <a class="dropdown-toggle" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-globe" aria-hidden="true"></i> <span class="caption d-none d-xl-inline-block">Idioma</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguage">
+                                                                                                        <a href="../../design-patterns/command.html" class="dropdown-item locale-link " data-locale="en" title="English">English</a>
+                                                                                                                <a href="../../es/design-patterns/command.html" class="dropdown-item locale-link " data-locale="es" title="Español">Español</a>
+                                                                                                                <a href="../../fr/design-patterns/command.html" class="dropdown-item locale-link " data-locale="fr" title="Français">Français</a>
+                                                                                                                                                                                                                        <a href="../../pl/design-patterns/command.html" class="dropdown-item locale-link " data-locale="pl" title="Polski">Polski</a>
+                                                                                                                <a href="command.html" class="dropdown-item locale-link active" data-locale="pt-br" title="Português Brasileiro">Português Brasileiro</a>
+                                                                                                                <a href="../../ru/design-patterns/command.html" class="dropdown-item locale-link " data-locale="ru" title="Русский">Русский</a>
+                                                                                                                <a href="../../uk/design-patterns/command.html" class="dropdown-item locale-link " data-locale="uk" title="Українська">Українська</a>
+                                                                                                                <a href="https://refactoringguru.cn/design-patterns/command" class="dropdown-item locale-link " data-locale="zh" title="中文">中文</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+            </li>
+                        <li class="nav-contact">
+                <a class="userecho-private" href="https://feedback.refactoring.guru/?show_feedback_form_private=true" rel="nofollow" title="Contate-nos">
+                    <i class="fa fa-envelope"></i> <span class="caption d-none d-xl-inline-block">Contate-nos</span>
+                </a>
+            </li>
+                                                <li class="nav-login">
+                        <a href="../login.html" title="Conectar"><i class="fa fa-user"></i> <span class="caption d-none d-xl-inline-block">Conectar</span></a>
+                    </li>
+                                    </ul>
+    </div>
+    <div>
+        <a class="russia-stop" href="../help-ukraine.html">
+                            Ajude a Ucrânia <b>a parar a Rússia</b>
+                    </a>
+    </div>
+</nav>
+    <aside class="sidebar main-menu nano">
+    <a href="#menu-close" class="navigation-toggle"><i class="fa fa-fw fa-times"></i></a>
+    <div class="nano-content">
+                    <div class="main-menu-lang d-none d-lg-flex main-menu-lang-count-8">
+                                                                                        <a href="../../design-patterns/command.html" class="locale-link locale-link-en " data-locale="en" title="English"><span class="d-lg-none">English</span><span class="d-none d-lg-inline">English</span></a>
+                                                                                                <a href="../../es/design-patterns/command.html" class="locale-link locale-link-es " data-locale="es" title="Español"><span class="d-lg-none">Español</span><span class="d-none d-lg-inline">Español</span></a>
+                                                                                                <a href="../../fr/design-patterns/command.html" class="locale-link locale-link-fr " data-locale="fr" title="Français"><span class="d-lg-none">Français</span><span class="d-none d-lg-inline">Français</span></a>
+                                                                                                                                                                                        <a href="../../pl/design-patterns/command.html" class="locale-link locale-link-pl " data-locale="pl" title="Polski"><span class="d-lg-none">Polski</span><span class="d-none d-lg-inline">Polski</span></a>
+                                                                                                <a href="command.html" class="locale-link locale-link-pt-br active" data-locale="pt-br" title="Português Brasileiro"><span class="d-lg-none">Português Brasileiro</span><span class="d-none d-lg-inline">Português-Br</span></a>
+                                                                                                <a href="../../ru/design-patterns/command.html" class="locale-link locale-link-ru " data-locale="ru" title="Русский"><span class="d-lg-none">Русский</span><span class="d-none d-lg-inline">Русский</span></a>
+                                                                                                <a href="../../uk/design-patterns/command.html" class="locale-link locale-link-uk " data-locale="uk" title="Українська"><span class="d-lg-none">Українська</span><span class="d-none d-lg-inline">Українська</span></a>
+                                                                                                <a href="https://refactoringguru.cn/design-patterns/command" class="locale-link locale-link-zh " data-locale="zh" title="中文"><span class="d-lg-none">中文</span><span class="d-none d-lg-inline">中文</span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+        
+        <a class="menu-brand" href="../../pt-br.html">
+                            <img width=200 height=241 loading="lazy" alt="Refactoring.Guru" src="../../images/content-public/logos/logo-militaryd1c3.png?id=3eaf203cb26279327252e2c5f5d37c7f" srcset="/images/content-public/logos/logo-military-2x.png?id=5af1a599d8a4170c9a42e6fa18148b98 2x">
+                    </a>
+        <div>
+            <a class="russia-stop" href="../help-ukraine.html">
+                                    Ajude a Ucrânia<br><b>a parar a Rússia</b>
+                            </a>
+        </div>
+
+
+        <div class="menu-container" style="position: relative">
+                        <ul class="menu-list trail">
+                            <li class="featured">
+            <a href="../store.html">
+                <i class="fa fa-fw fa-star" aria-hidden="true"></i> Conteúdo Premium
+            </a>
+    
+            <ul >
+                            <li class="featured menu-fs15">
+            <a href="book.html">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Mergulho nos<br>Padrões de Projeto
+            </a>
+    
+    
+            </li>
+                                <li class="featured menu-fs15">
+            <a href="../refactoring/course.html">
+                <i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Curso de Refatoração
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="trail">
+            <a href="../design-patterns.html">
+                <i class="fa fa-fw fa-puzzle-piece" aria-hidden="true"></i> Padrões de Projeto
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                O que é um padrão
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                O que é um padrão de projeto?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="history.html">
+                História dos padrões
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="why-learn-patterns.html">
+                Por que devo aprender padrões?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="criticism.html">
+                Crítica dos padrões
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="classification.html">
+                Classificação dos padrões
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="catalog.html">
+                Catálogo
+            </a>
+    
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="creational-patterns.html">
+                Padrões criacionais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="factory-method.html">
+                Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="abstract-factory.html">
+                Abstract Factory
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="builder.html">
+                Builder
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="prototype.html">
+                Prototype
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="singleton.html">
+                Singleton
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="structural-patterns.html">
+                Padrões estruturais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="adapter.html">
+                Adapter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="bridge.html">
+                Bridge
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="composite.html">
+                Composite
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="decorator.html">
+                Decorator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="facade.html">
+                Facade
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="flyweight.html">
+                Flyweight
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="proxy.html">
+                Proxy
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level trail">
+            <a href="behavioral-patterns.html">
+                Padrões comportamentais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="chain-of-responsibility.html">
+                Chain of Responsibility
+            </a>
+    
+    
+            </li>
+                                <li class="trail active">
+            <a href="command.html">
+                Command
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="iterator.html">
+                Iterator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="mediator.html">
+                Mediator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="memento.html">
+                Memento
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="observer.html">
+                Observer
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="state.html">
+                State
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="strategy.html">
+                Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="template-method.html">
+                Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="visitor.html">
+                Visitor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-code-examples">
+            <a href="examples.html">
+                Exemplos de código
+            </a>
+    
+            <ul >
+                            <li class="menu-code-examples-item">
+            <a href="csharp.html">
+                C#
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="cpp.html">
+                C++
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="go.html">
+                Go
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="java.html">
+                Java
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="php.html">
+                PHP
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="python.html">
+                Python
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="ruby.html">
+                Ruby
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="swift.html">
+                Swift
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="typescript.html">
+                TypeScript
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring.html">
+                <i class="fa fa-fw fa-scissors" aria-hidden="true"></i> Refatoração <span style="font-size: 0.8rem">(em&nbsp;breve)</span>
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                What is Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                Clean code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/technical-debt.html">
+                Technical debt
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/when.html">
+                When to refactor
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/how-to.html">
+                How to refactor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells.html">
+                Code Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/smells/bloaters.html">
+                Bloaters
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/long-method.html">
+                Long Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/large-class.html">
+                Large Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/primitive-obsession.html">
+                Primitive Obsession
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/long-parameter-list.html">
+                Long Parameter List
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-clumps.html">
+                Data Clumps
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/oo-abusers.html">
+                Object-Orientation Abusers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/switch-statements.html">
+                Switch Statements
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/temporary-field.html">
+                Temporary Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/refused-bequest.html">
+                Refused Bequest
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/alternative-classes-with-different-interfaces.html">
+                Alternative Classes with Different Interfaces
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/change-preventers.html">
+                Change Preventers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/divergent-change.html">
+                Divergent Change
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/shotgun-surgery.html">
+                Shotgun Surgery
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/parallel-inheritance-hierarchies.html">
+                Parallel Inheritance Hierarchies
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/dispensables.html">
+                Dispensables
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/comments.html">
+                Comments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/duplicate-code.html">
+                Duplicate Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/lazy-class.html">
+                Lazy Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-class.html">
+                Data Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/dead-code.html">
+                Dead Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/speculative-generality.html">
+                Speculative Generality
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/couplers.html">
+                Couplers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/feature-envy.html">
+                Feature Envy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/inappropriate-intimacy.html">
+                Inappropriate Intimacy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/message-chains.html">
+                Message Chains
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/middle-man.html">
+                Middle Man
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/other.html">
+                Other Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/incomplete-library-class.html">
+                Incomplete Library Class
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques.html">
+                Refactorings
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/techniques/composing-methods.html">
+                Composing Methods
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../extract-method.html">
+                Extract Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-method.html">
+                Inline Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-variable.html">
+                Extract Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-temp.html">
+                Inline Temp
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-temp-with-query.html">
+                Replace Temp with Query
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../split-temporary-variable.html">
+                Split Temporary Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-assignments-to-parameters.html">
+                Remove Assignments to Parameters
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-method-with-method-object.html">
+                Replace Method with Method Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../substitute-algorithm.html">
+                Substitute Algorithm
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/moving-features-between-objects.html">
+                Moving Features between Objects
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../move-method.html">
+                Move Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../move-field.html">
+                Move Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-class.html">
+                Extract Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-class.html">
+                Inline Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-delegate.html">
+                Hide Delegate
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-middle-man.html">
+                Remove Middle Man
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-foreign-method.html">
+                Introduce Foreign Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-local-extension.html">
+                Introduce Local Extension
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/organizing-data.html">
+                Organizing Data
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../self-encapsulate-field.html">
+                Self Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-data-value-with-object.html">
+                Replace Data Value with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-value-to-reference.html">
+                Change Value to Reference
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-reference-to-value.html">
+                Change Reference to Value
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-array-with-object.html">
+                Replace Array with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../duplicate-observed-data.html">
+                Duplicate Observed Data
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-unidirectional-association-to-bidirectional.html">
+                Change Unidirectional Association to Bidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-bidirectional-association-to-unidirectional.html">
+                Change Bidirectional Association to Unidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-magic-number-with-symbolic-constant.html">
+                Replace Magic Number with Symbolic Constant
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-field.html">
+                Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-collection.html">
+                Encapsulate Collection
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-class.html">
+                Replace Type Code with Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-subclasses.html">
+                Replace Type Code with Subclasses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-state-strategy.html">
+                Replace Type Code with State/Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-subclass-with-fields.html">
+                Replace Subclass with Fields
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-conditional-expressions.html">
+                Simplifying Conditional Expressions
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../decompose-conditional.html">
+                Decompose Conditional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-conditional-expression.html">
+                Consolidate Conditional Expression
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-duplicate-conditional-fragments.html">
+                Consolidate Duplicate Conditional Fragments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-control-flag.html">
+                Remove Control Flag
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-nested-conditional-with-guard-clauses.html">
+                Replace Nested Conditional with Guard Clauses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-conditional-with-polymorphism.html">
+                Replace Conditional with Polymorphism
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-null-object.html">
+                Introduce Null Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-assertion.html">
+                Introduce Assertion
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-method-calls.html">
+                Simplifying Method Calls
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../rename-method.html">
+                Rename Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../add-parameter.html">
+                Add Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-parameter.html">
+                Remove Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../separate-query-from-modifier.html">
+                Separate Query from Modifier
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../parameterize-method.html">
+                Parameterize Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-explicit-methods.html">
+                Replace Parameter with Explicit Methods
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../preserve-whole-object.html">
+                Preserve Whole Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-method-call.html">
+                Replace Parameter with Method Call
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-parameter-object.html">
+                Introduce Parameter Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-setting-method.html">
+                Remove Setting Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-method.html">
+                Hide Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-constructor-with-factory-method.html">
+                Replace Constructor with Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-error-code-with-exception.html">
+                Replace Error Code with Exception
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-exception-with-test.html">
+                Replace Exception with Test
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/dealing-with-generalization.html">
+                Dealing with Generalization
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../pull-up-field.html">
+                Pull Up Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-method.html">
+                Pull Up Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-constructor-body.html">
+                Pull Up Constructor Body
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-method.html">
+                Push Down Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-field.html">
+                Push Down Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-subclass.html">
+                Extract Subclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-superclass.html">
+                Extract Superclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-interface.html">
+                Extract Interface
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../collapse-hierarchy.html">
+                Collapse Hierarchy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../form-template-method.html">
+                Form Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-inheritance-with-delegation.html">
+                Replace Inheritance with Delegation
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-delegation-with-inheritance.html">
+                Replace Delegation with Inheritance
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </div>
+        <div class="sidebar-controls">
+            <div class="sidebar-controls-container">
+                <a href="../login.html" title="Conectar"><i
+                            class="fa fa-fw fa-fw fa-user"></i> Conectar</a>
+                <a href="https://feedback.refactoring.guru/" class="userecho-public" rel="nofollow" title="Avaliação"><i class="fa fa-fw fa-fw fa-envelope" aria-hidden="true"></i> Contate-nos</a>
+            </div>
+        </div>
+    </div>
+</aside>
+    <footer class="footer center-content">
+    <div class="footer-container center-content-container">
+        <div class="footer-inner container-fluid">
+            <div class="row">
+                <div class="col-8 col-md-10">
+                    <ul class="footer-list footer-list-horizontal">
+                        <li><a href="../../pt-br.html">Página inicial</a></li>
+                        <li><a href="../refactoring.html">Refatoração</a></li>
+                        <li><a href="../design-patterns.html">Padrões de Projeto</a></li>
+                        <li><a href="../store.html">Conteúdo Premium</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-public">Fórum</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-private">Contate-nos</a></li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-2">
+                    <ul class="footer-list footer-list-iconic">
+                                                    <li><a href="https://www.facebook.com/refactoring.guru"><i class="fa fa-facebook-official"></i></a></li>
+                                                <li><a href="../sendy/form.html" rel="nofollow"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/RefactoringGuru"><i class="fa fa-github-circled"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-second">
+        <div class="footer-container center-content-container">
+            <div class="footer-inner container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <i class="fa fa-fw fa-copyright"></i> 2014-2022 <a href="../../pt-br.html">Refactoring.Guru</a>. <span style="white-space: nowrap">Todos os direitos reservados</span><br>
+                        <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234">
+                            <img class="fa-fw" style="height: 0.8rem;" src="../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                        </object> Khmelnitske shosse 19 / 27, Kamianets-Podilskyi, Ucrânia, 32305<br>
+                        <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+
+                        <div class="mt-2">
+                            <i class="fa fa-fw fa-image"></i> Ilustrações por <a href="http://zhart.us/" rel="nofollow"><span style="white-space: nowrap">Dmitry Zhart</span></a></div>
+                    </div>
+                    <div class="footer-links-right col-12 col-sm-4 mt-4 mt-sm-0">
+                        <div class="row">
+                            <div class="col-8 col-sm-12">
+                                <ul class="footer-list">
+                                    <li><a href="../terms.html"><span>Temos e condições</span></a>
+                                    </li>
+                                    <li><a href="../privacy-policy.html"><span>Política de privacidade</span></a>
+                                    </li>
+                                    <li><a href="../content-usage-policy.html"><span>Política de uso do contéudo</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+
+    <script>
+function extend(){var extended={};var deep=false;var i=0;var length=arguments["length"];if(Object["prototype"]["toString"]["call"](arguments[0])=== '[object Boolean]'){deep= arguments[0];i++};var merge=function(obj){for(var prop in obj){if(Object["prototype"]["hasOwnProperty"]["call"](obj,prop)){if(deep&& Object["prototype"]["toString"]["call"](obj[prop])=== '[object Object]'){extended[prop]= extend(true,extended[prop],obj[prop])}else {extended[prop]= obj[prop]}}}};for(;i< length;i++){var obj=arguments[i];merge(obj)};return extended}
+function defer(method) {if (window.jQuery) {method();} else {setTimeout(function() { defer(method) }, 50);}}
+</script>
+<script>
++function(sd){sd = (typeof sd === "string") ? JSON.parse(atob(sd)) : sd;for(var property in sd){if(window[property]!== null&&  typeof window[property]=== 'object'){window[property]= extend(true,window[property],sd[property])}else {window[property]= sd[property]}}}("eyJsb2NhbGUiOiJwdC1iciIsImxvY2FsZV9wcmVmaXgiOiJwdC1iclwvIiwibG9jYWxpemVkX3VybF9wcmVmaXhfbSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC9wdC1iclwvIiwidXJsX3ByZWZpeF9tIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImxvY2FsaXplZF91cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcL3B0LWJyXC8iLCJ1cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImNoaW5lc2VfaG9tZSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZ2d1cnUuY25cLyIsInVzZXJfZWNob19hbGlhcyI6InJlZmFjdG9yaW5nIiwidXNlcl9lY2hvX2hvc3QiOiJmZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1IiwidXNlcl9lY2hvX3ByaXZhdGVfZm9ydW0iOiIyIiwidXNlcl9lY2hvX2xvY2FsZSI6InB0LWJyIiwidXNlcl9lY2hvX3B1YmxpY19mb3J1bSI6IjMiLCJ1c2VyX2VjaG9fcHVibGljX2ZvcnVtX3VybCI6Imh0dHBzOlwvXC9mZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1c2VyX2VjaG9fc3NvX3Rva2VuIjoiIn0=");
+</script>
+
+    <script defer>
+        if (window.dataLayer && window.google_optimize) {
+            window.dataLayer.push({'event': 'optimize.activate'});
+        }
+    </script>
+ 
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+        {'GTM-M58XZN4':true});</script>
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com/">
+<script>
+    var getCookie = function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    };
+    var eraseCookie = function (name) {
+        document.cookie = name+'=; Path=/; Max-Age=-99999999;';
+    };
+
+    window.google_analytics = 'UA-521840-40';
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+
+    var ga_queue = [];
+    window.gaOnCreate = function(){
+        ga_queue.push(arguments);
+    };
+
+            doTracking();
+    
+    function doTracking(clientId) {
+        window.gaOnCreate = function(){
+            ga.apply(this, arguments);
+        };
+
+        var options = {
+            'siteSpeedSampleRate': 100
+        };
+        if (clientId) {
+            options.clientId = clientId;
+        }
+        ga('create', 'UA-521840-40', options);
+
+                    ga('require', 'GTM-M58XZN4');
+            window.google_optimize = 'GTM-M58XZN4';
+        
+        // Fix broken Social Login referrer.
+        window.social_login_provider = window.social_login_provider || getCookie('social_login_provider');
+        if (window.social_login_provider) {
+            ga('set', 'referrer', null);
+            ga('send', 'social', window.social_login_provider, 'login', window.location.href);
+            eraseCookie('social_login_provider');
+        }
+
+        var user_id = getCookie('user_id');
+        if (user_id) {
+            ga('set', 'userId', user_id);
+        } else {
+            ga('set', 'userId', null);
+        }
+
+        var location = document.location.href;
+        if (typeof window.analytics_path_prefix === 'string') {
+            if (/^(https?:\/\/[^\/]+?)\/$/.test(location)) {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix);
+            }
+            else {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix + '/');
+            }
+            ga('set', 'location', location);
+        }
+
+        if (typeof window.analytics_location_prefix === 'string') {
+            location = location.replace(/(https?:\/\/[^\/]+?)\//, window.analytics_location_prefix);
+            ga('set', 'location', location);
+        }
+
+        ga('require', 'ec');
+        ga('send', 'pageview', (typeof window.analytics_path_prefix === 'string' ? window.analytics_path_prefix : '') + document.location.pathname);
+
+        ga_queue.forEach(function(item){
+            ga.apply(this, item);
+        });
+    }
+</script>
+
+<script defer>
+    window.socialLikesButtons = {
+                facebook: {
+            counterUrl: "",
+            convertNumber: null
+        },
+                        };
+</script>
+
+<script defer>
+    var CodeMirrorScripts = ["/js/codemirror.min.js?id=24aa863dfde7c99eb17d4102684aea27"];
+</script>
+
+
+
+    <script>window.loadContent = true;window.loadCart = true;</script>
+</body>
+
+<!-- Mirrored from refactoring.guru/pt-br/design-patterns/command by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:21:31 GMT -->
+</html>

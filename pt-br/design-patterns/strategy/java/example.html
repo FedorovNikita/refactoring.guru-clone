@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<!-- Mirrored from refactoring.guru/pt-br/design-patterns/strategy/java/example by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:25:25 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+    <meta charset="utf-8">
+    <title>Padrões de Projeto: Strategy em Java</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="alternate" href="../../../../design-patterns/strategy/java/example.html" hreflang="x-default"/>
+    <link rel="alternate" href="../../../../es/design-patterns/strategy/java/example.html" hreflang="es"/>
+    <link rel="alternate" href="../../../../fr/design-patterns/strategy/java/example.html" hreflang="fr"/>
+    <link rel="alternate" href="../../../../ja/design-patterns/strategy/java/example.html" hreflang="ja"/>
+    <link rel="alternate" href="../../../../ko/design-patterns/strategy/java/example.html" hreflang="ko"/>
+    <link rel="alternate" href="../../../../pl/design-patterns/strategy/java/example.html" hreflang="pl"/>
+    <link rel="alternate" href="example.html" hreflang="pt-br"/>
+    <link rel="alternate" href="../../../../ru/design-patterns/strategy/java/example.html" hreflang="ru"/>
+    <link rel="alternate" href="../../../../uk/design-patterns/strategy/java/example.html" hreflang="uk"/>
+    <link rel="alternate" href="https://refactoringguru.cn/design-patterns/strategy/java/example" hreflang="zh"/>
+
+    <meta name="description" content="Strategy em Java. Exemplo completo de código em Java com comentários e explicações detalhadas. O Strategy é um padrão de projeto comportamental que transforma um conjunto de comportamentos em objetos e os torna intercambiáveis dentro do objeto de contexto original.">
+
+    <link rel="canonical" href="example.html"/>
+
+    <link rel="icon" type="image/x-icon" href="../../../../favicon.png"/>
+
+<script type="application/ld+json">
+{"@context": "http://schema.org", "@graph": [{"@type":"Person","@id":"https://refactoring.guru/pt-br#founder","name":"Alexander Shvets"},{"@type":"Organization","@id":"https://refactoring.guru/pt-br#organization","name":"Refactoring.Guru","description":"O Refactoring.Guru torna mais fácil para você descobrir tudo que você precisa saber sobre refatoração, padrões de projeto, princípios SOLID, e outros tópicos de programação inteligente.","image":{"@type":"ImageObject","@id":"https://refactoring.guru/pt-br#organizationlogo","url":"https://refactoring.guru/pt-brimages/content-public/logos/logo-plain.png","caption":"Refactoring.Guru"},"logo":{"@id":"https://refactoring.guru/pt-br#organizationlogo"},"founder":{"@id":"https://refactoring.guru/pt-br#founder"},"sameAs":["https://www.facebook.com/refactoring.guru","https://twitter.com/RefactoringGuru","https://github.com/RefactoringGuru"]},{"@type":"WebSite","@id":"https://refactoring.guru/pt-br#website","url":"https://refactoring.guru/pt-br","name":"Refactoring.Guru","description":"O Refactoring.Guru torna mais fácil para você descobrir tudo que você precisa saber sobre refatoração, padrões de projeto, princípios SOLID, e outros tópicos de programação inteligente.","author":{"@id":"https://refactoring.guru/pt-br#founder"},"publisher":{"@id":"https://refactoring.guru/pt-br#organization"},"copyrightYear":2014},{"@type":"WebPage","@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#webpage","url":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example","inLanguage":"pt-br","name":"Padrões de Projeto: Strategy em Java","description":"Strategy em Java. Exemplo completo de código em Java com comentários e explicações detalhadas. O Strategy é um padrão de projeto comportamental que transforma um conjunto de comportamentos em objetos e os torna intercambiáveis dentro do objeto de contexto original.","isPartOf":{"@id":"https://refactoring.guru/pt-br#website"},"breadcrumb":{"@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#breadcrumb"},"primaryImageOfPage":{"@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#primaryimage"},"image":{"@type":"ImageObject","@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#primaryimage","url":"https://refactoring.guru/images/patterns/cards/strategy-mini-3x.png","width":420,"height":300}},{"@type":"Article","@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#article","isPartOf":{"@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#webpage"},"mainEntityOfPage":{"@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#webpage"},"author":{"@id":"https://refactoring.guru/pt-br#founder"},"publisher":{"@id":"https://refactoring.guru/pt-br#organization"},"headline":"Padrões de Projeto: Strategy em Java","datePublished":"2021-01-01","dateModified":"2022-01-01","articleSection":"Strategy","image":{"@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#primaryimage"}},{"@type":"BreadcrumbList","@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Página inicial","item":"https://refactoring.guru/pt-br"},{"@type":"ListItem","position":2,"name":"Padrões de Projeto","item":"https://refactoring.guru/pt-br/design-patterns"},{"@type":"ListItem","position":3,"name":"Strategy","item":"https://refactoring.guru/pt-br/design-patterns/strategy"},{"@type":"ListItem","position":4,"name":"Java","item":"https://refactoring.guru/pt-br/design-patterns/java"}]},{"@type":"SoftwareSourceCode","@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#code","isPartOf":{"@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#webpage"},"mainEntityOfPage":{"@id":"https://refactoring.guru/pt-br/design-patterns/strategy/java/example#webpage"},"author":{"@id":"https://refactoring.guru/pt-br#founder"},"publisher":{"@id":"https://refactoring.guru/pt-br#organization"},"headline":"Padrões de Projeto: Strategy em Java","datePublished":"2021-01-01","dateModified":"2022-01-01","programmingLanguage":"Java","codeSampleType":"full"}] }
+</script>
+
+<meta property="fb:app_id" content="666819623386327" />
+<meta property="og:type"  content="website" />
+<meta property="og:image" content="https://refactoring.guru/pt-br/images/refactoring/social/facebook-share-preview.png?id=dbf9e98269595be86eb668f365be6868"/>
+
+        <link rel="stylesheet" href="../../../../css/public-packed.min29c2.css?id=72df70415a2662bdd8f64ffd40983c30">
+
+<style type="text/css">
+    @font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../../../fonts/PTSans/ptsans-regular_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../../../fonts/PTSans/ptsans-regular_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../../../fonts/PTSans/ptsans-regular_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../../../fonts/PTSans/ptsans-regular_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../../../fonts/PTSans/ptsans-bold_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../../../fonts/PTSans/ptsans-bold_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../../../fonts/PTSans/ptsans-bold_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../../../fonts/PTSans/ptsans-bold_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<link rel="preload" href="../../../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../../../fonts/fontello/fontawesomea92a.woff2?15843843" as="font" type="font/woff2" crossorigin>
+
+
+<script defer src="../../../../js/public.min1749.js?id=77d40430343920ca57d184f85668a382"></script>
+
+
+
+</head>
+<body class="locale-pt-br    announcement   strategy-in-java" data-body_class="strategy-in-java">
+
+<div class="body-holder">
+
+
+            <div class="announcement-block prom" data-id="DIDP-announcement" data-creative-id="pt-br" data-position="top"><div class="announcement-block-inner">
+            <img src="../../../../images/content-public/announcement-pt-br-13368.svg?id=b246783e4968337574a9760c56b0835d" loading="lazy" style="width: 36px; height:36px;">
+            Ei, acabamos de reduzir o preço de todos os produtos. Vamos capacitar nossas habilidades de programação para a era pós-COVID. <a href="../../../store.html">Veja as ofertas »</a>
+            </div></div>
+    
+    <div class="cart-placeholder">
+    <div class="cart-block-container" style="display:none">
+        <div class="cart-block btn-group">
+            <a href="#checkout" class="btn cart open-checkout">
+                <span class="cart-text"></span>&nbsp;<strong class="cart-total font-money"></strong>
+            </a><a href="#checkout" class="btn btn-secondary checkout open-checkout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="btn-text-span d-none d-sm-inline-block d-lg-none d-hg-inline-block"></span></a>
+        </div>
+    </div>
+</div>
+    <main role="main" class="main-content top-content center-content " data-page_class="">
+        <div class="main-content-container center-content-container">
+                        <div class="pattern pattern-example page text">
+<article>
+    <div class="breadcrumb">
+                                    <a class="home" href="../../../../index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                                / <a class="type" href="../../../design-patterns.html">Padrões de Projeto</a>
+                                                / <a class="type" href="../../strategy.html">Strategy</a>
+                                                / <a class="type" href="../../java.html">Java</a>
+                        </div>
+
+    <a href="../../strategy.html" class="pattern-card-example strategy-in-java">
+        <span class="pattern-image"><img alt="Strategy" src="../../../../images/patterns/cards/strategy-mini28f6.png?id=d38abee4fb6f2aed909d262bdadca936" srcset="/images/patterns/cards/strategy-mini-2x.png?id=f4e6608561f8e5d18be6927d4620ad29 2x"></span>
+    </a>
+
+    <h1 class="title"><strong>Strategy</strong> em Java</h1>
+
+    <div class="pattern-example-brief">
+        <p class="big">O <b>Strategy</b> é um padrão de projeto comportamental que transforma um conjunto de comportamentos em objetos e os torna intercambiáveis dentro do objeto de contexto original.</p>
+<p>O objeto original, chamado contexto, mantém uma referência a um objeto strategy e o delega a execução do comportamento. Para alterar a maneira como o contexto executa seu trabalho, outros objetos podem substituir o objeto strategy atualmente vinculado por outro.</p>
+
+    </div>
+
+    <div style="text-align:center; margin-bottom: 40px;">
+        <a href="../../strategy.html" class="btn btn-lg btn-primary"><i class="fa fa-newspaper" aria-hidden="true"></i> Saiba mais sobre o Strategy <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+
+        <h2 id="lang-features">Uso do padrão em Java</h2>
+
+    <p><strong>Complexidade:</strong> <span class="fa-stars"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></p>
+<p><strong>Popularidade:</strong> <span class="fa-stars"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i></span></p>
+<p><strong>Exemplos de uso:</strong> O padrão Strategy é muito comum no código Java. É frequentemente usado em várias estruturas para fornecer aos usuários uma maneira de alterar o comportamento de uma classe sem estendê-la.</p>
+<p>O Java 8 trouxe o suporte de funções lambda, que podem servir como alternativas mais simples ao padrão Strategy.</p>
+<p>Aqui estão alguns exemplos do padrão Strategy nas principais bibliotecas Java:</p>
+<ul>
+<li>
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#compare-T-T-"><code>java.util.Comparator#compare()</code></a> chamado a partir do <code>Collections#sort()</code>.</p>
+</li>
+<li>
+<p><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html"><code>javax.servlet.http.HttpServlet</code></a>: método <code>service()</code>, mais todos os métodos <code>doXXX()</code> que aceitam objetos <code>HttpServletRequest</code> e <code>HttpServletResponse</code> como argumentos.</p>
+</li>
+<li>
+<p><a href="https://docs.oracle.com/javaee/7/api/javax/servlet/Filter.html#doFilter-javax.servlet.ServletRequest-javax.servlet.ServletResponse-javax.servlet.FilterChain-"><code>javax.servlet.Filter#doFilter()</code></a></p>
+</li>
+</ul>
+<p><strong>Identificação:</strong> O padrão Strategy pode ser reconhecido por um método que permite que o objeto aninhado faça o trabalho real, bem como pelo setter que permite substituir esse objeto por outro diferente.</p>
+
+    
+    <div class="sidebar-navigation with-scroll">
+            
+        <div class="en-title">
+            Navegação
+        </div>
+
+                    
+        <div class="en-intro">
+            <i class="fa fa-fw fa-newspaper" aria-hidden="true"></i>&nbsp;<a href="#">Introdução</a>
+        </div>
+
+                    
+        <div class="en-intro">
+            <i class="fa fa-fw fa-newspaper" aria-hidden="true"></i>&nbsp;<a href="#example-0">Método de pagamento em uma aplicação de e-commerce</a>
+        </div>
+
+                    
+        <div class="en-file">
+            <i class="fa fa-fw fa-folder-open" aria-hidden="true"></i>&nbsp;strategies
+        </div>
+
+                                <div class="en-inside">
+        
+        <div class="en-file">
+            <i class="fa fa-fw fa-angle-right" aria-hidden="true"></i>&nbsp;<i class="fa fa-fw fa-file-code" aria-hidden="true"></i>&nbsp;<a href="#example-0--strategies-PayStrategy-java">Pay&shy;Strategy</a>
+        </div>
+
+                    </div>
+                                <div class="en-inside">
+        
+        <div class="en-file">
+            <i class="fa fa-fw fa-angle-right" aria-hidden="true"></i>&nbsp;<i class="fa fa-fw fa-file-code" aria-hidden="true"></i>&nbsp;<a href="#example-0--strategies-PayByPayPal-java">Pay&shy;By&shy;Pay&shy;Pal</a>
+        </div>
+
+                    </div>
+                                <div class="en-inside">
+        
+        <div class="en-file">
+            <i class="fa fa-fw fa-angle-right" aria-hidden="true"></i>&nbsp;<i class="fa fa-fw fa-file-code" aria-hidden="true"></i>&nbsp;<a href="#example-0--strategies-PayByCreditCard-java">Pay&shy;By&shy;Credit&shy;Card</a>
+        </div>
+
+                    </div>
+                                <div class="en-inside">
+        
+        <div class="en-file">
+            <i class="fa fa-fw fa-angle-right" aria-hidden="true"></i>&nbsp;<i class="fa fa-fw fa-file-code" aria-hidden="true"></i>&nbsp;<a href="#example-0--strategies-CreditCard-java">Credit&shy;Card</a>
+        </div>
+
+                    </div>
+                                <div class="en-inside">
+        
+        <div class="en-file">
+            <i class="fa fa-fw fa-angle-right" aria-hidden="true"></i>&nbsp;<i class="fa fa-fw fa-file-code" aria-hidden="true"></i>&nbsp;<a href="#example-0--order-Order-java">Order</a>
+        </div>
+
+                    </div>
+                    
+        <div class="en-file">
+            <i class="fa fa-fw fa-file-code" aria-hidden="true"></i>&nbsp;<a href="#example-0--Demo-java">Demo</a>
+        </div>
+
+                    
+        <div class="en-file">
+            <i class="fa fa-fw fa-file-text" aria-hidden="true"></i>&nbsp;<a href="#example-0--OutputDemo-txt">Output&shy;Demo</a>
+        </div>
+
+                </div>
+
+            <a id="example-0"></a>
+                    <h2 id="example-0-title">Método de pagamento em uma aplicação de e-commerce</h2>
+            <p>Neste exemplo, o padrão Strategy é usado para implementar os vários métodos de pagamento em uma aplicação de e-commerce. Depois de selecionar um produto para comprar, o cliente escolhe uma forma de pagamento: Paypal ou cartão de crédito.</p>
+<p>Strategies concretos não apenas executam o pagamento real, mas também alteram o comportamento do formulário de pagamento, fornecendo campos apropriados para registrar os detalhes do pagamento.</p>
+<h2 class="example-title"><a class="anchor" id="example-0--strategies"><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i></a> <strong>strategies</strong> </h2><h4><a class="anchor" id="example-0--strategies-PayStrategy-java"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i></a> <strong>strategies/PayStrategy.java:</strong>  Interface comum de métodos de pagamento</h4>
+<figure class="code">
+<pre class="code" lang="java">package refactoring_guru.strategy.example.strategies;
+
+/**
+ * Common interface for all strategies.
+ */
+public interface PayStrategy {
+    boolean pay(int paymentAmount);
+    void collectPaymentDetails();
+}
+</pre>
+</figure>
+<h4><a class="anchor" id="example-0--strategies-PayByPayPal-java"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i></a> <strong>strategies/PayByPayPal.java:</strong>  Pagamento via PayPal</h4>
+<figure class="code">
+<pre class="code" lang="java">package refactoring_guru.strategy.example.strategies;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Concrete strategy. Implements PayPal payment method.
+ */
+public class PayByPayPal implements PayStrategy {
+    private static final Map&lt;String, String&gt; DATA_BASE = new HashMap&lt;&gt;();
+    private final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
+    private String email;
+    private String password;
+    private boolean signedIn;
+
+    static {
+        DATA_BASE.put(&quot;amanda1985&quot;, &quot;amanda@ya.com&quot;);
+        DATA_BASE.put(&quot;qwerty&quot;, &quot;john@amazon.eu&quot;);
+    }
+
+    /**
+     * Collect customer's data.
+     */
+    @Override
+    public void collectPaymentDetails() {
+        try {
+            while (!signedIn) {
+                System.out.print(&quot;Enter the user's email: &quot;);
+                email = READER.readLine();
+                System.out.print(&quot;Enter the password: &quot;);
+                password = READER.readLine();
+                if (verify()) {
+                    System.out.println(&quot;Data verification has been successful.&quot;);
+                } else {
+                    System.out.println(&quot;Wrong email or password!&quot;);
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private boolean verify() {
+        setSignedIn(email.equals(DATA_BASE.get(password)));
+        return signedIn;
+    }
+
+    /**
+     * Save customer data for future shopping attempts.
+     */
+    @Override
+    public boolean pay(int paymentAmount) {
+        if (signedIn) {
+            System.out.println(&quot;Paying &quot; + paymentAmount + &quot; using PayPal.&quot;);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void setSignedIn(boolean signedIn) {
+        this.signedIn = signedIn;
+    }
+}
+</pre>
+</figure>
+<h4><a class="anchor" id="example-0--strategies-PayByCreditCard-java"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i></a> <strong>strategies/PayByCreditCard.java:</strong>  Pagamento via cartão de crédito</h4>
+<figure class="code">
+<pre class="code" lang="java">package refactoring_guru.strategy.example.strategies;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/**
+ * Concrete strategy. Implements credit card payment method.
+ */
+public class PayByCreditCard implements PayStrategy {
+    private final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
+    private CreditCard card;
+
+    /**
+     * Collect credit card data.
+     */
+    @Override
+    public void collectPaymentDetails() {
+        try {
+            System.out.print(&quot;Enter the card number: &quot;);
+            String number = READER.readLine();
+            System.out.print(&quot;Enter the card expiration date 'mm/yy': &quot;);
+            String date = READER.readLine();
+            System.out.print(&quot;Enter the CVV code: &quot;);
+            String cvv = READER.readLine();
+            card = new CreditCard(number, date, cvv);
+
+            // Validate credit card number...
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * After card validation we can charge customer's credit card.
+     */
+    @Override
+    public boolean pay(int paymentAmount) {
+        if (cardIsPresent()) {
+            System.out.println(&quot;Paying &quot; + paymentAmount + &quot; using Credit Card.&quot;);
+            card.setAmount(card.getAmount() - paymentAmount);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean cardIsPresent() {
+        return card != null;
+    }
+}
+</pre>
+</figure>
+<h4><a class="anchor" id="example-0--strategies-CreditCard-java"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i></a> <strong>strategies/CreditCard.java:</strong>  Uma classe de cartão de crédito</h4>
+<figure class="code">
+<pre class="code" lang="java">package refactoring_guru.strategy.example.strategies;
+
+/**
+ * Dummy credit card class.
+ */
+public class CreditCard {
+    private int amount;
+    private String number;
+    private String date;
+    private String cvv;
+
+    CreditCard(String number, String date, String cvv) {
+        this.amount = 100_000;
+        this.number = number;
+        this.date = date;
+        this.cvv = cvv;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+}
+</pre>
+</figure>
+<h4><a class="anchor" id="example-0--order-Order-java"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i></a> <strong>order/Order.java:</strong>  Classe do pedido</h4>
+<figure class="code">
+<pre class="code" lang="java">package refactoring_guru.strategy.example.order;
+
+import refactoring_guru.strategy.example.strategies.PayStrategy;
+
+/**
+ * Order class. Doesn't know the concrete payment method (strategy) user has
+ * picked. It uses common strategy interface to delegate collecting payment data
+ * to strategy object. It can be used to save order to database.
+ */
+public class Order {
+    private int totalCost = 0;
+    private boolean isClosed = false;
+
+    public void processOrder(PayStrategy strategy) {
+        strategy.collectPaymentDetails();
+        // Here we could collect and store payment data from the strategy.
+    }
+
+    public void setTotalCost(int cost) {
+        this.totalCost += cost;
+    }
+
+    public int getTotalCost() {
+        return totalCost;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed() {
+        isClosed = true;
+    }
+}
+</pre>
+</figure>
+<h4><a class="anchor" id="example-0--Demo-java"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i></a> <strong>Demo.java:</strong>  Código cliente</h4>
+<figure class="code">
+<pre class="code" lang="java">package refactoring_guru.strategy.example;
+
+import refactoring_guru.strategy.example.order.Order;
+import refactoring_guru.strategy.example.strategies.PayByCreditCard;
+import refactoring_guru.strategy.example.strategies.PayByPayPal;
+import refactoring_guru.strategy.example.strategies.PayStrategy;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * World first console e-commerce application.
+ */
+public class Demo {
+    private static Map&lt;Integer, Integer&gt; priceOnProducts = new HashMap&lt;&gt;();
+    private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static Order order = new Order();
+    private static PayStrategy strategy;
+
+    static {
+        priceOnProducts.put(1, 2200);
+        priceOnProducts.put(2, 1850);
+        priceOnProducts.put(3, 1100);
+        priceOnProducts.put(4, 890);
+    }
+
+    public static void main(String[] args) throws IOException {
+        while (!order.isClosed()) {
+            int cost;
+
+            String continueChoice;
+            do {
+                System.out.print(&quot;Please, select a product:&quot; + &quot;\n&quot; +
+                        &quot;1 - Mother board&quot; + &quot;\n&quot; +
+                        &quot;2 - CPU&quot; + &quot;\n&quot; +
+                        &quot;3 - HDD&quot; + &quot;\n&quot; +
+                        &quot;4 - Memory&quot; + &quot;\n&quot;);
+                int choice = Integer.parseInt(reader.readLine());
+                cost = priceOnProducts.get(choice);
+                System.out.print(&quot;Count: &quot;);
+                int count = Integer.parseInt(reader.readLine());
+                order.setTotalCost(cost * count);
+                System.out.print(&quot;Do you wish to continue selecting products? Y/N: &quot;);
+                continueChoice = reader.readLine();
+            } while (continueChoice.equalsIgnoreCase(&quot;Y&quot;));
+
+            if (strategy == null) {
+                System.out.println(&quot;Please, select a payment method:&quot; + &quot;\n&quot; +
+                        &quot;1 - PalPay&quot; + &quot;\n&quot; +
+                        &quot;2 - Credit Card&quot;);
+                String paymentMethod = reader.readLine();
+
+                // Client creates different strategies based on input from user,
+                // application configuration, etc.
+                if (paymentMethod.equals(&quot;1&quot;)) {
+                    strategy = new PayByPayPal();
+                } else {
+                    strategy = new PayByCreditCard();
+                }
+            }
+
+            // Order object delegates gathering payment data to strategy object,
+            // since only strategies know what data they need to process a
+            // payment.
+            order.processOrder(strategy);
+
+            System.out.print(&quot;Pay &quot; + order.getTotalCost() + &quot; units or Continue shopping? P/C: &quot;);
+            String proceed = reader.readLine();
+            if (proceed.equalsIgnoreCase(&quot;P&quot;)) {
+                // Finally, strategy handles the payment.
+                if (strategy.pay(order.getTotalCost())) {
+                    System.out.println(&quot;Payment has been successful.&quot;);
+                } else {
+                    System.out.println(&quot;FAIL! Please, check your data.&quot;);
+                }
+                order.setClosed();
+            }
+        }
+    }
+}
+</pre>
+</figure>
+<h4><a class="anchor" id="example-0--OutputDemo-txt"><i class="fa fa-fw fa-file-text" aria-hidden="true"></i></a> <strong>OutputDemo.txt:</strong>  Resultados da execução</h4>
+<figure class="code">
+<pre class="code" lang="output">Please, select a product:
+1 - Mother board
+2 - CPU
+3 - HDD
+4 - Memory
+1
+Count: 2
+Do you wish to continue selecting products? Y/N: y
+Please, select a product:
+1 - Mother board
+2 - CPU
+3 - HDD
+4 - Memory
+2
+Count: 1
+Do you wish to continue selecting products? Y/N: n
+Please, select a payment method:
+1 - PalPay
+2 - Credit Card
+1
+Enter the user's email: user@example.com
+Enter the password: qwerty
+Wrong email or password!
+Enter user email: amanda@ya.com
+Enter password: amanda1985
+Data verification has been successful.
+Pay 6250 units or Continue shopping?  P/C: p
+Paying 6250 using PayPal.
+Payment has been successful.
+</pre>
+</figure>
+
+            
+    
+
+    </article>
+
+<nav class="prev-next">
+                    <div class="next">
+                <h4>Leia a seguir</h4>
+                <a rel="next" href="../../template-method/java/example.html" class="btn btn-primary">Padrões de Projeto: Template Method em Java&nbsp;<span class="fa fa-arrow-right"></span></a>
+            </div>
+                            <div class="prev">
+                <h4>Voltar</h4>
+                <a rel="prev" href="../../state/java/example.html" class="btn btn-default"><span class="fa fa-arrow-left"></span>&nbsp;Padrões de Projeto: State em Java </a>
+            </div>
+            </nav>
+
+<h2><strong>Strategy</strong> em outras linguagens</h2>
+
+<a href="../csharp/example.html" title="Padrões de Projeto: Strategy em C#" class="prog-lang-link"><img src="../../../../images/patterns/icons/csharp8c8a.svg?id=da64592defc6e86d57c39c66e9de3e58" alt="Padrões de Projeto: Strategy em C#"></a>
+<a href="../cpp/example.html" title="Padrões de Projeto: Strategy em C++" class="prog-lang-link"><img src="../../../../images/patterns/icons/cpp9770.svg?id=f7782ed8b8666246bfcc3f8fefc3b858" alt="Padrões de Projeto: Strategy em C++"></a>
+<a href="../php/example.html" title="Padrões de Projeto: Strategy em PHP" class="prog-lang-link"><img src="../../../../images/patterns/icons/phpb8be.svg?id=be1906eb26b71ec1d3b93720d6156618" alt="Padrões de Projeto: Strategy em PHP"></a>
+<a href="../python/example.html" title="Padrões de Projeto: Strategy em Python" class="prog-lang-link"><img src="../../../../images/patterns/icons/python25f6.svg?id=6d815d43c0f7050a1151b43e51569c9f" alt="Padrões de Projeto: Strategy em Python"></a>
+<a href="../ruby/example.html" title="Padrões de Projeto: Strategy em Ruby" class="prog-lang-link"><img src="../../../../images/patterns/icons/ruby3275.svg?id=b065b718c914bf8e960ef731600be1eb" alt="Padrões de Projeto: Strategy em Ruby"></a>
+<a href="../swift/example.html" title="Padrões de Projeto: Strategy em Swift" class="prog-lang-link"><img src="../../../../images/patterns/icons/swift68dd.svg?id=0b716c2d52ec3a48fbe91ac031070c1d" alt="Padrões de Projeto: Strategy em Swift"></a>
+<a href="../typescript/example.html" title="Padrões de Projeto: Strategy em TypeScript" class="prog-lang-link"><img src="../../../../images/patterns/icons/typescript325e.svg?id=2239d0f16cb703540c205dd8cb0c0cb7" alt="Padrões de Projeto: Strategy em TypeScript"></a>
+<a href="../go/example.html" title="Padrões de Projeto: Strategy em Go" class="prog-lang-link"><img src="../../../../images/patterns/icons/go3287.svg?id=1a89927eb99b1ea3fde7701d97970aca" alt="Padrões de Projeto: Strategy em Go"></a>
+
+</div>
+
+<aside class="feature content-secondary">
+    <div class="prom banner-sidebar banner banner-striped banner-examples" data-id="DP: Examples-IDE" data-creative-id="examples-sidebar-pt-br" data-position="sidebar">
+        <div class="banner-inner" style="font-size: 14px; line-height: 21px;">
+            <div class="banner-examples-img">
+                <a href="../../book.html">
+                    <img width="215" height="158" loading="lazy" src="../../../../images/patterns/banners/examples-ide91ca.png?id=3115b4b548fb96b75974e2de8f4f49bc" srcset="/images/patterns/banners/examples-ide-2x.png?id=93c007a6d157b97c28eb213f59d716ae 2x">
+                </a>
+            </div>
+            <div class="banner-examples-fade">
+                <a href="../../book.html" class="btn btn-secondary btn-block"><i class="fa fa-file-archive" aria-hidden="true"></i> Arquivo com exemplos de código</a>
+            </div>
+            <div class="banner-examples-text" style="margin-top: 1rem;">
+                <p>Compre o eBook <b>Mergulho nos Padrões de Projeto</b> e tenha acesso ao arquivo com dúzias de exemplos detalhados que podem ser abertos diretamente em seu IDE.</p>
+                <a href="../../book.html" class="btn btn-secondary btn-block"><i class="fa fa-book" aria-hidden="true"></i> Saiba mais…</a>
+            </div>
+        </div>
+    </div>
+
+
+</aside>
+                    </div>
+    </main>
+
+    <nav class="navigation" role="navigation">
+    <div class="navigation-container">
+        <a href="#menu" class="navigation-toggle"><i class="fa fa-bars"></i></a>
+        <a class="navigation-brand" href="../../../../pt-br.html">
+            <img alt="Refactoring.Guru" src="../../../../images/content-public/logos/logo-military-mobile78b4.png?id=65ecbd1e688fc695bc20c22a1e8450d9" srcset="/images/content-public/logos/logo-military-mobile-2x.png?id=0f52141f57f67fb678da8407e254b0a3 2x"
+                  width="94"                   height="64"             >
+        </a>
+        <div class="social-likes-block" data-url="../../../../index.html">
+    <div data-service="facebook" class="facebook" title="Compartilhe no Facebook">Facebook</div>
+        <div data-service="twitter" class="twitter" title="Compartilhe no Twiter">Twitter</div>
+</div>        <ul class="navigation-menu">
+                        <li class="dropdown d-lg-none">
+                <a class="dropdown-toggle" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-globe" aria-hidden="true"></i> <span class="caption d-none d-xl-inline-block">Idioma</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguage">
+                                                                                                        <a href="../../../../design-patterns/strategy/java/example.html" class="dropdown-item locale-link " data-locale="en" title="English">English</a>
+                                                                                                                <a href="../../../../es/design-patterns/strategy/java/example.html" class="dropdown-item locale-link " data-locale="es" title="Español">Español</a>
+                                                                                                                <a href="../../../../fr/design-patterns/strategy/java/example.html" class="dropdown-item locale-link " data-locale="fr" title="Français">Français</a>
+                                                                                                                                                                                                                        <a href="../../../../pl/design-patterns/strategy/java/example.html" class="dropdown-item locale-link " data-locale="pl" title="Polski">Polski</a>
+                                                                                                                <a href="example.html" class="dropdown-item locale-link active" data-locale="pt-br" title="Português Brasileiro">Português Brasileiro</a>
+                                                                                                                <a href="../../../../ru/design-patterns/strategy/java/example.html" class="dropdown-item locale-link " data-locale="ru" title="Русский">Русский</a>
+                                                                                                                <a href="../../../../uk/design-patterns/strategy/java/example.html" class="dropdown-item locale-link " data-locale="uk" title="Українська">Українська</a>
+                                                                                                                <a href="https://refactoringguru.cn/design-patterns/strategy/java/example" class="dropdown-item locale-link " data-locale="zh" title="中文">中文</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+            </li>
+                        <li class="nav-contact">
+                <a class="userecho-private" href="https://feedback.refactoring.guru/?show_feedback_form_private=true" rel="nofollow" title="Contate-nos">
+                    <i class="fa fa-envelope"></i> <span class="caption d-none d-xl-inline-block">Contate-nos</span>
+                </a>
+            </li>
+                                                <li class="nav-login">
+                        <a href="../../../login.html" title="Conectar"><i class="fa fa-user"></i> <span class="caption d-none d-xl-inline-block">Conectar</span></a>
+                    </li>
+                                    </ul>
+    </div>
+    <div>
+        <a class="russia-stop" href="../../../help-ukraine.html">
+                            Ajude a Ucrânia <b>a parar a Rússia</b>
+                    </a>
+    </div>
+</nav>
+    <aside class="sidebar main-menu nano">
+    <a href="#menu-close" class="navigation-toggle"><i class="fa fa-fw fa-times"></i></a>
+    <div class="nano-content">
+                    <div class="main-menu-lang d-none d-lg-flex main-menu-lang-count-8">
+                                                                                        <a href="../../../../design-patterns/strategy/java/example.html" class="locale-link locale-link-en " data-locale="en" title="English"><span class="d-lg-none">English</span><span class="d-none d-lg-inline">English</span></a>
+                                                                                                <a href="../../../../es/design-patterns/strategy/java/example.html" class="locale-link locale-link-es " data-locale="es" title="Español"><span class="d-lg-none">Español</span><span class="d-none d-lg-inline">Español</span></a>
+                                                                                                <a href="../../../../fr/design-patterns/strategy/java/example.html" class="locale-link locale-link-fr " data-locale="fr" title="Français"><span class="d-lg-none">Français</span><span class="d-none d-lg-inline">Français</span></a>
+                                                                                                                                                                                        <a href="../../../../pl/design-patterns/strategy/java/example.html" class="locale-link locale-link-pl " data-locale="pl" title="Polski"><span class="d-lg-none">Polski</span><span class="d-none d-lg-inline">Polski</span></a>
+                                                                                                <a href="example.html" class="locale-link locale-link-pt-br active" data-locale="pt-br" title="Português Brasileiro"><span class="d-lg-none">Português Brasileiro</span><span class="d-none d-lg-inline">Português-Br</span></a>
+                                                                                                <a href="../../../../ru/design-patterns/strategy/java/example.html" class="locale-link locale-link-ru " data-locale="ru" title="Русский"><span class="d-lg-none">Русский</span><span class="d-none d-lg-inline">Русский</span></a>
+                                                                                                <a href="../../../../uk/design-patterns/strategy/java/example.html" class="locale-link locale-link-uk " data-locale="uk" title="Українська"><span class="d-lg-none">Українська</span><span class="d-none d-lg-inline">Українська</span></a>
+                                                                                                <a href="https://refactoringguru.cn/design-patterns/strategy/java/example" class="locale-link locale-link-zh " data-locale="zh" title="中文"><span class="d-lg-none">中文</span><span class="d-none d-lg-inline">中文</span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+        
+        <a class="menu-brand" href="../../../../pt-br.html">
+                            <img width=200 height=241 loading="lazy" alt="Refactoring.Guru" src="../../../../images/content-public/logos/logo-militaryd1c3.png?id=3eaf203cb26279327252e2c5f5d37c7f" srcset="/images/content-public/logos/logo-military-2x.png?id=5af1a599d8a4170c9a42e6fa18148b98 2x">
+                    </a>
+        <div>
+            <a class="russia-stop" href="../../../help-ukraine.html">
+                                    Ajude a Ucrânia<br><b>a parar a Rússia</b>
+                            </a>
+        </div>
+
+
+        <div class="menu-container" style="position: relative">
+                        <ul class="menu-list">
+                            <li class="featured">
+            <a href="../../../store.html">
+                <i class="fa fa-fw fa-star" aria-hidden="true"></i> Conteúdo Premium
+            </a>
+    
+            <ul >
+                            <li class="featured menu-fs15">
+            <a href="../../book.html">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Mergulho nos<br>Padrões de Projeto
+            </a>
+    
+    
+            </li>
+                                <li class="featured menu-fs15">
+            <a href="../../../refactoring/course.html">
+                <i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Curso de Refatoração
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../design-patterns.html">
+                <i class="fa fa-fw fa-puzzle-piece" aria-hidden="true"></i> Padrões de Projeto
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../what-is-pattern.html">
+                O que é um padrão
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../what-is-pattern.html">
+                O que é um padrão de projeto?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../history.html">
+                História dos padrões
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../why-learn-patterns.html">
+                Por que devo aprender padrões?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../criticism.html">
+                Crítica dos padrões
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../classification.html">
+                Classificação dos padrões
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../catalog.html">
+                Catálogo
+            </a>
+    
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="../../creational-patterns.html">
+                Padrões criacionais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../factory-method.html">
+                Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../abstract-factory.html">
+                Abstract Factory
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../builder.html">
+                Builder
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../prototype.html">
+                Prototype
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../singleton.html">
+                Singleton
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="../../structural-patterns.html">
+                Padrões estruturais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../adapter.html">
+                Adapter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../bridge.html">
+                Bridge
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../composite.html">
+                Composite
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../decorator.html">
+                Decorator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../facade.html">
+                Facade
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../flyweight.html">
+                Flyweight
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../proxy.html">
+                Proxy
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="../../behavioral-patterns.html">
+                Padrões comportamentais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../chain-of-responsibility.html">
+                Chain of Responsibility
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../command.html">
+                Command
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../iterator.html">
+                Iterator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../mediator.html">
+                Mediator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../memento.html">
+                Memento
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../observer.html">
+                Observer
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../state.html">
+                State
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../strategy.html">
+                Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../template-method.html">
+                Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../visitor.html">
+                Visitor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-code-examples">
+            <a href="../../examples.html">
+                Exemplos de código
+            </a>
+    
+            <ul >
+                            <li class="menu-code-examples-item">
+            <a href="../../csharp.html">
+                C#
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../cpp.html">
+                C++
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../go.html">
+                Go
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../java.html">
+                Java
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../php.html">
+                PHP
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../python.html">
+                Python
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../ruby.html">
+                Ruby
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../swift.html">
+                Swift
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../typescript.html">
+                TypeScript
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring.html">
+                <i class="fa fa-fw fa-scissors" aria-hidden="true"></i> Refatoração <span style="font-size: 0.8rem">(em&nbsp;breve)</span>
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../refactoring/what-is-refactoring.html">
+                What is Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../refactoring/what-is-refactoring.html">
+                Clean code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/technical-debt.html">
+                Technical debt
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/when.html">
+                When to refactor
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/how-to.html">
+                How to refactor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells.html">
+                Code Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../refactoring/smells/bloaters.html">
+                Bloaters
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/long-method.html">
+                Long Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/large-class.html">
+                Large Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/primitive-obsession.html">
+                Primitive Obsession
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/long-parameter-list.html">
+                Long Parameter List
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/data-clumps.html">
+                Data Clumps
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells/oo-abusers.html">
+                Object-Orientation Abusers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/switch-statements.html">
+                Switch Statements
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/temporary-field.html">
+                Temporary Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/refused-bequest.html">
+                Refused Bequest
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/alternative-classes-with-different-interfaces.html">
+                Alternative Classes with Different Interfaces
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells/change-preventers.html">
+                Change Preventers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/divergent-change.html">
+                Divergent Change
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/shotgun-surgery.html">
+                Shotgun Surgery
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/parallel-inheritance-hierarchies.html">
+                Parallel Inheritance Hierarchies
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells/dispensables.html">
+                Dispensables
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/comments.html">
+                Comments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/duplicate-code.html">
+                Duplicate Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/lazy-class.html">
+                Lazy Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/data-class.html">
+                Data Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/dead-code.html">
+                Dead Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/speculative-generality.html">
+                Speculative Generality
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells/couplers.html">
+                Couplers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/feature-envy.html">
+                Feature Envy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/inappropriate-intimacy.html">
+                Inappropriate Intimacy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/message-chains.html">
+                Message Chains
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/middle-man.html">
+                Middle Man
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells/other.html">
+                Other Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/incomplete-library-class.html">
+                Incomplete Library Class
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques.html">
+                Refactorings
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../refactoring/techniques/composing-methods.html">
+                Composing Methods
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../extract-method.html">
+                Extract Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../inline-method.html">
+                Inline Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../extract-variable.html">
+                Extract Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../inline-temp.html">
+                Inline Temp
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-temp-with-query.html">
+                Replace Temp with Query
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../split-temporary-variable.html">
+                Split Temporary Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../remove-assignments-to-parameters.html">
+                Remove Assignments to Parameters
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-method-with-method-object.html">
+                Replace Method with Method Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../substitute-algorithm.html">
+                Substitute Algorithm
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques/moving-features-between-objects.html">
+                Moving Features between Objects
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../move-method.html">
+                Move Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../move-field.html">
+                Move Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../extract-class.html">
+                Extract Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../inline-class.html">
+                Inline Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../hide-delegate.html">
+                Hide Delegate
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../remove-middle-man.html">
+                Remove Middle Man
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../introduce-foreign-method.html">
+                Introduce Foreign Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../introduce-local-extension.html">
+                Introduce Local Extension
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques/organizing-data.html">
+                Organizing Data
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../self-encapsulate-field.html">
+                Self Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-data-value-with-object.html">
+                Replace Data Value with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../change-value-to-reference.html">
+                Change Value to Reference
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../change-reference-to-value.html">
+                Change Reference to Value
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-array-with-object.html">
+                Replace Array with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../duplicate-observed-data.html">
+                Duplicate Observed Data
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../change-unidirectional-association-to-bidirectional.html">
+                Change Unidirectional Association to Bidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../change-bidirectional-association-to-unidirectional.html">
+                Change Bidirectional Association to Unidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-magic-number-with-symbolic-constant.html">
+                Replace Magic Number with Symbolic Constant
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../encapsulate-field.html">
+                Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../encapsulate-collection.html">
+                Encapsulate Collection
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-type-code-with-class.html">
+                Replace Type Code with Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-type-code-with-subclasses.html">
+                Replace Type Code with Subclasses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-type-code-with-state-strategy.html">
+                Replace Type Code with State/Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-subclass-with-fields.html">
+                Replace Subclass with Fields
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques/simplifying-conditional-expressions.html">
+                Simplifying Conditional Expressions
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../decompose-conditional.html">
+                Decompose Conditional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../consolidate-conditional-expression.html">
+                Consolidate Conditional Expression
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../consolidate-duplicate-conditional-fragments.html">
+                Consolidate Duplicate Conditional Fragments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../remove-control-flag.html">
+                Remove Control Flag
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-nested-conditional-with-guard-clauses.html">
+                Replace Nested Conditional with Guard Clauses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-conditional-with-polymorphism.html">
+                Replace Conditional with Polymorphism
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../introduce-null-object.html">
+                Introduce Null Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../introduce-assertion.html">
+                Introduce Assertion
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques/simplifying-method-calls.html">
+                Simplifying Method Calls
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../rename-method.html">
+                Rename Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../add-parameter.html">
+                Add Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../remove-parameter.html">
+                Remove Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../separate-query-from-modifier.html">
+                Separate Query from Modifier
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../parameterize-method.html">
+                Parameterize Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-parameter-with-explicit-methods.html">
+                Replace Parameter with Explicit Methods
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../preserve-whole-object.html">
+                Preserve Whole Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-parameter-with-method-call.html">
+                Replace Parameter with Method Call
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../introduce-parameter-object.html">
+                Introduce Parameter Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../remove-setting-method.html">
+                Remove Setting Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../hide-method.html">
+                Hide Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-constructor-with-factory-method.html">
+                Replace Constructor with Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-error-code-with-exception.html">
+                Replace Error Code with Exception
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-exception-with-test.html">
+                Replace Exception with Test
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques/dealing-with-generalization.html">
+                Dealing with Generalization
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../pull-up-field.html">
+                Pull Up Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../pull-up-method.html">
+                Pull Up Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../pull-up-constructor-body.html">
+                Pull Up Constructor Body
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../push-down-method.html">
+                Push Down Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../push-down-field.html">
+                Push Down Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../extract-subclass.html">
+                Extract Subclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../extract-superclass.html">
+                Extract Superclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../extract-interface.html">
+                Extract Interface
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../collapse-hierarchy.html">
+                Collapse Hierarchy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../form-template-method.html">
+                Form Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-inheritance-with-delegation.html">
+                Replace Inheritance with Delegation
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-delegation-with-inheritance.html">
+                Replace Delegation with Inheritance
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </div>
+        <div class="sidebar-controls">
+            <div class="sidebar-controls-container">
+                <a href="../../../login.html" title="Conectar"><i
+                            class="fa fa-fw fa-fw fa-user"></i> Conectar</a>
+                <a href="https://feedback.refactoring.guru/" class="userecho-public" rel="nofollow" title="Avaliação"><i class="fa fa-fw fa-fw fa-envelope" aria-hidden="true"></i> Contate-nos</a>
+            </div>
+        </div>
+    </div>
+</aside>
+    <footer class="footer center-content">
+    <div class="footer-container center-content-container">
+        <div class="footer-inner container-fluid">
+            <div class="row">
+                <div class="col-8 col-md-10">
+                    <ul class="footer-list footer-list-horizontal">
+                        <li><a href="../../../../pt-br.html">Página inicial</a></li>
+                        <li><a href="../../../refactoring.html">Refatoração</a></li>
+                        <li><a href="../../../design-patterns.html">Padrões de Projeto</a></li>
+                        <li><a href="../../../store.html">Conteúdo Premium</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-public">Fórum</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-private">Contate-nos</a></li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-2">
+                    <ul class="footer-list footer-list-iconic">
+                                                    <li><a href="https://www.facebook.com/refactoring.guru"><i class="fa fa-facebook-official"></i></a></li>
+                                                <li><a href="../../../sendy/form.html" rel="nofollow"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/RefactoringGuru"><i class="fa fa-github-circled"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-second">
+        <div class="footer-container center-content-container">
+            <div class="footer-inner container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <i class="fa fa-fw fa-copyright"></i> 2014-2022 <a href="../../../../pt-br.html">Refactoring.Guru</a>. <span style="white-space: nowrap">Todos os direitos reservados</span><br>
+                        <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="../../../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234">
+                            <img class="fa-fw" style="height: 0.8rem;" src="../../../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                        </object> Khmelnitske shosse 19 / 27, Kamianets-Podilskyi, Ucrânia, 32305<br>
+                        <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+
+                        <div class="mt-2">
+                            <i class="fa fa-fw fa-image"></i> Ilustrações por <a href="http://zhart.us/" rel="nofollow"><span style="white-space: nowrap">Dmitry Zhart</span></a></div>
+                    </div>
+                    <div class="footer-links-right col-12 col-sm-4 mt-4 mt-sm-0">
+                        <div class="row">
+                            <div class="col-8 col-sm-12">
+                                <ul class="footer-list">
+                                    <li><a href="../../../terms.html"><span>Temos e condições</span></a>
+                                    </li>
+                                    <li><a href="../../../privacy-policy.html"><span>Política de privacidade</span></a>
+                                    </li>
+                                    <li><a href="../../../content-usage-policy.html"><span>Política de uso do contéudo</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+
+    <script>
+function extend(){var extended={};var deep=false;var i=0;var length=arguments["length"];if(Object["prototype"]["toString"]["call"](arguments[0])=== '[object Boolean]'){deep= arguments[0];i++};var merge=function(obj){for(var prop in obj){if(Object["prototype"]["hasOwnProperty"]["call"](obj,prop)){if(deep&& Object["prototype"]["toString"]["call"](obj[prop])=== '[object Object]'){extended[prop]= extend(true,extended[prop],obj[prop])}else {extended[prop]= obj[prop]}}}};for(;i< length;i++){var obj=arguments[i];merge(obj)};return extended}
+function defer(method) {if (window.jQuery) {method();} else {setTimeout(function() { defer(method) }, 50);}}
+</script>
+<script>
++function(sd){sd = (typeof sd === "string") ? JSON.parse(atob(sd)) : sd;for(var property in sd){if(window[property]!== null&&  typeof window[property]=== 'object'){window[property]= extend(true,window[property],sd[property])}else {window[property]= sd[property]}}}("eyJsb2NhbGUiOiJwdC1iciIsImxvY2FsZV9wcmVmaXgiOiJwdC1iclwvIiwibG9jYWxpemVkX3VybF9wcmVmaXhfbSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC9wdC1iclwvIiwidXJsX3ByZWZpeF9tIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImxvY2FsaXplZF91cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcL3B0LWJyXC8iLCJ1cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImNoaW5lc2VfaG9tZSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZ2d1cnUuY25cLyIsInVzZXJfZWNob19hbGlhcyI6InJlZmFjdG9yaW5nIiwidXNlcl9lY2hvX2hvc3QiOiJmZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1IiwidXNlcl9lY2hvX3ByaXZhdGVfZm9ydW0iOiIyIiwidXNlcl9lY2hvX2xvY2FsZSI6InB0LWJyIiwidXNlcl9lY2hvX3B1YmxpY19mb3J1bSI6IjMiLCJ1c2VyX2VjaG9fcHVibGljX2ZvcnVtX3VybCI6Imh0dHBzOlwvXC9mZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1c2VyX2VjaG9fc3NvX3Rva2VuIjoiIn0=");
+</script>
+
+    <script defer>
+        if (window.dataLayer && window.google_optimize) {
+            window.dataLayer.push({'event': 'optimize.activate'});
+        }
+    </script>
+ 
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+        {'GTM-M58XZN4':true});</script>
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com/">
+<script>
+    var getCookie = function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    };
+    var eraseCookie = function (name) {
+        document.cookie = name+'=; Path=/; Max-Age=-99999999;';
+    };
+
+    window.google_analytics = 'UA-521840-40';
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+
+    var ga_queue = [];
+    window.gaOnCreate = function(){
+        ga_queue.push(arguments);
+    };
+
+            doTracking();
+    
+    function doTracking(clientId) {
+        window.gaOnCreate = function(){
+            ga.apply(this, arguments);
+        };
+
+        var options = {
+            'siteSpeedSampleRate': 100
+        };
+        if (clientId) {
+            options.clientId = clientId;
+        }
+        ga('create', 'UA-521840-40', options);
+
+                    ga('require', 'GTM-M58XZN4');
+            window.google_optimize = 'GTM-M58XZN4';
+        
+        // Fix broken Social Login referrer.
+        window.social_login_provider = window.social_login_provider || getCookie('social_login_provider');
+        if (window.social_login_provider) {
+            ga('set', 'referrer', null);
+            ga('send', 'social', window.social_login_provider, 'login', window.location.href);
+            eraseCookie('social_login_provider');
+        }
+
+        var user_id = getCookie('user_id');
+        if (user_id) {
+            ga('set', 'userId', user_id);
+        } else {
+            ga('set', 'userId', null);
+        }
+
+        var location = document.location.href;
+        if (typeof window.analytics_path_prefix === 'string') {
+            if (/^(https?:\/\/[^\/]+?)\/$/.test(location)) {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix);
+            }
+            else {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix + '/');
+            }
+            ga('set', 'location', location);
+        }
+
+        if (typeof window.analytics_location_prefix === 'string') {
+            location = location.replace(/(https?:\/\/[^\/]+?)\//, window.analytics_location_prefix);
+            ga('set', 'location', location);
+        }
+
+        ga('require', 'ec');
+        ga('send', 'pageview', (typeof window.analytics_path_prefix === 'string' ? window.analytics_path_prefix : '') + document.location.pathname);
+
+        ga_queue.forEach(function(item){
+            ga.apply(this, item);
+        });
+    }
+</script>
+
+<script defer>
+    window.socialLikesButtons = {
+                facebook: {
+            counterUrl: "",
+            convertNumber: null
+        },
+                        };
+</script>
+
+<script defer>
+    var CodeMirrorScripts = ["/js/codemirror.min.js?id=24aa863dfde7c99eb17d4102684aea27"];
+</script>
+
+
+
+    <script>window.loadContent = true;window.loadCart = true;</script>
+</body>
+
+<!-- Mirrored from refactoring.guru/pt-br/design-patterns/strategy/java/example by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:25:25 GMT -->
+</html>

@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from refactoring.guru/pt-br/refactoring/course by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:20:44 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+    <meta charset="utf-8">
+    <title>Interactive Refactoring Course: Dive Into Refactoring</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="alternate" href="../../refactoring/course.html" hreflang="x-default"/>
+    <link rel="alternate" href="../../es/refactoring/course.html" hreflang="es"/>
+    <link rel="alternate" href="../../fr/refactoring/course.html" hreflang="fr"/>
+    <link rel="alternate" href="../../ja/refactoring/course.html" hreflang="ja"/>
+    <link rel="alternate" href="../../ko/refactoring/course.html" hreflang="ko"/>
+    <link rel="alternate" href="../../pl/refactoring/course.html" hreflang="pl"/>
+    <link rel="alternate" href="course.html" hreflang="pt-br"/>
+    <link rel="alternate" href="../../ru/refactoring/course.html" hreflang="ru"/>
+    <link rel="alternate" href="../../uk/refactoring/course.html" hreflang="uk"/>
+    <link rel="alternate" href="https://refactoringguru.cn/refactoring/course" hreflang="zh"/>
+
+    <meta name="description" content="Dive Into Refactoring teaches you how to properly deal with legacy code, how to identify ugly code and how to clean it safely. The course covers 21 smells of bad code and 66 refactoring techniques to fix them. Each chapter includes examples in Java, C# and PHP.">
+
+    <link rel="canonical" href="../../refactoring/course.html"/>
+
+    <link rel="icon" type="image/x-icon" href="../../favicon.png"/>
+
+<script type="application/ld+json">
+{"@context": "http://schema.org", "@graph": [{"@type":"Person","@id":"https://refactoring.guru/pt-br#founder","name":"Alexander Shvets"},{"@type":"Organization","@id":"https://refactoring.guru/pt-br#organization","name":"Refactoring.Guru","description":"O Refactoring.Guru torna mais fácil para você descobrir tudo que você precisa saber sobre refatoração, padrões de projeto, princípios SOLID, e outros tópicos de programação inteligente.","image":{"@type":"ImageObject","@id":"https://refactoring.guru/pt-br#organizationlogo","url":"https://refactoring.guru/pt-brimages/content-public/logos/logo-plain.png","caption":"Refactoring.Guru"},"logo":{"@id":"https://refactoring.guru/pt-br#organizationlogo"},"founder":{"@id":"https://refactoring.guru/pt-br#founder"},"sameAs":["https://www.facebook.com/refactoring.guru","https://twitter.com/RefactoringGuru","https://github.com/RefactoringGuru"]},{"@type":"WebSite","@id":"https://refactoring.guru/pt-br#website","url":"https://refactoring.guru/pt-br","name":"Refactoring.Guru","description":"O Refactoring.Guru torna mais fácil para você descobrir tudo que você precisa saber sobre refatoração, padrões de projeto, princípios SOLID, e outros tópicos de programação inteligente.","author":{"@id":"https://refactoring.guru/pt-br#founder"},"publisher":{"@id":"https://refactoring.guru/pt-br#organization"},"copyrightYear":2014}] }
+</script>
+
+<meta property="fb:app_id" content="666819623386327" />
+<meta property="og:type"  content="website" />
+<meta property="og:image" content="https://refactoring.guru/pt-br/images/refactoring/social/facebook-share-preview.png?id=dbf9e98269595be86eb668f365be6868"/>
+
+        <link rel="stylesheet" href="../../css/public-packed.min29c2.css?id=72df70415a2662bdd8f64ffd40983c30">
+
+<style type="text/css">
+    @font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<link rel="preload" href="../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/fontello/fontawesomea92a.woff2?15843843" as="font" type="font/woff2" crossorigin>
+
+
+<script defer src="../../js/public.min1749.js?id=77d40430343920ca57d184f85668a382"></script>
+
+
+
+</head>
+<body class="locale-pt-br    announcement   landing-refactoring " data-body_class="landing-refactoring ">
+
+<div class="body-holder">
+
+
+            <div class="announcement-block prom" data-id="DIDP-announcement" data-creative-id="pt-br" data-position="top"><div class="announcement-block-inner">
+            <img src="../../images/content-public/announcement-pt-br-13368.svg?id=b246783e4968337574a9760c56b0835d" loading="lazy" style="width: 36px; height:36px;">
+            Ei, acabamos de reduzir o preço de todos os produtos. Vamos capacitar nossas habilidades de programação para a era pós-COVID. <a href="../store.html">Veja as ofertas »</a>
+            </div></div>
+    
+    <div class="cart-placeholder">
+    <div class="cart-block-container" style="display:none">
+        <div class="cart-block btn-group">
+            <a href="#checkout" class="btn cart open-checkout">
+                <span class="cart-text"></span>&nbsp;<strong class="cart-total font-money"></strong>
+            </a><a href="#checkout" class="btn btn-secondary checkout open-checkout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="btn-text-span d-none d-sm-inline-block d-lg-none d-hg-inline-block"></span></a>
+        </div>
+    </div>
+</div>
+    <main role="main" class="main-content top-content center-content " data-page_class="">
+        <div class="main-content-container center-content-container">
+                            <style>
+    .text h1 {
+        text-align: center;
+    }
+    .text h1 {
+        font-size: 46px;
+        line-height: 46px;
+    }
+    .text .lead {
+        text-align: center;
+        font-size: 18px;
+        margin: 0 0 1.5rem
+    }
+    .text .author-blockquote {
+        border: dotted 5px #ccc;
+    }
+    @media (min-width: 768px) {
+        .text h1 {
+            text-align: left;
+        }
+        .text h1 {
+            font-size: 64px;
+            line-height: 64px;
+        }
+        .text .lead {
+            text-align: left;
+            font-size: 22px;
+        }
+    }
+    @media (min-width: 640px) {
+        .top-product-block {
+            float:right;
+            width: 250px;
+            margin: 0 0 30px 30px;
+            border-bottom: solid 0px #eee;
+            border-left: dotted 5px #ccc;
+            border-bottom: dotted 5px #ccc;
+            padding: 0 0 50px 50px;
+            background: #fff;
+        }
+    }
+    @media (min-width: 1200px) {
+        .top-product-block {
+            display: none;
+        }
+    }
+</style>
+
+<article class="page text">
+    <div class="alert alert-warning d-none loc-fr-d-block">
+        Ce produit n'est disponible qu'en anglais pour le moment. Nous avons prévu de le traduire en <b>français</b> plus tard et vous l'obtiendrez gratuitement si vous le commandez maintenant.
+    </div>
+
+    <div class="alert alert-warning d-none loc-es-d-block">
+        Este producto solo está disponible en inglés en este momento. Si lo compra ahora, tendrá acceso a la versión en español cuando se lance.
+    </div>
+
+    <div class="alert alert-warning d-none loc-pt-br-d-block">
+        Este produto está disponível apenas em inglês no momento. Se você o comprar agora, terá acesso à versão em português quando for lançada.
+    </div>
+
+    <div class="alert alert-warning d-none loc-pl-d-block">
+        Ten produkt jest obecnie dostępny tylko w języku angielskim. Jeśli kupisz go teraz, będziesz mieć dostęp do polskiej wersji, gdy zostanie wydana.
+    </div>
+
+    <div class="alert alert-warning d-none loc-zh-d-block">
+        目前我们的产品仅支持英文，其中文版本将很快推出。当前的所有客户都将在中文版发布后都可免费访问。
+    </div>
+
+    <h1 style="margin-top:0">
+        <span>Dive Into</span>
+        <strong>REFACTORING</strong>
+    </h1>
+
+    <div class="lead">An online course about code smells and refactoring</div>
+
+    <div class="top-product-block product-block">
+        <div class="image">
+            <a class="do-checkout" href="#buy-now" data-product="Dive Into Refactoring">
+                <img style="border-radius: 30px;" src="../../images/refactoring/course/course-cover-en.jpg"/>
+            </a>
+        </div>
+        <div class="buy-widget">
+            <div class="price-tag price-tag-hg compact">
+                <span class="old-price font-money">€80.00</span>
+                <span class="new-price font-money"><span class="offer-text">Desconto de auxílio COVID</span>€39.95</span>
+            </div>
+            <a class="btn btn-secondary btn-buy do-checkout" href="#buy-now" data-product="Dive Into Refactoring"><i class="fa fa-shopping-cart"></i> Buy now</a>
+        </div>
+        <div class="buy-options mt-4">
+            <a class="do-checkout btn btn-block btn-md btn-secondary" href="#buy-now" data-product="Dive Into Refactoring" data-purchase-type="1"><i class="fa fa-gift"></i> Buy as a gift</a>
+
+            <a class="do-checkout btn btn-block btn-md btn-secondary mt-1" href="#buy-team" data-product="Dive Into Design Patterns" data-purchase-type="2"><i class="fa fa-users"></i> Buy for my team</a>
+        </div>
+    </div>
+
+    <blockquote class="author-blockquote">
+        <p class="first">Hi, my name is Alexander Shvets, I'm the creator of this website. After two years of work, I'm happy to present to you my course on refactoring, which will make you a better programmer.</p>
+
+        <p>I have been programming since I was 13. Windows didn't even have a Start button back then. Since that time, I have worked at five companies, learned a half a dozen programming languages and launched several successful projects.</p>
+
+        <p>In this course, I will share my knowledge with you and teach you to:</p>
+
+        <ul>
+            <li>See the difference between beautiful and ugly code.</li>
+            <li>Improve ugly code, even where you thought it was impossible.</li>
+            <li>Change the code in such a way that it doesn't break other parts of your program.
+            </li>
+        </ul>
+
+        <p>You will love the course if you have ever felt like this <a
+                href="#"
+                onClick="$('.cat-img').slideDown(); $('.cat-img')[0].play(); return false;">cat
+            here</a> sitting in front of a broken build.</p>
+
+        <video class="cat-img" preload="metadata" muted loop playsinline style="display: none; background: #eee;" width=322 height=281>
+            <source src="../../images/content-public/refactoring-cat.mp4" type="video/mp4">
+            Your browser does not support HTML video.
+        </video>
+    </blockquote>
+
+
+    <h2>What’s inside?</h2>
+
+    <p><i class="fa fa-cubes"></i> The course teaches you about <b>21
+        smells of bad code</b> and <b>66 refactoring techniques</b> to fix them.
+    </p>
+
+    <p><i class="fa fa-code"></i> Each chapter includes examples in
+        <b>Java, C# and PHP</b>.</p>
+
+    <p><i class="fa fa-bomb"></i> The refactoring techniques are
+        illustrated with <b>live examples</b>.
+        These are much easier to follow than static code—and more fun, too!
+    </p>
+
+    <p><i class="fa fa-file-pdf" aria-hidden="true"></i> The course can be
+        downloaded for <b>offline use</b> as an ebook in PDF, EPUB, MOBI
+        formats.</p>
+
+    <p><i class="fa fa-clock" aria-hidden="true"></i> The course don't have any time restrictions. You can pass it at a convenient time at your own pace any number of times you want. In average, it takes about 8 hours to pass the whole course.</p>
+
+
+    <h2>Screenshots</h2>
+
+    <div class="screenshot-container">
+        <div class="screenshot">
+            <div class="screenshot-thumb">
+                <img src="../../images/content-public/landings/screenshots/home-en-thumb.png"
+                     alt="Home page"/>
+                <p class="description">The home page with links to the forum and
+                    cheat sheets.</p>
+            </div>
+            <div class="screenshot-full">
+                <div class="screenshot-content">
+                    <div class="browser-title">
+                        <span class="browser-url"><i class="fa fa-lock"
+                                                     aria-hidden="true"></i> refactoring.guru/home</span>
+                    </div>
+                    <img src="../../images/content-public/landings/screenshots/home-en.png"
+                         alt="Home page"/>
+                </div>
+            </div>
+        </div>
+        <div class="screenshot screenshot-video">
+            <div class="screenshot-thumb">
+                <img src="../../images/content-public/landings/screenshots/start-en-thumb.png"
+                     alt="First steps"/>
+                <p class="description">First steps into the course.</p>
+            </div>
+            <div class="screenshot-full">
+                <div class="screenshot-content">
+                    <div class="browser-title">
+                        <span class="browser-url"><i class="fa fa-lock"
+                                                     aria-hidden="true"></i> refactoring.guru/first-steps</span>
+                    </div>
+                    <video preload="metadata" muted loop playsinline>
+                        <source src="../../images/content-public/landings/screenshots/start-en.mp4"
+                                type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
+                </div>
+            </div>
+        </div>
+        <div class="screenshot screenshot-video">
+            <div class="screenshot-thumb">
+                <img src="../../images/content-public/landings/screenshots/smell-en-thumb.png"
+                     alt="A code smell"/>
+                <p class="description">Going through one of the code smells.</p>
+            </div>
+            <div class="screenshot-full">
+                <div class="screenshot-content">
+                    <div class="browser-title">
+                        <span class="browser-url"><i class="fa fa-lock"
+                                                     aria-hidden="true"></i> refactoring.guru/code-smell</span>
+                    </div>
+                    <video preload="metadata" muted loop playsinline>
+                        <source src="../../images/content-public/landings/screenshots/smell-en.mp4"
+                                type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
+                </div>
+            </div>
+        </div>
+        <div class="screenshot screenshot-video">
+            <div class="screenshot-thumb">
+                <img src="../../images/content-public/landings/screenshots/story-en-thumb.png"
+                     alt="Lots of content"/>
+                <p class="description">The course covers 21 code smells and 66
+                    refactorings.</p>
+            </div>
+            <div class="screenshot-full">
+                <div class="screenshot-content">
+                    <div class="browser-title">
+                        <span class="browser-url"><i class="fa fa-lock"
+                                                     aria-hidden="true"></i> refactoring.guru/story-mode</span>
+                    </div>
+                    <video preload="metadata" muted loop playsinline>
+                        <source src="../../images/content-public/landings/screenshots/story-en.mp4"
+                                type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
+                </div>
+            </div>
+        </div>
+        <div class="screenshot screenshot-video">
+            <div class="screenshot-thumb">
+                <img src="../../images/content-public/landings/screenshots/live-example-en-thumb.png"
+                     alt="A live example"/>
+                <p class="description">Live examples show you how to apply refactorings step-by-step.</p>
+            </div>
+            <div class="screenshot-full">
+                <div class="screenshot-content">
+                    <div class="browser-title">
+                        <span class="browser-url"><i class="fa fa-lock"
+                                                     aria-hidden="true"></i> refactoring.guru/live-example</span>
+                    </div>
+                    <video preload="metadata" muted loop playsinline>
+                        <source src="../../images/content-public/landings/screenshots/live-example-en.mp4"
+                                type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
+                </div>
+            </div>
+        </div>
+        <div class="screenshot">
+            <div class="screenshot-thumb">
+                <img src="../../images/content-public/landings/screenshots/live-example-diff-en-thumb.png"
+                     alt="Live example diff"/>
+                <p class="description">Each example is followed by a diff view between
+                    starting and resulting code.</p>
+            </div>
+            <div class="screenshot-full">
+                <div class="screenshot-content">
+                    <div class="browser-title">
+                        <span class="browser-url"><i class="fa fa-lock"
+                                                     aria-hidden="true"></i> refactoring.guru/live-example-diff</span>
+                    </div>
+                    <img src="../../images/content-public/landings/screenshots/live-example-diff-en.png"
+                         alt="Live example diff"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Why would I buy this course instead of a thick book about
+        refactoring?</h2>
+
+    <p><i class="fa fa-smile"></i> This course is written in
+        simple, accessible language with no academic
+        jargon. Direct and to the point with a minimum of fluff.</p>
+
+    <p><i class="fa fa-tablet"></i> It’s optimized for tablet
+        viewing. So go ahead and read it on your
+        couch while sipping some tasty cappuccino.</p>
+
+    <p><i class="fa fa-hand-point-up"></i> Interactive elements of the
+        course help to keep you on your toes,
+        unlike ordinary books that lull you to sleep after ten minutes.</p>
+
+    <p><i class="fa fa-bomb"></i> Oh and did I mention the live
+        interactive examples? Yes I did, but
+        they’re too cool not to mention again!</p>
+
+    <h3>Certificate of completion</h3>
+
+    <p>After finishing the course you'll get an electronic certificate of completion. While it certainly looks awesome on the wall, you could also put it in your CV, increasing your chances during the next job interview.</p>
+
+    <div class="certificate" style="text-align: center">
+        <figure class="image">
+            <a href="../../cert/r/MQ.html" target="_blank"><img src="../../images/content-public/landings/certificate-en.png" srcset="/images/content-public/landings/certificate-en-2x.png 2x"></a>
+            <figcaption>Example of the certificate</figcaption>
+        </figure>
+    </div>
+
+    <div class="section guarantee d-sm-flex align-items-sm-center text-center text-sm-left">
+        <img class="mb-4 mb-sm-0" style="width:140px;" src="../../images/content-public/100-satisfaction-en.png" srcset="/images/content-public/100-satisfaction-en-2x.png 2x, /images/content-public/100-satisfaction-en-3x.png 3x" alt="Satisfaction guaranteed"/>
+        <div class="ml-sm-4">
+            <h2 class="title">100% Satisfaction Guarantee</h2>
+            <p>Your purchase of the course is absolutely risk-free. If within a
+                month you decide that you are unhappy
+                with
+                your purchase, I will immediately refund all your money, no
+                questions asked.</p>
+        </div>
+    </div>
+
+    <div class="section section-bordered buy-button d-block d-sm-flex">
+        <div class="flex-grow-1" style="text-align: center;">
+            <div class="price-tag price-tag-hg">
+                <div class="price-tag offer">
+                    <span class="old-price font-money">€80.00</span>
+                    <span class="new-price font-money">
+                        <span class="offer-text">Desconto de auxílio COVID</span>€39.95
+                    </span>
+                </div>
+            </div>
+            <a class="btn btn-secondary btn-buy btn-hg add-to-cart do-checkout" href="#buy-now" data-product="Dive Into Refactoring">
+                <i class="fa fa-shopping-cart"></i> Buy now
+                <br>
+                <span>(this price won't last forever)</span>
+            </a>
+        </div>
+        <div class="flex-grow-1">
+            <ul>
+                <li>Unlimited access to the <b>Dive Into Refactoring</b> course.</li>
+                <li>Source of a great programming experience.</li>
+                <li>Printable refactoring cheat-sheets.</li>
+                <li>And all of this with a 30-day money-back guarantee.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 style="margin-top:0">Here's what other people say</h2>
+
+        <div>
+            <span class="social-likes-block" data-url="../../index.html">
+                <span class="facebook" title="Share with Facebook">Facebook</span>
+            </span>
+
+            <a href="../../login8754.html?destination=https%3A%2F%2Frefactoring.userecho.com%2F%3Fshow_feedback_form%3Dtrue" class="btn btn-xs btn-success"><i class="fa fa-star" aria-hidden="true"></i> Write a review</a>
+        </div>
+
+        <div class="feedback-container">
+            <div class="feedback-list">
+                <div class="feedback-item visible">
+                    <div class="feedback">
+                        <p>I didn't have a chance to ran through the whole course, so I still have some lessons ahead. Overall I really like the course, it's written in understandable way, contains lot of good ideas. I noticed that I started to use Extract Method really often. As well as substitution of complex logical "IF" statements by method that returns bool. Code is really much more readable and don't need to be commented. Don't know what to improve, maybe bigger variety of code snippets. I noticed that snippets are reused again and again over the course and I would welcome to see some different scenarios.. Don't know if you get the point, simple not to reuse the same snippet over and over for similar use cases.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Peter  Dubovan</div>
+                        <div class="location">Slovakia</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item visible">
+                    <div class="feedback">
+                        <p>I like the site, and the information is good I like the way it is organized in stories and how you can see in the sample code how to apply a solution. I would like to have something like a playground so I can actually write and refactorize code, and check the results against the recommended solution (similar to what udacity has on their python courses)</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Edison Martinez</div>
+                        <div class="location">Ecuador</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item visible">
+                    <div class="feedback">
+                        <p>I loved the refactoring course and especially the online aspect of it. Well done with respect to content and easy to understand material. I have bought all your work in the past except for UML. Keep on doing good work. It helps me understand the material properly and I can apply at work as well. In terms of new suggestions: Come up with a nice tutorial or a book on Java 8 and Java 9 with focus on functional programming, modules and concurrency. I am sure it will do well.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Yogesh Sagar</div>
+                        <div class="location">Canada</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>I've just started with the course. I like the boxes explaining the solutions. If anything I would prefer small exampeles of actual code. </p>
+
+                        <p>Otherwise I really like the Course and you've done an awesome job with this.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Joel Nordh</div>
+                        <div class="location">Sweden</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>I've only gone through a portion of the course, reading through it piece by piece when i have free time. I really like the course and I think it's helping me become a better programmer. It's already helped me with refactoring my code. I think it's great and more people should know about it.</p>
+
+                        <p>Things I like are:
+                            <br/>- Very easy to understand and great examples.
+                            <br/>- Easy to understand why refactoring practices exist.</p>
+
+                        <p>Things I don't like are:
+                            <br/>- I bought the premium version because I wanted access to the practice code. But it seems like I can't get to the without reading through all the refactoring practices and code smells portion yet (or maybe it just isn't clear to me on how to access the practice portion).
+                            <br/>- A lot of the refactoring methods are reused in different code smells. I understand that it's a way to fix the code smell, but it can get a little repetitive reading the same thing over and over.</p>
+
+                        <p>If I had any suggestions on how to improve the site, I would say that a way to access just the code examples would be nice. And also maybe having some refactoring methods for Javascript or ES6 with examples as well (I'm a front end developer so I work a lot with JS). Although the second suggestion isn't as important because these methods can applied and translated across languages fairly easily.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Jeremy Field</div>
+                        <div class="location">USA</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>It felt a bit boring to read. It did not feel so engaging. I think some design patterns(fixes) didn't have good examples given.
+                            <br/>I liked the way it is organized and linked between different sections.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Rineez Ahmed</div>
+                        <div class="location">India</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>I think it's awesome!! Right now I'm working my way through reading the sourcemaking website. I started working on some of the refactoring guru course and will finish it once I finish sourcemaking.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Allen Mackley</div>
+                        <div class="location">USA</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>Yesterday i finished the course, i find it a good alternative for reading books. Especially for running  source examples is a great idea. Working on the course was a good alternation at work. The design pattern page is a good help at work, especially the c# examples.</p>
+
+                        <p>One thing i missed, after finishing the course, a certificate for successful partcipating the course should be included. After each seminar/course, i get a paper for participation. For example, if you pass the PSM1 test in scrum.org, you can download a certificate.</p><div class="feedback-reply">
+                        <b>Note:</b> since January, 2019, everyone who has finished the course can download a certificate of completion.
+                    </div>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Andreas Lamparter</div>
+                        <div class="location">Germany</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>1. In my opinion its very clever that refactoring course is structured around code smells - makes it easier to remember code smells and the ways they can be resolved.</p>
+
+                        <p>2. The structure, the flow of the course and the small code snippets with the problem and the solution is among the things i liked a lot. Did not like so much the red colour that dominates in the course but that's a matter of personal preference, maybe it kind of 'forces' you to move towards the end of the course faster that other colours.</p>
+
+                        <p>3. One thing i would really like to see (i have not reached the end of the course so maybe its already there and i just did not see it yet) is a set of exercises: one code snippet when you are given the problematic code that needs refactoring, a small description of the solution that we should follow and then in the next code snippet we get to write the refactored code based on the suggested solution.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Aimilia Kelaidi</div>
+                        <div class="location">Netherlands</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>I have started to look through the course. I was really happy with the content and recommended it to my team.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Jonathan Rhodes</div>
+                        <div class="location">Australia</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>I'm very happy with the course! I had a chance to go through the different refactorings and now I am working on the design patterns.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Bryan Andrade</div>
+                        <div class="location">USA</div>
+                    </div>
+                </div>
+
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>I completed the course at a leisurely pace in about a
+                            week. I liked how the smells link to
+                            the
+                            relevant refactoring methods and vice versa.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Michael Ershov</div>
+                        <div class="location">Moscow, Russian Federation</div>
+                    </div>
+                </div>
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>Awesome material, thank you! I use the standard
+                            refactoring methods in Idea pretty often but
+                            I
+                            did not realize there are so many of them. Of the
+                            new ones, my favorite is Replace Nested
+                            Conditional with Guard Clauses.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Nikolay Tarasenko</div>
+                        <div class="location">Odessa, USA</div>
+                    </div>
+                </div>
+                <div class="feedback-item">
+                    <div class="feedback">
+                        <p>I liked how the material was structured in one story
+                            line. I know you just got started but my
+                            suggestion would be to add examples in Swift
+                            too.</p>
+                    </div>
+                    <div class="feedback-details">
+                        <div class="stars">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="name">Victor van der Knaas</div>
+                        <div class="location">Rotterdam, Netherlands</div>
+                    </div>
+                </div>
+            </div>
+            <div class="feedback-controls"><a href="#" class="btn btn-primary btn-sm load-more"><i class="fa fa-arrow-up" aria-hidden="true"></i> Show next review</a></div>
+        </div>
+    </div>
+
+    <div class="section questions">
+        <h2>Frequently asked questions</h2>
+
+        <div class="dl icon">
+            <div class="dt"><i class="fa fa-fw fa-cloud-download" aria-hidden="true"></i>
+                What do I receive after I pay?
+            </div>
+            <div class="dd">You receive a username and password for an account on this site.
+                Then you log in and start the course.
+                Your account will also have links for downloading bonus
+                materials.
+            </div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt"><i class="fa fa-fw fa-clock" aria-hidden="true"></i> How long
+                do I get access for? Is there a time limit?
+            </div>
+            <div class="dd">There is <b>no time limit</b>, and no monthly/yearly fee to keep
+                access. Log in whenever you like and the
+                course will be there for you!
+            </div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt"><i class="fa fa-fw fa-credit-card" aria-hidden="true"></i> What payment methods do you accept?</div>
+            <div class="dd">You can pay with credit/debit cards (Visa, MasterCard, AmEx, Discover, JBC, and more), PayPal, Apple Pay, Google Pay, Konbini, WeChat Pay, and Alipay.</div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt"><i class="fa fa-fw fa-lock" aria-hidden="true"></i> How do you keep my data safe?</div>
+            <div class="dd">Your payment information is encrypted and sent directly to the payment gateway. It is never transmitted to or stored on our server.</div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt"><i class="fa fa-fw fa-money-bill" aria-hidden="true"></i> Can I get
+                my money back if I’m dissatisfied with the course?
+            </div>
+            <div class="dd">Yes! If you aren't satisfied, please send an
+                email to support@refactoring.guru with a copy of your receipt and you will be refunded, no questions asked.
+            </div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt"><i class="fa fa-fw fa-file-text" aria-hidden="true"></i> Can I get an invoice after purchase? Can I put my company details or VAT ID into the invoice?
+            </div>
+            <div class="dd">Yes! You will be able to download the invoice after purchase. You will be able to edit or put any extra info into the invoice at any time.</div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt">
+                <i class="fa fa-fw fa-language" aria-hidden="true"></i> Will you translate the course to Spanish, Portuguese, Chinese, etc.?
+            </div>
+            <div class="dd">We plan to translate the course on more languages after author finishes the second edition of the course (somewhere around 2021-2022). Still, note that if you order the course now, you will be able to access the translated version once it's released.
+            </div>
+        </div>
+
+        <h2>Have more questions?</h2>
+
+        <p><a href="https://refactoring.userecho.com/?show_feedback_form=true"
+                class="userecho-private" rel="nofollow">
+            Send us a forum message</a> or email <a href="mailto:support@refactoring.guru">support@refactoring.guru</a>. We usually respond within a few hours.</p>
+    </div>
+
+</article>
+
+<div class="feature product-block">
+    <div class="image">
+        <a class="do-checkout" href="#buy-now" data-product="Dive Into Refactoring">
+            <img style="border-radius: 30px;"
+                 src="../../images/refactoring/course/course-cover-en.jpg"/>
+        </a>
+    </div>
+    <div class="buy-widget">
+        <div class="price-tag price-tag-hg compact">
+            <span class="old-price font-money">€80.00</span>
+            <span class="new-price font-money"><span class="offer-text">Desconto de auxílio COVID</span>€39.95</span>
+        </div>
+        <a class="btn btn-secondary btn-buy do-checkout" href="#buy-now" data-product="Dive Into Refactoring"><i class="fa fa-shopping-cart" data-product="Dive Into Refactoring"></i> Buy now</a>
+    </div>
+    <div class="buy-options mt-4">
+        <a class="do-checkout btn btn-block btn-md btn-secondary" href="#buy-now" data-product="Dive Into Refactoring" data-purchase-type="1"><i class="fa fa-gift"></i> Buy as a gift</a>
+
+        <a class="do-checkout btn btn-block btn-md btn-secondary mt-1" href="#buy-team" data-product="Dive Into Design Patterns" data-purchase-type="2"><i class="fa fa-users"></i> Buy for my team</a>
+    </div>
+    <div class="product-features">
+        <div class="product-feature">
+            <figure class="image"><img src="../../images/content-public/landings/ipadiphone.png" /></figure>
+            <div class="description">Optimized for tablets</div>
+        </div>
+        <div class="product-feature">
+            <figure class="image"><img src="../../images/content-public/landings/satisf.gif" width="60" srcset="/images/content-public/landings/satisf.gif 2x" loading="lazy" /></figure>
+            <div class="description">30-day money-back guarantee</div>
+        </div>
+    </div>
+</div>
+                    </div>
+    </main>
+
+    <nav class="navigation" role="navigation">
+    <div class="navigation-container">
+        <a href="#menu" class="navigation-toggle"><i class="fa fa-bars"></i></a>
+        <a class="navigation-brand" href="../../pt-br.html">
+            <img alt="Refactoring.Guru" src="../../images/content-public/logos/logo-military-mobile78b4.png?id=65ecbd1e688fc695bc20c22a1e8450d9" srcset="/images/content-public/logos/logo-military-mobile-2x.png?id=0f52141f57f67fb678da8407e254b0a3 2x"
+                  width="94"                   height="64"             >
+        </a>
+        <div class="social-likes-block" data-url="../../index.html">
+    <div data-service="facebook" class="facebook" title="Compartilhe no Facebook">Facebook</div>
+        <div data-service="twitter" class="twitter" title="Compartilhe no Twiter">Twitter</div>
+</div>        <ul class="navigation-menu">
+                        <li class="dropdown d-lg-none">
+                <a class="dropdown-toggle" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-globe" aria-hidden="true"></i> <span class="caption d-none d-xl-inline-block">Idioma</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguage">
+                                                                                                        <a href="../../refactoring/course.html" class="dropdown-item locale-link " data-locale="en" title="English">English</a>
+                                                                                                                <a href="../../es/refactoring/course.html" class="dropdown-item locale-link " data-locale="es" title="Español">Español</a>
+                                                                                                                <a href="../../fr/refactoring/course.html" class="dropdown-item locale-link " data-locale="fr" title="Français">Français</a>
+                                                                                                                                                                                                                        <a href="../../pl/refactoring/course.html" class="dropdown-item locale-link " data-locale="pl" title="Polski">Polski</a>
+                                                                                                                <a href="course.html" class="dropdown-item locale-link active" data-locale="pt-br" title="Português Brasileiro">Português Brasileiro</a>
+                                                                                                                <a href="../../ru/refactoring/course.html" class="dropdown-item locale-link " data-locale="ru" title="Русский">Русский</a>
+                                                                                                                <a href="../../uk/refactoring/course.html" class="dropdown-item locale-link " data-locale="uk" title="Українська">Українська</a>
+                                                                                                                <a href="https://refactoringguru.cn/refactoring/course" class="dropdown-item locale-link " data-locale="zh" title="中文">中文</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+            </li>
+                        <li class="nav-contact">
+                <a class="userecho-private" href="https://feedback.refactoring.guru/?show_feedback_form_private=true" rel="nofollow" title="Contate-nos">
+                    <i class="fa fa-envelope"></i> <span class="caption d-none d-xl-inline-block">Contate-nos</span>
+                </a>
+            </li>
+                                                <li class="nav-login">
+                        <a href="../login.html" title="Conectar"><i class="fa fa-user"></i> <span class="caption d-none d-xl-inline-block">Conectar</span></a>
+                    </li>
+                                    </ul>
+    </div>
+    <div>
+        <a class="russia-stop" href="../help-ukraine.html">
+                            Ajude a Ucrânia <b>a parar a Rússia</b>
+                    </a>
+    </div>
+</nav>
+    <aside class="sidebar main-menu nano">
+    <a href="#menu-close" class="navigation-toggle"><i class="fa fa-fw fa-times"></i></a>
+    <div class="nano-content">
+                    <div class="main-menu-lang d-none d-lg-flex main-menu-lang-count-8">
+                                                                                        <a href="../../refactoring/course.html" class="locale-link locale-link-en " data-locale="en" title="English"><span class="d-lg-none">English</span><span class="d-none d-lg-inline">English</span></a>
+                                                                                                <a href="../../es/refactoring/course.html" class="locale-link locale-link-es " data-locale="es" title="Español"><span class="d-lg-none">Español</span><span class="d-none d-lg-inline">Español</span></a>
+                                                                                                <a href="../../fr/refactoring/course.html" class="locale-link locale-link-fr " data-locale="fr" title="Français"><span class="d-lg-none">Français</span><span class="d-none d-lg-inline">Français</span></a>
+                                                                                                                                                                                        <a href="../../pl/refactoring/course.html" class="locale-link locale-link-pl " data-locale="pl" title="Polski"><span class="d-lg-none">Polski</span><span class="d-none d-lg-inline">Polski</span></a>
+                                                                                                <a href="course.html" class="locale-link locale-link-pt-br active" data-locale="pt-br" title="Português Brasileiro"><span class="d-lg-none">Português Brasileiro</span><span class="d-none d-lg-inline">Português-Br</span></a>
+                                                                                                <a href="../../ru/refactoring/course.html" class="locale-link locale-link-ru " data-locale="ru" title="Русский"><span class="d-lg-none">Русский</span><span class="d-none d-lg-inline">Русский</span></a>
+                                                                                                <a href="../../uk/refactoring/course.html" class="locale-link locale-link-uk " data-locale="uk" title="Українська"><span class="d-lg-none">Українська</span><span class="d-none d-lg-inline">Українська</span></a>
+                                                                                                <a href="https://refactoringguru.cn/refactoring/course" class="locale-link locale-link-zh " data-locale="zh" title="中文"><span class="d-lg-none">中文</span><span class="d-none d-lg-inline">中文</span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+        
+        <a class="menu-brand" href="../../pt-br.html">
+                            <img width=200 height=241 loading="lazy" alt="Refactoring.Guru" src="../../images/content-public/logos/logo-militaryd1c3.png?id=3eaf203cb26279327252e2c5f5d37c7f" srcset="/images/content-public/logos/logo-military-2x.png?id=5af1a599d8a4170c9a42e6fa18148b98 2x">
+                    </a>
+        <div>
+            <a class="russia-stop" href="../help-ukraine.html">
+                                    Ajude a Ucrânia<br><b>a parar a Rússia</b>
+                            </a>
+        </div>
+
+
+        <div class="menu-container" style="position: relative">
+                        <ul class="menu-list trail">
+                            <li class="featured trail">
+            <a href="../store.html">
+                <i class="fa fa-fw fa-star" aria-hidden="true"></i> Conteúdo Premium
+            </a>
+    
+            <ul >
+                            <li class="featured menu-fs15">
+            <a href="../design-patterns/book.html">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Mergulho nos<br>Padrões de Projeto
+            </a>
+    
+    
+            </li>
+                                <li class="featured menu-fs15 trail active">
+            <a href="course.html">
+                <i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Curso de Refatoração
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns.html">
+                <i class="fa fa-fw fa-puzzle-piece" aria-hidden="true"></i> Padrões de Projeto
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../design-patterns/what-is-pattern.html">
+                O que é um padrão
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../design-patterns/what-is-pattern.html">
+                O que é um padrão de projeto?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/history.html">
+                História dos padrões
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/why-learn-patterns.html">
+                Por que devo aprender padrões?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/criticism.html">
+                Crítica dos padrões
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/classification.html">
+                Classificação dos padrões
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/catalog.html">
+                Catálogo
+            </a>
+    
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="../design-patterns/creational-patterns.html">
+                Padrões criacionais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../design-patterns/factory-method.html">
+                Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/abstract-factory.html">
+                Abstract Factory
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/builder.html">
+                Builder
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/prototype.html">
+                Prototype
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/singleton.html">
+                Singleton
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="../design-patterns/structural-patterns.html">
+                Padrões estruturais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../design-patterns/adapter.html">
+                Adapter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/bridge.html">
+                Bridge
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/composite.html">
+                Composite
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/decorator.html">
+                Decorator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/facade.html">
+                Facade
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/flyweight.html">
+                Flyweight
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/proxy.html">
+                Proxy
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="../design-patterns/behavioral-patterns.html">
+                Padrões comportamentais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../design-patterns/chain-of-responsibility.html">
+                Chain of Responsibility
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/command.html">
+                Command
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/iterator.html">
+                Iterator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/mediator.html">
+                Mediator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/memento.html">
+                Memento
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/observer.html">
+                Observer
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/state.html">
+                State
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/strategy.html">
+                Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/template-method.html">
+                Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns/visitor.html">
+                Visitor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-code-examples">
+            <a href="../design-patterns/examples.html">
+                Exemplos de código
+            </a>
+    
+            <ul >
+                            <li class="menu-code-examples-item">
+            <a href="../design-patterns/csharp.html">
+                C#
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../design-patterns/cpp.html">
+                C++
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../design-patterns/go.html">
+                Go
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../design-patterns/java.html">
+                Java
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../design-patterns/php.html">
+                PHP
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../design-patterns/python.html">
+                Python
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../design-patterns/ruby.html">
+                Ruby
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../design-patterns/swift.html">
+                Swift
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../design-patterns/typescript.html">
+                TypeScript
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring.html">
+                <i class="fa fa-fw fa-scissors" aria-hidden="true"></i> Refatoração <span style="font-size: 0.8rem">(em&nbsp;breve)</span>
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-refactoring.html">
+                What is Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-refactoring.html">
+                Clean code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="technical-debt.html">
+                Technical debt
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="when.html">
+                When to refactor
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="how-to.html">
+                How to refactor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="smells.html">
+                Code Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="smells/bloaters.html">
+                Bloaters
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/long-method.html">
+                Long Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/large-class.html">
+                Large Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/primitive-obsession.html">
+                Primitive Obsession
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/long-parameter-list.html">
+                Long Parameter List
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-clumps.html">
+                Data Clumps
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="smells/oo-abusers.html">
+                Object-Orientation Abusers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/switch-statements.html">
+                Switch Statements
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/temporary-field.html">
+                Temporary Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/refused-bequest.html">
+                Refused Bequest
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/alternative-classes-with-different-interfaces.html">
+                Alternative Classes with Different Interfaces
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="smells/change-preventers.html">
+                Change Preventers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/divergent-change.html">
+                Divergent Change
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/shotgun-surgery.html">
+                Shotgun Surgery
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/parallel-inheritance-hierarchies.html">
+                Parallel Inheritance Hierarchies
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="smells/dispensables.html">
+                Dispensables
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/comments.html">
+                Comments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/duplicate-code.html">
+                Duplicate Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/lazy-class.html">
+                Lazy Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-class.html">
+                Data Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/dead-code.html">
+                Dead Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/speculative-generality.html">
+                Speculative Generality
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="smells/couplers.html">
+                Couplers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/feature-envy.html">
+                Feature Envy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/inappropriate-intimacy.html">
+                Inappropriate Intimacy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/message-chains.html">
+                Message Chains
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/middle-man.html">
+                Middle Man
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="smells/other.html">
+                Other Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/incomplete-library-class.html">
+                Incomplete Library Class
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="techniques.html">
+                Refactorings
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="techniques/composing-methods.html">
+                Composing Methods
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../extract-method.html">
+                Extract Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-method.html">
+                Inline Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-variable.html">
+                Extract Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-temp.html">
+                Inline Temp
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-temp-with-query.html">
+                Replace Temp with Query
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../split-temporary-variable.html">
+                Split Temporary Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-assignments-to-parameters.html">
+                Remove Assignments to Parameters
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-method-with-method-object.html">
+                Replace Method with Method Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../substitute-algorithm.html">
+                Substitute Algorithm
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="techniques/moving-features-between-objects.html">
+                Moving Features between Objects
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../move-method.html">
+                Move Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../move-field.html">
+                Move Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-class.html">
+                Extract Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-class.html">
+                Inline Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-delegate.html">
+                Hide Delegate
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-middle-man.html">
+                Remove Middle Man
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-foreign-method.html">
+                Introduce Foreign Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-local-extension.html">
+                Introduce Local Extension
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="techniques/organizing-data.html">
+                Organizing Data
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../self-encapsulate-field.html">
+                Self Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-data-value-with-object.html">
+                Replace Data Value with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-value-to-reference.html">
+                Change Value to Reference
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-reference-to-value.html">
+                Change Reference to Value
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-array-with-object.html">
+                Replace Array with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../duplicate-observed-data.html">
+                Duplicate Observed Data
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-unidirectional-association-to-bidirectional.html">
+                Change Unidirectional Association to Bidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-bidirectional-association-to-unidirectional.html">
+                Change Bidirectional Association to Unidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-magic-number-with-symbolic-constant.html">
+                Replace Magic Number with Symbolic Constant
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-field.html">
+                Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-collection.html">
+                Encapsulate Collection
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-class.html">
+                Replace Type Code with Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-subclasses.html">
+                Replace Type Code with Subclasses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-state-strategy.html">
+                Replace Type Code with State/Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-subclass-with-fields.html">
+                Replace Subclass with Fields
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="techniques/simplifying-conditional-expressions.html">
+                Simplifying Conditional Expressions
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../decompose-conditional.html">
+                Decompose Conditional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-conditional-expression.html">
+                Consolidate Conditional Expression
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-duplicate-conditional-fragments.html">
+                Consolidate Duplicate Conditional Fragments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-control-flag.html">
+                Remove Control Flag
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-nested-conditional-with-guard-clauses.html">
+                Replace Nested Conditional with Guard Clauses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-conditional-with-polymorphism.html">
+                Replace Conditional with Polymorphism
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-null-object.html">
+                Introduce Null Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-assertion.html">
+                Introduce Assertion
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="techniques/simplifying-method-calls.html">
+                Simplifying Method Calls
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../rename-method.html">
+                Rename Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../add-parameter.html">
+                Add Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-parameter.html">
+                Remove Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../separate-query-from-modifier.html">
+                Separate Query from Modifier
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../parameterize-method.html">
+                Parameterize Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-explicit-methods.html">
+                Replace Parameter with Explicit Methods
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../preserve-whole-object.html">
+                Preserve Whole Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-method-call.html">
+                Replace Parameter with Method Call
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-parameter-object.html">
+                Introduce Parameter Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-setting-method.html">
+                Remove Setting Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-method.html">
+                Hide Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-constructor-with-factory-method.html">
+                Replace Constructor with Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-error-code-with-exception.html">
+                Replace Error Code with Exception
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-exception-with-test.html">
+                Replace Exception with Test
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="techniques/dealing-with-generalization.html">
+                Dealing with Generalization
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../pull-up-field.html">
+                Pull Up Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-method.html">
+                Pull Up Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-constructor-body.html">
+                Pull Up Constructor Body
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-method.html">
+                Push Down Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-field.html">
+                Push Down Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-subclass.html">
+                Extract Subclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-superclass.html">
+                Extract Superclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-interface.html">
+                Extract Interface
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../collapse-hierarchy.html">
+                Collapse Hierarchy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../form-template-method.html">
+                Form Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-inheritance-with-delegation.html">
+                Replace Inheritance with Delegation
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-delegation-with-inheritance.html">
+                Replace Delegation with Inheritance
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </div>
+        <div class="sidebar-controls">
+            <div class="sidebar-controls-container">
+                <a href="../login.html" title="Conectar"><i
+                            class="fa fa-fw fa-fw fa-user"></i> Conectar</a>
+                <a href="https://feedback.refactoring.guru/" class="userecho-public" rel="nofollow" title="Avaliação"><i class="fa fa-fw fa-fw fa-envelope" aria-hidden="true"></i> Contate-nos</a>
+            </div>
+        </div>
+    </div>
+</aside>
+    <footer class="footer center-content">
+    <div class="footer-container center-content-container">
+        <div class="footer-inner container-fluid">
+            <div class="row">
+                <div class="col-8 col-md-10">
+                    <ul class="footer-list footer-list-horizontal">
+                        <li><a href="../../pt-br.html">Página inicial</a></li>
+                        <li><a href="../refactoring.html">Refatoração</a></li>
+                        <li><a href="../design-patterns.html">Padrões de Projeto</a></li>
+                        <li><a href="../store.html">Conteúdo Premium</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-public">Fórum</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-private">Contate-nos</a></li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-2">
+                    <ul class="footer-list footer-list-iconic">
+                                                    <li><a href="https://www.facebook.com/refactoring.guru"><i class="fa fa-facebook-official"></i></a></li>
+                                                <li><a href="../sendy/form.html" rel="nofollow"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/RefactoringGuru"><i class="fa fa-github-circled"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-second">
+        <div class="footer-container center-content-container">
+            <div class="footer-inner container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <i class="fa fa-fw fa-copyright"></i> 2014-2022 <a href="../../pt-br.html">Refactoring.Guru</a>. <span style="white-space: nowrap">Todos os direitos reservados</span><br>
+                        <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234">
+                            <img class="fa-fw" style="height: 0.8rem;" src="../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                        </object> Khmelnitske shosse 19 / 27, Kamianets-Podilskyi, Ucrânia, 32305<br>
+                        <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+
+                        <div class="mt-2">
+                            <i class="fa fa-fw fa-image"></i> Ilustrações por <a href="http://zhart.us/" rel="nofollow"><span style="white-space: nowrap">Dmitry Zhart</span></a></div>
+                    </div>
+                    <div class="footer-links-right col-12 col-sm-4 mt-4 mt-sm-0">
+                        <div class="row">
+                            <div class="col-8 col-sm-12">
+                                <ul class="footer-list">
+                                    <li><a href="../terms.html"><span>Temos e condições</span></a>
+                                    </li>
+                                    <li><a href="../privacy-policy.html"><span>Política de privacidade</span></a>
+                                    </li>
+                                    <li><a href="../content-usage-policy.html"><span>Política de uso do contéudo</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+
+    <script>
+function extend(){var extended={};var deep=false;var i=0;var length=arguments["length"];if(Object["prototype"]["toString"]["call"](arguments[0])=== '[object Boolean]'){deep= arguments[0];i++};var merge=function(obj){for(var prop in obj){if(Object["prototype"]["hasOwnProperty"]["call"](obj,prop)){if(deep&& Object["prototype"]["toString"]["call"](obj[prop])=== '[object Object]'){extended[prop]= extend(true,extended[prop],obj[prop])}else {extended[prop]= obj[prop]}}}};for(;i< length;i++){var obj=arguments[i];merge(obj)};return extended}
+function defer(method) {if (window.jQuery) {method();} else {setTimeout(function() { defer(method) }, 50);}}
+</script>
+<script>
++function(sd){sd = (typeof sd === "string") ? JSON.parse(atob(sd)) : sd;for(var property in sd){if(window[property]!== null&&  typeof window[property]=== 'object'){window[property]= extend(true,window[property],sd[property])}else {window[property]= sd[property]}}}("eyJsb2NhbGUiOiJwdC1iciIsImxvY2FsZV9wcmVmaXgiOiJwdC1iclwvIiwicHJvZHVjdCI6eyJza3UiOiJEaXZlIEludG8gUmVmYWN0b3JpbmciLCJpbmZvIjp7ImVuIjp7InRpdGxlIjoiRGl2ZSBJbnRvIFJlZmFjdG9yaW5nIiwidXJsIjoiXC9yZWZhY3RvcmluZ1wvY291cnNlIiwiaW1hZ2UiOiJcL2ltYWdlc1wvcmVmYWN0b3JpbmdcL2NvdXJzZVwvY291cnNlLWNvdmVyLWVuLmpwZyJ9LCJlcyI6eyJ0aXRsZSI6IkRpdmUgSW50byBSZWZhY3RvcmluZyIsInVybCI6IlwvZXNcL3JlZmFjdG9yaW5nXC9jb3Vyc2UiLCJpbWFnZSI6IlwvaW1hZ2VzXC9yZWZhY3RvcmluZ1wvY291cnNlXC9jb3Vyc2UtY292ZXItZW4uanBnIn0sImZyIjp7InRpdGxlIjoiRGl2ZSBJbnRvIFJlZmFjdG9yaW5nIiwidXJsIjoiXC9yZWZhY3RvcmluZ1wvY291cnNlIiwiaW1hZ2UiOiJcL2ltYWdlc1wvcmVmYWN0b3JpbmdcL2NvdXJzZVwvY291cnNlLWNvdmVyLWVuLmpwZyJ9LCJqYSI6eyJ0aXRsZSI6IkRpdmUgSW50byBSZWZhY3RvcmluZyIsInVybCI6IlwvcmVmYWN0b3JpbmdcL2NvdXJzZSIsImltYWdlIjoiXC9pbWFnZXNcL3JlZmFjdG9yaW5nXC9jb3Vyc2VcL2NvdXJzZS1jb3Zlci1lbi5qcGcifSwia28iOnsidGl0bGUiOiJEaXZlIEludG8gUmVmYWN0b3JpbmciLCJ1cmwiOiJcL3JlZmFjdG9yaW5nXC9jb3Vyc2UiLCJpbWFnZSI6IlwvaW1hZ2VzXC9yZWZhY3RvcmluZ1wvY291cnNlXC9jb3Vyc2UtY292ZXItZW4uanBnIn0sInBsIjp7InRpdGxlIjoiWmFudXJ6ZW5pZSB3IHJlZmFrdG9yeXphY2ppIiwidXJsIjoiXC9wbFwvcmVmYWN0b3JpbmdcL2NvdXJzZSIsImltYWdlIjoiXC9pbWFnZXNcL3JlZmFjdG9yaW5nXC9jb3Vyc2VcL2NvdXJzZS1jb3Zlci1lbi5qcGcifSwicHQtYnIiOnsidGl0bGUiOiJEaXZlIEludG8gUmVmYWN0b3JpbmciLCJ1cmwiOiJcL3B0LWJyXC9yZWZhY3RvcmluZ1wvY291cnNlIiwiaW1hZ2UiOiJcL2ltYWdlc1wvcmVmYWN0b3JpbmdcL2NvdXJzZVwvY291cnNlLWNvdmVyLWVuLmpwZyJ9LCJydSI6eyJ0aXRsZSI6Ilx1MDQxZlx1MDQzZVx1MDQzM1x1MDQ0MFx1MDQ0M1x1MDQzNlx1MDQzNVx1MDQzZFx1MDQzOFx1MDQzNSBcdTA0MzIgXHUwNDQwXHUwNDM1XHUwNDQ0XHUwNDMwXHUwNDNhXHUwNDQyXHUwNDNlXHUwNDQwXHUwNDM4XHUwNDNkXHUwNDMzIiwidXJsIjoiXC9ydVwvcmVmYWN0b3JpbmdcL2NvdXJzZSIsImltYWdlIjoiXC9pbWFnZXNcL3JlZmFjdG9yaW5nXC9jb3Vyc2VcL2NvdXJzZS1jb3Zlci1ydS5qcGcifSwidWsiOnsidGl0bGUiOiJcdTA0MTdcdTA0MzBcdTA0M2RcdTA0NDNcdTA0NDBcdTA0MzVcdTA0M2RcdTA0M2RcdTA0NGYgXHUwNDMyIFx1MDQ0MFx1MDQzNVx1MDQ0NFx1MDQzMFx1MDQzYVx1MDQ0Mlx1MDQzZVx1MDQ0MFx1MDQzOFx1MDQzZFx1MDQzMyIsInVybCI6IlwvdWtcL3JlZmFjdG9yaW5nXC9jb3Vyc2UiLCJpbWFnZSI6IlwvaW1hZ2VzXC9yZWZhY3RvcmluZ1wvY291cnNlXC9jb3Vyc2UtY292ZXItdWsuanBnIn0sInpoIjp7InRpdGxlIjoiRGl2ZSBJbnRvIFJlZmFjdG9yaW5nIiwidXJsIjoiXC9yZWZhY3RvcmluZ1wvY291cnNlIiwiaW1hZ2UiOiJcL2ltYWdlc1wvcmVmYWN0b3JpbmdcL2NvdXJzZVwvY291cnNlLWNvdmVyLWVuLmpwZyJ9fSwiZmVhdHVyZXMiOlsiRGl2ZSBJbnRvIFJlZmFjdG9yaW5nIl0sInByaWNlcyI6eyJVU0QiOnsibGlzdF9wcmljZSI6ODAsInByaWNlIjozOS45NSwicHJpY2VfZGlzcGxheSI6IiQzOS45NSIsImxpc3RfcHJpY2VfZGlzcGxheSI6IiQ4MC4wMCIsImRpc2NvdW50Ijo1MCwiZGlzY291bnRfZGlzcGxheSI6Ii01MCUifSwiRVVSIjp7Imxpc3RfcHJpY2UiOjgwLCJwcmljZSI6MzkuOTUsInByaWNlX2Rpc3BsYXkiOiJcdTIwYWMzOS45NSIsImxpc3RfcHJpY2VfZGlzcGxheSI6Ilx1MjBhYzgwLjAwIiwiZGlzY291bnQiOjUwLCJkaXNjb3VudF9kaXNwbGF5IjoiLTUwJSJ9LCJHQlAiOnsibGlzdF9wcmljZSI6NjkuOTUsInByaWNlIjozNS45NSwicHJpY2VfZGlzcGxheSI6Ilx1MDBhMzM1Ljk1IiwibGlzdF9wcmljZV9kaXNwbGF5IjoiXHUwMGEzNjkuOTUiLCJkaXNjb3VudCI6NTAsImRpc2NvdW50X2Rpc3BsYXkiOiItNTAlIn0sIkNBRCI6eyJsaXN0X3ByaWNlIjoxMDQuOTUsInByaWNlIjo0OS45NSwicHJpY2VfZGlzcGxheSI6IkMkNDkuOTUiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJDJDEwNC45NSIsImRpc2NvdW50Ijo1MCwiZGlzY291bnRfZGlzcGxheSI6Ii01MCUifSwiQVVEIjp7Imxpc3RfcHJpY2UiOjEwOSwicHJpY2UiOjU0Ljk1LCJwcmljZV9kaXNwbGF5IjoiQSQ1NC45NSIsImxpc3RfcHJpY2VfZGlzcGxheSI6IkEkMTA5LjAwIiwiZGlzY291bnQiOjUwLCJkaXNjb3VudF9kaXNwbGF5IjoiLTUwJSJ9LCJDSEYiOnsibGlzdF9wcmljZSI6NzkuOTUsInByaWNlIjozOS45NSwicHJpY2VfZGlzcGxheSI6IkNIRlx1MDBhMDM5Ljk1IiwibGlzdF9wcmljZV9kaXNwbGF5IjoiQ0hGXHUwMGEwNzkuOTUiLCJkaXNjb3VudCI6NTAsImRpc2NvdW50X2Rpc3BsYXkiOiItNTAlIn0sIlNFSyI6eyJsaXN0X3ByaWNlIjo4MTksInByaWNlIjozOTksInByaWNlX2Rpc3BsYXkiOiIzOTlcdTAwYTBrciIsImxpc3RfcHJpY2VfZGlzcGxheSI6IjgxOVx1MDBhMGtyIiwiZGlzY291bnQiOjUwLCJkaXNjb3VudF9kaXNwbGF5IjoiLTUwJSJ9LCJES0siOnsibGlzdF9wcmljZSI6NTk5LCJwcmljZSI6Mjk5LCJwcmljZV9kaXNwbGF5IjoiMjk5XHUwMGEwa3IuIiwibGlzdF9wcmljZV9kaXNwbGF5IjoiNTk5XHUwMGEwa3IuIiwiZGlzY291bnQiOjUwLCJkaXNjb3VudF9kaXNwbGF5IjoiLTUwJSJ9LCJQTE4iOnsibGlzdF9wcmljZSI6MzU5LCJwcmljZSI6MTc5LCJwcmljZV9kaXNwbGF5IjoiMTc5LDAwXHUwMGEwelx1MDE0MiIsImxpc3RfcHJpY2VfZGlzcGxheSI6IjM1OSwwMFx1MDBhMHpcdTAxNDIiLCJkaXNjb3VudCI6NTAsImRpc2NvdW50X2Rpc3BsYXkiOiItNTAlIn0sIkJSTCI6eyJsaXN0X3ByaWNlIjo0MzksInByaWNlIjoyMTksInByaWNlX2Rpc3BsYXkiOiJSJDIxOSwwMCIsImxpc3RfcHJpY2VfZGlzcGxheSI6IlIkNDM5LDAwIiwiZGlzY291bnQiOjUwLCJkaXNjb3VudF9kaXNwbGF5IjoiLTUwJSJ9LCJBUlMiOnsibGlzdF9wcmljZSI6NTk5NSwicHJpY2UiOjM4OTUsInByaWNlX2Rpc3BsYXkiOiJBUlMkMy44OTUsMDAiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJBUlMkNS45OTUsMDAiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIkNMUCI6eyJsaXN0X3ByaWNlIjo2MjkwMCwicHJpY2UiOjI5OTAwLCJwcmljZV9kaXNwbGF5IjoiQ0xQJDI5LjkwMCIsImxpc3RfcHJpY2VfZGlzcGxheSI6IkNMUCQ2Mi45MDAiLCJkaXNjb3VudCI6NTAsImRpc2NvdW50X2Rpc3BsYXkiOiItNTAlIn0sIk1YTiI6eyJsaXN0X3ByaWNlIjoxNzk1LCJwcmljZSI6Nzk5LCJwcmljZV9kaXNwbGF5IjoiTWV4JDc5OS4wMCIsImxpc3RfcHJpY2VfZGlzcGxheSI6Ik1leCQxLDc5NS4wMCIsImRpc2NvdW50Ijo1NSwiZGlzY291bnRfZGlzcGxheSI6Ii01NSUifSwiQ09QIjp7Imxpc3RfcHJpY2UiOjMwOTAwMCwicHJpY2UiOjE0OTAwMCwicHJpY2VfZGlzcGxheSI6IkNPTCQxNDkuMDAwIiwibGlzdF9wcmljZV9kaXNwbGF5IjoiQ09MJDMwOS4wMDAiLCJkaXNjb3VudCI6NTAsImRpc2NvdW50X2Rpc3BsYXkiOiItNTAlIn0sIlBFTiI6eyJsaXN0X3ByaWNlIjoyODksInByaWNlIjoxNTksInByaWNlX2Rpc3BsYXkiOiJTXC8uMTU5LDAwIiwibGlzdF9wcmljZV9kaXNwbGF5IjoiU1wvLjI4OSwwMCIsImRpc2NvdW50Ijo0NSwiZGlzY291bnRfZGlzcGxheSI6Ii00NSUifSwiQ05ZIjp7Imxpc3RfcHJpY2UiOjU1OSwicHJpY2UiOjI3OSwicHJpY2VfZGlzcGxheSI6Ilx1MDBhNTI3OS4wMCIsImxpc3RfcHJpY2VfZGlzcGxheSI6Ilx1MDBhNTU1OS4wMCIsImRpc2NvdW50Ijo1MCwiZGlzY291bnRfZGlzcGxheSI6Ii01MCUifSwiSEtEIjp7Imxpc3RfcHJpY2UiOjYxOSwicHJpY2UiOjI5OSwicHJpY2VfZGlzcGxheSI6IkhLJDI5OS4wMCIsImxpc3RfcHJpY2VfZGlzcGxheSI6IkhLJDYxOS4wMCIsImRpc2NvdW50Ijo1MCwiZGlzY291bnRfZGlzcGxheSI6Ii01MCUifSwiVFdEIjp7Imxpc3RfcHJpY2UiOjIzOTUsInByaWNlIjoxMTk1LCJwcmljZV9kaXNwbGF5IjoiTlQkMSwxOTUiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJOVCQyLDM5NSIsImRpc2NvdW50Ijo1MCwiZGlzY291bnRfZGlzcGxheSI6Ii01MCUifSwiSURSIjp7Imxpc3RfcHJpY2UiOjExNjkwMDAsInByaWNlIjo1NzkwMDAsInByaWNlX2Rpc3BsYXkiOiJScDU3OS4wMDAiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJScDEuMTY5LjAwMCIsImRpc2NvdW50Ijo1MCwiZGlzY291bnRfZGlzcGxheSI6Ii01MCUifSwiSlBZIjp7Imxpc3RfcHJpY2UiOjg0OTUsInByaWNlIjo0MTk1LCJwcmljZV9kaXNwbGF5IjoiXHUwMGE1NCwxOTUiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJcdTAwYTU4LDQ5NSIsImRpc2NvdW50Ijo1MCwiZGlzY291bnRfZGlzcGxheSI6Ii01MCUifSwiVk5EIjp7Imxpc3RfcHJpY2UiOjE4NDkwMDAsInByaWNlIjo5MjkwMDAsInByaWNlX2Rpc3BsYXkiOiI5MjkuMDAwXHUyMGFiIiwibGlzdF9wcmljZV9kaXNwbGF5IjoiMS44NDkuMDAwXHUyMGFiIiwiZGlzY291bnQiOjUwLCJkaXNjb3VudF9kaXNwbGF5IjoiLTUwJSJ9LCJTR0QiOnsibGlzdF9wcmljZSI6MTA5LCJwcmljZSI6NTQuOTUsInByaWNlX2Rpc3BsYXkiOiJTJDU0Ljk1IiwibGlzdF9wcmljZV9kaXNwbGF5IjoiUyQxMDkuMDAiLCJkaXNjb3VudCI6NTAsImRpc2NvdW50X2Rpc3BsYXkiOiItNTAlIn0sIklMUyI6eyJsaXN0X3ByaWNlIjoyNjksInByaWNlIjoxMzksInByaWNlX2Rpc3BsYXkiOiJcdTIwYWExMzkuMDAiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJcdTIwYWEyNjkuMDAiLCJkaXNjb3VudCI6NTAsImRpc2NvdW50X2Rpc3BsYXkiOiItNTAlIn0sIlRSWSI6eyJsaXN0X3ByaWNlIjo2MTksInByaWNlIjoyOTksInByaWNlX2Rpc3BsYXkiOiJcdTIwYmEyOTkuMDAiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJcdTIwYmE2MTkuMDAiLCJkaXNjb3VudCI6NTAsImRpc2NvdW50X2Rpc3BsYXkiOiItNTAlIn0sIlVBSCI6eyJsaXN0X3ByaWNlIjoyMTk1LCJwcmljZSI6MTA5NSwicHJpY2VfZGlzcGxheSI6IjEwOTVcdTAwYTBcdTIwYjQiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiIyMTk1XHUwMGEwXHUyMGI0IiwiZGlzY291bnQiOjUwLCJkaXNjb3VudF9kaXNwbGF5IjoiLTUwJSJ9LCJJTlIiOnsibGlzdF9wcmljZSI6NTk5NSwicHJpY2UiOjI5OTUsInByaWNlX2Rpc3BsYXkiOiJcdTIwYjlcdTAwYTAyLDk5NSIsImxpc3RfcHJpY2VfZGlzcGxheSI6Ilx1MjBiOVx1MDBhMDUsOTk1IiwiZGlzY291bnQiOjUwLCJkaXNjb3VudF9kaXNwbGF5IjoiLTUwJSJ9fSwidGNvX2NvZGUiOiJESVItVEgiLCJ0Y29fZ3JvdXAiOiJUSCIsInRjb19pZCI6IjI3MDM4MjQzIiwidGNvX2lkXzJTZWxsIjoiMTg0NDE4NDMiLCJ0Y29faWRfMlNlbGxfTSI6IjM3MjI2MjE3IiwiY291bnRyeV9ydWxlcyI6W3siY291bnRyeSI6WyIlQVNJQV8xJSIsIiVBRlJJQ0FfMSUiLCIlRVVST1BFX0VVUk9aT05FXzElIiwiJUVVUk9QRV9OT1RfRVVST1pPTkVfMSUiLCIlT0NFQU5JQV8xJSIsIiVOT1JUSF9BTUVSSUNBXzElIiwiJVNPVVRIX0FNRVJJQ0FfMSUiXSwiZmllbGRzIjp7InByaWNlcyI6W119fSx7ImNvdW50cnkiOlsiJUFTSUFfMS41JSIsIiVFVVJPUEVfRVVST1pPTkVfMS41JSIsIiVFVVJPUEVfTk9UX0VVUk9aT05FXzEuNSUiLCIlT0NFQU5JQV8xLjUlIiwiJU5PUlRIX0FNRVJJQ0FfMS41JSIsIiVTT1VUSF9BTUVSSUNBXzEuNSUiXSwiZmllbGRzIjp7InByaWNlcyI6eyJVU0QiOnsibGlzdF9wcmljZSI6IjgwLjAwICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAyOS45NSAgICAgIn0sIkVVUiI6eyJsaXN0X3ByaWNlIjoiODAuMDAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDI5Ljk1ICAgICAifSwiR0JQIjp7Imxpc3RfcHJpY2UiOiI2OS45NSAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMjYuOTUgICAgICJ9LCJDQUQiOnsibGlzdF9wcmljZSI6IjEwNC45NSAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAzOS45NSAgICAgICAgICAifSwiQVVEIjp7Imxpc3RfcHJpY2UiOiIxMDkuMDAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgMzkuOTUgICAgICAgICAgIn0sIkNIRiI6eyJsaXN0X3ByaWNlIjoiNzkuOTUgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDI5Ljk1ICAgICAifSwiU0VLIjp7Imxpc3RfcHJpY2UiOiI4MTkuMDAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgMjk5LjAwICAgICAgICAgICAgICAgIn0sIkRLSyI6eyJsaXN0X3ByaWNlIjoiNTk5LjAwICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgIDIxOS4wMCAgICAgICAgICAgICAgICJ9LCJQTE4iOnsibGlzdF9wcmljZSI6IjM1OS4wMCAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAxMzkuMDAgICAgICAgICAgICAgICAifSwiQlJMIjp7Imxpc3RfcHJpY2UiOiI0MzkuMDAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgMTY5LjAwICAgICAgICAgICAgICAgIn0sIkFSUyI6eyJsaXN0X3ByaWNlIjoiNSw5OTUuMDAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgIDIsODk1LjAwICAgICAgICAgICAgICAifSwiQ0xQIjp7Imxpc3RfcHJpY2UiOiI2Miw5MDAuMDAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgMjIsOTAwLjAwICAgICAgICAgICAgICAgICAgICAifSwiTVhOIjp7Imxpc3RfcHJpY2UiOiIxLDc5NS4wMCAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgNTk5LjAwICAgICAgICAgICAgICAgICAgICAgICAifSwiQ09QIjp7Imxpc3RfcHJpY2UiOiIzMDksMDAwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgMTA5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiUEVOIjp7Imxpc3RfcHJpY2UiOiIyODkuMDAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgMTE5LjAwICAgICAgICAgICAgICAgICAgICAgICAifSwiQ05ZIjp7Imxpc3RfcHJpY2UiOiI1NTkuMDAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgMjA5LjAwICAgICAgICAgICAgICAgICAgICAgICAifSwiSEtEIjp7Imxpc3RfcHJpY2UiOiI2MTkuMDAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgMjI5LjAwICAgICAgICAgICAgICAgICAgICAgICAifSwiVFdEIjp7Imxpc3RfcHJpY2UiOiIyLDM5NS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgODc5LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJJRFIiOnsibGlzdF9wcmljZSI6IjEsMTY5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICA0MzksMDAwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiSlBZIjp7Imxpc3RfcHJpY2UiOiI4LDQ5NS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgMywxOTUuMDAgICAgICAgICAgICAgICAgICAgICAgICAifSwiVk5EIjp7Imxpc3RfcHJpY2UiOiIxLDg0OSwwMDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgNjg5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJTR0QiOnsibGlzdF9wcmljZSI6IjEwOS4wMCAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAzOS45NSAgICAgICAgICAgICAgICAgICAgIn0sIklMUyI6eyJsaXN0X3ByaWNlIjoiMjY5LjAwICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgIDk5Ljk1ICAgICAgICAgICAgICAgICAgICAgICJ9LCJUUlkiOnsibGlzdF9wcmljZSI6IjYxOS4wMCAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAyMjkuMDAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJVQUgiOnsibGlzdF9wcmljZSI6IjIsMTk1LjAwICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICA4MzkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIlJVQiI6eyJsaXN0X3ByaWNlIjoiNiwyOTUuMDAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgIDIsMzk1LjAwICAgICAgICAgICAgICAgICAgICAgICJ9LCJJTlIiOnsibGlzdF9wcmljZSI6IjUsOTk1LjAwICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAyLDI5NS4wMCAgICAgICAgICAgICAgICAgICAgICAifX0sInRjb19jb2RlIjoiRElSLVRNIiwidGNvX2dyb3VwIjoiVE0iLCJ0Y29faWQiOiIyNzEyMzk5OSIsInRjb19pZF8yU2VsbCI6IjIyMTA0MTA2IiwidGNvX2lkXzJTZWxsX00iOiIzNzIyNjIxOCJ9fSx7ImNvdW50cnkiOlsiJUFTSUFfMiUiLCIlQUZSSUNBXzIlIiwiJUVVUk9QRV9FVVJPWk9ORV8yJSIsIiVFVVJPUEVfTk9UX0VVUk9aT05FXzIlIiwiJU9DRUFOSUFfMiUiLCIlTk9SVEhfQU1FUklDQV8yJSIsIiVTT1VUSF9BTUVSSUNBXzIlIl0sImZpZWxkcyI6eyJwcmljZXMiOnsiVVNEIjp7Imxpc3RfcHJpY2UiOiI0MC4wMCAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTkuOTUgICAgICJ9LCJFVVIiOnsibGlzdF9wcmljZSI6IjQwLjAwICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAxOS45NSAgICAgIn0sIkdCUCI6eyJsaXN0X3ByaWNlIjoiMzUuOTUgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgIDE3Ljk1ICAgICAifSwiQ0FEIjp7Imxpc3RfcHJpY2UiOiI0OS45NSAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgMjYuOTUgICAgICAgICJ9LCJBVUQiOnsibGlzdF9wcmljZSI6IjU0Ljk1ICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAyNi45NSAgICAgICAgIn0sIkNIRiI6eyJsaXN0X3ByaWNlIjoiMzkuOTUgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgIDE5Ljk1ICAgICAifSwiU0VLIjp7Imxpc3RfcHJpY2UiOiIzOTkuMDAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgMTk5LjAwICAgICAgICAgICAgICAgIn0sIkRLSyI6eyJsaXN0X3ByaWNlIjoiMjk5LjAwICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgIDE0OS4wMCAgICAgICAgICAgICAgICJ9LCJQTE4iOnsibGlzdF9wcmljZSI6IjE3OS4wMCAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICA4OS45NSAgICAgICAgICAgICAifSwiQlJMIjp7Imxpc3RfcHJpY2UiOiIyMTkuMDAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgOTkuMDAgICAgICAgICAgICAgICAifSwiQVJTIjp7Imxpc3RfcHJpY2UiOiIyLDk5NS4wMCAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgMSw5OTUuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiQ0xQIjp7Imxpc3RfcHJpY2UiOiIzMSw5MDAuMDAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgMTQsOTAwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIk1YTiI6eyJsaXN0X3ByaWNlIjoiODk5LjAwICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgIDM5OS4wMCAgICAgICAgICAgICAgICAgICAgICJ9LCJDT1AiOnsibGlzdF9wcmljZSI6IjE1OSwwMDAuMDAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICA3NCw5MDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJQRU4iOnsibGlzdF9wcmljZSI6IjEzOS4wMCAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICA3OS45NSAgICAgICAgICAgICAgICAgICAgICJ9LCJDTlkiOnsibGlzdF9wcmljZSI6IjI3OS4wMCAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAxMzkuMDAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJIS0QiOnsibGlzdF9wcmljZSI6IjI5OS4wMCAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAxNDkuMDAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJUV0QiOnsibGlzdF9wcmljZSI6IjEsMTk1LjAwICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICA1NzkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIklEUiI6eyJsaXN0X3ByaWNlIjoiNTg5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgIDI4OSwwMDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIkpQWSI6eyJsaXN0X3ByaWNlIjoiNCwxOTUuMDAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgIDIsMDk1LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIlZORCI6eyJsaXN0X3ByaWNlIjoiOTI5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgIDQ1OSwwMDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIlNHRCI6eyJsaXN0X3ByaWNlIjoiNTQuOTUgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgIDI2Ljk1ICAgICAgICAgICAgICAgICAgIn0sIklMUyI6eyJsaXN0X3ByaWNlIjoiMTM5LjAwICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgIDY5Ljk1ICAgICAgICAgICAgICAgICAgICAgIn0sIlRSWSI6eyJsaXN0X3ByaWNlIjoiMjk5LjAwICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgIDE3OS4wMCAgICAgICAgICAgICAgICAgICAgICAgIn0sIlVBSCI6eyJsaXN0X3ByaWNlIjoiMSwwOTUuMDAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgIDQ5OS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiUlVCIjp7Imxpc3RfcHJpY2UiOiIzLDA5NS4wMCAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgMSw0OTkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIklOUiI6eyJsaXN0X3ByaWNlIjoiMiw5OTUuMDAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgIDEsNDk1LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifX0sInRjb19jb2RlIjoiRElSLVRMIiwidGNvX2dyb3VwIjoiVEwiLCJ0Y29faWQiOiIyNzEyNDAwMCIsInRjb19pZF8yU2VsbCI6IjE3OTA4NDk5IiwidGNvX2lkXzJTZWxsX00iOiIzNzIyNjIxOSJ9fSx7ImNvdW50cnkiOlsiJUFTSUFfSU5ET0NISU5BJSIsIiVBU0lBXzMlIiwiJUFGUklDQV8zJSIsIiVFVVJPUEVfTk9UX0VVUk9aT05FXzMlIiwiJVNPVVRIX0FNRVJJQ0FfMyUiXSwiZmllbGRzIjp7InByaWNlcyI6eyJVU0QiOnsibGlzdF9wcmljZSI6IiAgICAgIDUwLjAwICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAxMy4wMCAgICAgICAgICJ9LCJJTlIiOnsibGlzdF9wcmljZSI6IiAgICAgIDMsNzk1LjAwICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICA5OTkuMDAgICAgICAgICAgICAgICAgIn0sIklEUiI6eyJsaXN0X3ByaWNlIjoiNTg5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgMTg5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIkJSTCI6eyJsaXN0X3ByaWNlIjoiMjE5LjAwICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICA2OS4wMCAgICAgICAgICAgICAgICAifSwiVk5EIjp7Imxpc3RfcHJpY2UiOiI5MjksMDAwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAyOTksMDAwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiVFJZIjp7Imxpc3RfcHJpY2UiOiIyOTkuMDAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgIDE3OS4wMCAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJVQUgiOnsibGlzdF9wcmljZSI6IjEsMDk1LjAwICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAzNjkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiUlVCIjp7Imxpc3RfcHJpY2UiOiIzLDA5NS4wMCAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgOTk5LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifX0sInRjb19jb2RlIjoiRElSLVRJIiwidGNvX2dyb3VwIjoiVEkiLCJ0Y29faWQiOiIyNzEyNDAwMiIsInRjb19pZF8yU2VsbCI6IjI1MjY0NzAwIiwidGNvX2lkXzJTZWxsX00iOiIzNzIyNjIyMCJ9fV19LCJsb2NhbGl6ZWRfdXJsX3ByZWZpeF9tIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcL3B0LWJyXC8iLCJ1cmxfcHJlZml4X20iOiJodHRwczpcL1wvcmVmYWN0b3JpbmcuZ3VydVwvIiwibG9jYWxpemVkX3VybF9wcmVmaXgiOiJodHRwczpcL1wvcmVmYWN0b3JpbmcuZ3VydVwvcHQtYnJcLyIsInVybF9wcmVmaXgiOiJodHRwczpcL1wvcmVmYWN0b3JpbmcuZ3VydVwvIiwiY2hpbmVzZV9ob21lIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nZ3VydS5jblwvIiwidXNlcl9lY2hvX2FsaWFzIjoicmVmYWN0b3JpbmciLCJ1c2VyX2VjaG9faG9zdCI6ImZlZWRiYWNrLnJlZmFjdG9yaW5nLmd1cnUiLCJ1c2VyX2VjaG9fcHJpdmF0ZV9mb3J1bSI6IjIiLCJ1c2VyX2VjaG9fbG9jYWxlIjoicHQtYnIiLCJ1c2VyX2VjaG9fcHVibGljX2ZvcnVtIjoiMyIsInVzZXJfZWNob19wdWJsaWNfZm9ydW1fdXJsIjoiaHR0cHM6XC9cL2ZlZWRiYWNrLnJlZmFjdG9yaW5nLmd1cnVcLyIsInVzZXJfZWNob19zc29fdG9rZW4iOiIifQ==");
+</script>
+
+    <script defer>
+        if (window.dataLayer && window.google_optimize) {
+            window.dataLayer.push({'event': 'optimize.activate'});
+        }
+    </script>
+ 
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+        {'GTM-M58XZN4':true});</script>
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com/">
+<script>
+    var getCookie = function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    };
+    var eraseCookie = function (name) {
+        document.cookie = name+'=; Path=/; Max-Age=-99999999;';
+    };
+
+    window.google_analytics = 'UA-521840-40';
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+
+    var ga_queue = [];
+    window.gaOnCreate = function(){
+        ga_queue.push(arguments);
+    };
+
+            doTracking();
+    
+    function doTracking(clientId) {
+        window.gaOnCreate = function(){
+            ga.apply(this, arguments);
+        };
+
+        var options = {
+            'siteSpeedSampleRate': 100
+        };
+        if (clientId) {
+            options.clientId = clientId;
+        }
+        ga('create', 'UA-521840-40', options);
+
+                    ga('require', 'GTM-M58XZN4');
+            window.google_optimize = 'GTM-M58XZN4';
+        
+        // Fix broken Social Login referrer.
+        window.social_login_provider = window.social_login_provider || getCookie('social_login_provider');
+        if (window.social_login_provider) {
+            ga('set', 'referrer', null);
+            ga('send', 'social', window.social_login_provider, 'login', window.location.href);
+            eraseCookie('social_login_provider');
+        }
+
+        var user_id = getCookie('user_id');
+        if (user_id) {
+            ga('set', 'userId', user_id);
+        } else {
+            ga('set', 'userId', null);
+        }
+
+        var location = document.location.href;
+        if (typeof window.analytics_path_prefix === 'string') {
+            if (/^(https?:\/\/[^\/]+?)\/$/.test(location)) {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix);
+            }
+            else {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix + '/');
+            }
+            ga('set', 'location', location);
+        }
+
+        if (typeof window.analytics_location_prefix === 'string') {
+            location = location.replace(/(https?:\/\/[^\/]+?)\//, window.analytics_location_prefix);
+            ga('set', 'location', location);
+        }
+
+        ga('require', 'ec');
+        ga('send', 'pageview', (typeof window.analytics_path_prefix === 'string' ? window.analytics_path_prefix : '') + document.location.pathname);
+
+        ga_queue.forEach(function(item){
+            ga.apply(this, item);
+        });
+    }
+</script>
+
+<script defer>
+    window.socialLikesButtons = {
+                facebook: {
+            counterUrl: "",
+            convertNumber: null
+        },
+                        };
+</script>
+
+<script defer>
+    var CodeMirrorScripts = ["/js/codemirror.min.js?id=24aa863dfde7c99eb17d4102684aea27"];
+</script>
+
+
+
+    <script>window.loadContent = true;window.loadCart = true;</script>
+</body>
+
+<!-- Mirrored from refactoring.guru/pt-br/refactoring/course by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:20:44 GMT -->
+</html>

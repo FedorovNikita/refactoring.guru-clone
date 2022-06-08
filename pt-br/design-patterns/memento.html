@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<!-- Mirrored from refactoring.guru/pt-br/design-patterns/memento by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:21:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+    <meta charset="utf-8">
+    <title>Memento</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="alternate" href="../../design-patterns/memento.html" hreflang="x-default"/>
+    <link rel="alternate" href="../../es/design-patterns/memento.html" hreflang="es"/>
+    <link rel="alternate" href="../../fr/design-patterns/memento.html" hreflang="fr"/>
+    <link rel="alternate" href="../../ja/design-patterns/memento.html" hreflang="ja"/>
+    <link rel="alternate" href="../../ko/design-patterns/memento.html" hreflang="ko"/>
+    <link rel="alternate" href="../../pl/design-patterns/memento.html" hreflang="pl"/>
+    <link rel="alternate" href="memento.html" hreflang="pt-br"/>
+    <link rel="alternate" href="../../ru/design-patterns/memento.html" hreflang="ru"/>
+    <link rel="alternate" href="../../uk/design-patterns/memento.html" hreflang="uk"/>
+    <link rel="alternate" href="https://refactoringguru.cn/design-patterns/memento" hreflang="zh"/>
+
+    <meta name="description" content="O Memento é um padrão de projeto comportamental que permite que você salve e restaure o estado anterior de um objeto sem revelar os detalhes de sua implementação.">
+
+    <link rel="canonical" href="memento.html"/>
+
+    <link rel="icon" type="image/x-icon" href="../../favicon.png"/>
+
+<script type="application/ld+json">
+{"@context": "http://schema.org", "@graph": [{"@type":"Person","@id":"https://refactoring.guru/pt-br#founder","name":"Alexander Shvets"},{"@type":"Organization","@id":"https://refactoring.guru/pt-br#organization","name":"Refactoring.Guru","description":"O Refactoring.Guru torna mais fácil para você descobrir tudo que você precisa saber sobre refatoração, padrões de projeto, princípios SOLID, e outros tópicos de programação inteligente.","image":{"@type":"ImageObject","@id":"https://refactoring.guru/pt-br#organizationlogo","url":"https://refactoring.guru/pt-brimages/content-public/logos/logo-plain.png","caption":"Refactoring.Guru"},"logo":{"@id":"https://refactoring.guru/pt-br#organizationlogo"},"founder":{"@id":"https://refactoring.guru/pt-br#founder"},"sameAs":["https://www.facebook.com/refactoring.guru","https://twitter.com/RefactoringGuru","https://github.com/RefactoringGuru"]},{"@type":"WebSite","@id":"https://refactoring.guru/pt-br#website","url":"https://refactoring.guru/pt-br","name":"Refactoring.Guru","description":"O Refactoring.Guru torna mais fácil para você descobrir tudo que você precisa saber sobre refatoração, padrões de projeto, princípios SOLID, e outros tópicos de programação inteligente.","author":{"@id":"https://refactoring.guru/pt-br#founder"},"publisher":{"@id":"https://refactoring.guru/pt-br#organization"},"copyrightYear":2014},{"@type":"WebPage","@id":"https://refactoring.guru/pt-br/design-patterns/memento#webpage","url":"https://refactoring.guru/pt-br/design-patterns/memento","inLanguage":"pt-br","name":"Memento","description":"O Memento é um padrão de projeto comportamental que permite que você salve e restaure o estado anterior de um objeto sem revelar os detalhes de sua implementação.","isPartOf":{"@id":"https://refactoring.guru/pt-br#website"},"breadcrumb":{"@id":"https://refactoring.guru/pt-br/design-patterns/memento#breadcrumb"},"primaryImageOfPage":{"@id":"https://refactoring.guru/pt-br/design-patterns/memento#primaryimage"},"image":{"@type":"ImageObject","@id":"https://refactoring.guru/pt-br/design-patterns/memento#primaryimage","url":"https://refactoring.guru/images/patterns/content/memento/memento-pt-br-3x.png","width":1920,"height":1200}},{"@type":"Article","@id":"https://refactoring.guru/pt-br/design-patterns/memento#article","isPartOf":{"@id":"https://refactoring.guru/pt-br/design-patterns/memento#webpage"},"mainEntityOfPage":{"@id":"https://refactoring.guru/pt-br/design-patterns/memento#webpage"},"author":{"@id":"https://refactoring.guru/pt-br#founder"},"publisher":{"@id":"https://refactoring.guru/pt-br#organization"},"headline":"Memento","datePublished":"2021-01-01","dateModified":"2022-01-01","articleSection":"Padrões de Projeto","image":{"@id":"https://refactoring.guru/pt-br/design-patterns/memento#primaryimage"}},{"@type":"BreadcrumbList","@id":"https://refactoring.guru/pt-br/design-patterns/memento#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Página inicial","item":"https://refactoring.guru/pt-br"},{"@type":"ListItem","position":2,"name":"Padrões de Projeto","item":"https://refactoring.guru/pt-br/design-patterns"},{"@type":"ListItem","position":3,"name":"Padrões comportamentais","item":"https://refactoring.guru/pt-br/design-patterns/behavioral-patterns"}]}] }
+</script>
+
+<meta property="fb:app_id" content="666819623386327" />
+<meta property="og:type"  content="website" />
+<meta property="og:image" content="https://refactoring.guru/pt-br/images/refactoring/social/facebook-share-preview.png?id=dbf9e98269595be86eb668f365be6868"/>
+
+        <link rel="stylesheet" href="../../css/public-packed.min29c2.css?id=72df70415a2662bdd8f64ffd40983c30">
+
+<style type="text/css">
+    @font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<link rel="preload" href="../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/fontello/fontawesomea92a.woff2?15843843" as="font" type="font/woff2" crossorigin>
+
+
+<script defer src="../../js/public.min1749.js?id=77d40430343920ca57d184f85668a382"></script>
+
+
+
+</head>
+<body class="locale-pt-br    announcement   memento" data-body_class="memento">
+
+<div class="body-holder">
+
+
+            <div class="announcement-block prom" data-id="DIDP-announcement" data-creative-id="pt-br" data-position="top"><div class="announcement-block-inner">
+            <img src="../../images/content-public/announcement-pt-br-13368.svg?id=b246783e4968337574a9760c56b0835d" loading="lazy" style="width: 36px; height:36px;">
+            Ei, acabamos de reduzir o preço de todos os produtos. Vamos capacitar nossas habilidades de programação para a era pós-COVID. <a href="../store.html">Veja as ofertas »</a>
+            </div></div>
+    
+    <div class="cart-placeholder">
+    <div class="cart-block-container" style="display:none">
+        <div class="cart-block btn-group">
+            <a href="#checkout" class="btn cart open-checkout">
+                <span class="cart-text"></span>&nbsp;<strong class="cart-total font-money"></strong>
+            </a><a href="#checkout" class="btn btn-secondary checkout open-checkout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="btn-text-span d-none d-sm-inline-block d-lg-none d-hg-inline-block"></span></a>
+        </div>
+    </div>
+</div>
+    <main role="main" class="main-content top-content center-content " data-page_class="">
+        <div class="main-content-container center-content-container">
+                        <div class="pattern page text">
+<article>
+    <div class="breadcrumb">
+                                    <a class="home" href="../../index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                                / <a class="type" href="../design-patterns.html">Padrões de Projeto</a>
+                                                / <a class="type" href="behavioral-patterns.html">Padrões comportamentais</a>
+                        </div>
+    <h1 class="title">Memento</h1>
+
+    <script type="text/javascript">
+        // Shorten examples titles for users.
+        var h1 = document.getElementsByTagName("H1")[0];
+        if (h1.offsetHeight > 160) {
+            h1.className += ' smaller';
+        }
+
+        // Small beautification for pattern examples.
+        var title = h1.innerHTML;
+        title = title.replace(/^(Java|C\+\+|C#|PHP|Python|Ruby|Delphi): (.*)$/, '<strong>$1:</strong> $2');
+        h1.innerHTML = title;
+    </script>
+
+            <div class="aka">
+            Também conhecido como: <span style="display:inline-block">Lembrança,&nbsp;</span><span style="display:inline-block">Retrato,&nbsp;</span><span style="display:inline-block">Snapshot</span>
+        </div>
+    
+    
+
+    <div class="section intent">
+<h2 id="intent"><i class="fa fa-flip-horizontal fa-comment-alt-dots" aria-hidden="true"></i> Propósito</h2>
+<p>O <strong>Memento</strong> é um padrão de projeto comportamental que permite que você salve e restaure o estado anterior de um objeto sem revelar os detalhes de sua implementação.</p>
+<figure class="image"><img src="../../images/patterns/content/memento/memento-pt-brd834.png?id=4ac00cfa2ce4742d5975410662f354f6" alt="Padr&atilde;o de projeto&amp;nbsp;Memento" width="640" srcset="/images/patterns/content/memento/memento-pt-br-2x.png?id=d1d60fe956990dcda071efd908ab86d9 2x" /></figure>
+</div>
+<div class="section problem">
+<h2 id="problem"><i class="fa fa-frown" aria-hidden="true"></i> Problema</h2>
+<p>Imagine que você está criando uma aplicação de editor de texto. Além da simples edição de texto, seu editor pode formatar o texto, inserir imagens em linha, etc.</p>
+<p>Em determinado momento você decide permitir que os usuários desfaçam quaisquer operações realizadas no texto. Essa funcionalidade tem se tornado tão comum nos últimos anos que, hoje em dia, as pessoas esperam que toda aplicação a tenha. Para a implementação você decide usar a abordagem direta. Antes de realizar qualquer operação, a aplicação grava o estado de todos os objetos e salva eles em algum armazenamento. Mais tarde, quando um usuário decide reverter a ação, a aplicação busca o último retrato do histórico e usa ele para restaurar o estado de todos os objetos.</p>
+<figure class="image"><img src="../../images/patterns/diagrams/memento/problem1-pt-br6c2f.png?id=3b7cdeb04e86fe63f342d42d341bb711" alt="Revertendo opera&ccedil;&otilde;s no editor" width="470" srcset="/images/patterns/diagrams/memento/problem1-pt-br-2x.png?id=3f0848d19580cde1fd191b608d382cfa 2x" loading="lazy" /><figcaption>
+<p>Antes de executar uma operação, a aplicação salva um retrato do estado dos objetos, que pode mais tarde ser usada para restaurá-los a seu estado anterior.</p>
+</figcaption></figure>
+<p>Vamos pensar sobre esses retratos de estado. Como exatamente você produziria um? Você provavelmente teria que percorrer todos os campos de um objeto e copiar seus valores para o armazenamento. Contudo, isso só funcionaria se o objeto tiver poucas restrições de acesso a seu conteúdo. Infelizmente, a maioria dos objetos reais não deixa os outros espiarem dentro deles assim tão facilmente, escondendo todos os dados significativos em campos privados.</p>
+<p>Ignore esse problema por enquanto e vamos assumir que nossos objetos comportam-se como hippies: preferindo relações abertas e mantendo seus estado público. Embora essa abordagem resolveria o problema imediato e permitiria que você produzisse retratos dos estados de seus objetos à vontade, ela ainda tem vários problemas graves. No futuro, você pode decidir refatorar algumas das classes do editor, ou adicionar e remover alguns campos. Parece fácil, mas isso também exigiria mudar as classes responsáveis por copiar o estado dos objetos afetados.</p>
+<figure class="image"><img src="../../images/patterns/diagrams/memento/problem2-pt-br5bab.png?id=639e955b098ae488a23f969165802a45" alt="Como fazer uma c&oacute;pia de um estado privado de um objeto?" width="300" srcset="/images/patterns/diagrams/memento/problem2-pt-br-2x.png?id=97cc15b492b154cf39892daab78940d5 2x" loading="lazy" /><figcaption>
+<p>Como fazer uma cópia do estado privado de um objeto?</p>
+</figcaption></figure>
+<p>E tem mais. Vamos considerar os próprios “retratos” do estado do editor. Que dados ele contém? No mínimo dos mínimos ele terá o próprio texto, coordenadas do cursor, posição atual do scroll, etc. Para fazer um retrato você teria que coletar todos esses valores e colocá-los em algum tipo de contêiner.</p>
+<p>O mais provável é que você vai armazenar muitos desses objetos contêineres dentro de alguma lista que representaria o histórico. Portanto os contêineres terminariam sendo objetos de uma classe. A classe não teria muitos métodos, mas vários campos que espelhariam o estado do editor. Para permitir que objetos sejam escritos e lidos no e do retrato, você teria que provavelmente tornar seus campos públicos. Isso iria expor todos os estados do editor, privados ou não. Outras classes se tornariam dependentes de cada pequena mudança na classe do retrato, o que poderia acontecer dentro dos campos privados e métodos sem afetar as classes externas.</p>
+<p>Parece que chegamos em um beco sem saída: você ou expõe todos os detalhes internos das classes tornando-as frágeis, ou restringe o acesso ao estado delas, tornando impossível produzir retratos. Existe alguma outra maneira de implementar o &quot;desfazer&quot;?</p>
+</div>
+<div class="section solution">
+<h2 id="solution"><i class="fa fa-smile-beam" aria-hidden="true"></i> Solução</h2>
+<p>Todos os problemas que vivenciamos foram causados por um encapsulamento quebrado. Alguns objetos tentaram fazer mais do que podiam. Para coletar os dados necessários para fazer uma ação, eles invadiram o espaço privado de outros objetos ao invés de deixar esses objetos fazer a verdadeira ação.</p>
+<p>O padrão Memento delega a criação dos retratos do estado para o próprio dono do estado, o objeto <em>originador</em>. Portanto, ao invés de outros objetos tentarem copiar o estado do editor “a partir do lado de fora”, a própria classe do editor pode fazer o retrato já que tem acesso total a seu próprio estado.</p>
+<p>O padrão sugere armazenar a cópia do estado de um objeto em um objeto especial chamado <em>memento</em>. Os conteúdos de um memento não são acessíveis para qualquer outro objeto exceto aquele que o produziu. Outros objetos podem se comunicar com mementos usando uma interface limitada que pode permitir a recuperação dos metadados do retrato (data de criação, nome a operação efetuada, etc.), mas não ao estado do objeto original contido no retrato.</p>
+<figure class="image"><img src="../../images/patterns/diagrams/memento/solution-pt-br9716.png?id=fb2acd45818a5c8abdbf31f0b8a39e35" alt="O originador tem acesso total ao memento, enquanto que o cuidador pode acessar somente os metadados" width="610" srcset="/images/patterns/diagrams/memento/solution-pt-br-2x.png?id=04cd22cedc221ba689cd5146f3438b98 2x" loading="lazy" /><figcaption>
+<p>O originador tem acesso total ao memento, enquanto que o cuidador pode acessar somente os metadados</p>
+</figcaption></figure>
+<p>Tal regra restritiva permite que você armazene mementos dentro de outros objetos, geralmente chamados de <em>cuidadores</em>. Uma vez que o cuidador trabalha com o memento apenas por meio de uma interface limitada, ele não será capaz de mexer com o estado armazenado dentro do memento. Ao mesmo tempo, o originador tem acesso total a todos os campos dentro do memento, permitindo que ele o restaure ao seu estado anterior à vontade.</p>
+<p>Em nosso exemplo de editor de texto, nós podemos criar uma classe histórico separada para agir como a cuidadora. Uma pilha de mementos armazenada dentro da cuidadora irá crescer a cada vez que o editor estiver prestes a executar uma operação. Você pode até mesmo renderizar essa pilha dentro do UI da aplicação, mostrando o histórico de operações realizadas anteriormente para um usuário.</p>
+<p>Quando um usuário aciona o desfazer, o histórico pega o memento mais recente da pilha e o passa de volta para o editor, pedindo uma reversão. Já que o editor tem acesso total ao memento, ele muda seu próprio estado com os valores obtidos do memento.</p>
+</div>
+<div class="section structure-container">
+<h2 id="structure"><i class="fa fa-sitemap" aria-hidden="true"></i> Estrutura</h2>
+<div class="structure">
+<h4>Implementação baseada em classes aninhadas</h4>
+<p>A implementação clássica do padrão dependente do apoio para classes aninhadas, disponível em muitas linguagens de programação populares (tais como C++, C#, e Java).</p>
+<div class="memento-classic">
+<div class="struct-image1 struct-image">
+<figure class="image"><img class="structure-img-non-indexed d-none d-xl-block" src="../../images/patterns/diagrams/memento/structure180c1.png?id=4b4a42363a005b617d4df06689787385" alt="Memento baseado em classes aninhadas" width="580" srcset="/images/patterns/diagrams/memento/structure1-2x.png?id=d4e77295e51c2417f22b7abb396d5977 2x" loading="lazy" /><img class="structure-img-indexed d-xl-none" src="../../images/patterns/diagrams/memento/structure1-indexeda7c3.png?id=f79a8356b087ae6b004aec42b787ae2e" alt="Memento baseado em classes aninhadas" width="580" srcset="/images/patterns/diagrams/memento/structure1-indexed-2x.png?id=62fea7bdbc96420568869ea3bd25f6ad 2x" loading="lazy" /></figure>
+</div>
+</div>
+<ol><li class="struct-li1">
+<p>A classe <strong>Originadora</strong> pode produzir retratos de seu próprio estado, bem como restaurar seu estado de retratos quando necessário.</p>
+</li>
+<li class="struct-li2">
+<p>O <strong>Memento</strong> é um objeto de valor que age como um retrato do estado da originadora. É uma prática comum fazer o memento imutável e passar os dados para ele apenas uma vez, através do construtor.</p>
+</li>
+<li class="struct-li3">
+<p>A <strong>Cuidadora</strong> sabe não só “quando” e “por quê” capturar o estado da originadora, mas também quando o estado deve ser restaurado.</p>
+<p>Uma cuidadora pode manter registros do histórico da originadora armazenando os mementos em um pilha. Quando a originadora precisa voltar atrás no histórico, a cuidadora busca o memento mais do topo da pilha e o passa para o método de restauração da originadora.</p>
+</li>
+<li class="struct-li4">
+<p>Nessa implementação, a classe memento está aninhada dentro da originadora. Isso permite que a originadora acesse os campos e métodos do memento, mesmo que eles tenham sido declarados privados. Por outro lado, a cuidadora tem um acesso muito limitado aos campos do memento, que permite ela armazenar os mementos em uma pilha, mas não permite mexer com seu estado.</p>
+</li></ol>
+<h4>Implementação baseada em uma interface intermediária</h4>
+<p>Há uma implementação alternativa, adequada para linguagens de programação que não suportam classes aninhadas (sim, PHP, estou falando de você).</p>
+<div class="memento-empty-interface">
+<div class="struct-image2 struct-image">
+<figure class="image"><img class="structure-img-non-indexed d-none d-xl-block" src="../../images/patterns/diagrams/memento/structure21ec9.png?id=fcff71cb648389be2e302fbe55e2f847" alt="Memento sem classes aninhadas" width="560" srcset="/images/patterns/diagrams/memento/structure2-2x.png?id=aa7fb5d0f622d4344a2cb590f437f8c8 2x" loading="lazy" /><img class="structure-img-indexed d-xl-none" src="../../images/patterns/diagrams/memento/structure2-indexede045.png?id=2c98b4f64b03f2a30e159de31ca9f718" alt="Memento sem classes aninhadas" width="560" srcset="/images/patterns/diagrams/memento/structure2-indexed-2x.png?id=2fb637daef1110dfa89f15b2d4627894 2x" loading="lazy" /></figure>
+</div>
+</div>
+<ol><li class="struct-li5">
+<p>Na ausência de classes aninhadas, você pode restringir o acesso aos campos do memento ao estabelecer uma convenção para que cuidadoras possam trabalhar com um memento através apenas de uma interface intermediária explicitamente declarada, que só declararia os métodos relacionados aos metadados do memento.</p>
+</li>
+<li class="struct-li6">
+<p>Por outro lado, as originadoras podem trabalhar com um objeto memento diretamente, acessando campos e métodos declarados na classe memento. O lado ruim dessa abordagem é que você precisa declarar todos os membros do memento como públicos.</p>
+</li></ol>
+<h4>Implementação com um encapsulamento ainda mais estrito</h4>
+<p>Há ainda outra implementação que é útil quando você não quer deixar a mínima chance de outras classes acessarem o estado da originadora através do memento.</p>
+<div class="memento-safe">
+<div class="struct-image3 struct-image">
+<figure class="image"><img class="structure-img-non-indexed d-none d-xl-block" src="../../images/patterns/diagrams/memento/structure3f138.png?id=6c3ef6a916be8c8ec6d6659d19a6a79f" alt="Memento com encapsulamento estrito" width="590" srcset="/images/patterns/diagrams/memento/structure3-2x.png?id=988c37f92059457153d26ba3458d371e 2x" loading="lazy" /><img class="structure-img-indexed d-xl-none" src="../../images/patterns/diagrams/memento/structure3-indexedadf8.png?id=17e84b0ef89a41bb3fb844c8d7a445ad" alt="Memento com encapsulamento estrito" width="590" srcset="/images/patterns/diagrams/memento/structure3-indexed-2x.png?id=fef9ae2a0151c105976075aafb8939dd 2x" loading="lazy" /></figure>
+</div>
+</div>
+<ol><li class="struct-li7">
+<p>Essa implementação permite ter múltiplos tipos de originadoras e mementos. Cada originadora trabalha com uma classe memento correspondente. Nem as originadoras nem os mementos expõem seu estado para ninguém.</p>
+</li>
+<li class="struct-li8">
+<p>Cuidadoras são agora explicitamente restritas de mudar o estado armazenado nos mementos. Além disso, a classe cuidadora se torna independente da originadora porque o método de restauração agora está definido na classe memento.</p>
+</li>
+<li class="struct-li9">
+<p>Cada memento se torna ligado à originadora que o produziu. A originadora passa a si mesmo para o construtor do memento, junto com os valores de seu estado. Graças a relação íntima entre essas classes, um memento pode restaurar o estado da sua originadora, desde que esta última tenha definido os setters apropriados.</p>
+</li></ol>
+<style structure type="text/css" >
+@media (min-width: 1200px) {
+.structure {
+margin: 0;
+width: auto;
+height: 1780px;
+}
+
+.memento-classic {
+height: 440px;
+}
+
+.memento-empty-interface {
+height: 350px;
+}
+
+.memento-safe {
+height: 370px;
+}
+
+.struct-image1 {
+left: 40px;
+top: 280px;
+}
+
+.struct-li1 {
+left: 0px;
+top: 150px;
+width: 240px;
+height: 110px;
+}
+
+.struct-li2 {
+left: 260px;
+top: 150px;
+width: 350px;
+height: 110px;
+}
+
+.struct-li3 {
+left: 640px;
+top: 250px;
+width: 210px;
+height: 350px;
+}
+
+.struct-li4 {
+left: 20px;
+top: 440px;
+width: 400px;
+height: 170px;
+}
+
+.struct-image2 {
+left: 130px;
+top: 800px;
+}
+
+.struct-li5 {
+left: 0px;
+top: 770px;
+width: 340px;
+height: 170px;
+}
+
+.struct-li6 {
+left: 560px;
+top: 950px;
+width: 280px;
+height: 170px;
+}
+
+.struct-image3 {
+left: 10px;
+top: 1440px;
+width: 590px;
+height: 340px;
+}
+
+.struct-li7 {
+left: 0px;
+top: 1320px;
+width: 390px;
+height: 110px;
+}
+
+.struct-li8 {
+left: 410px;
+top: 1320px;
+width: 410px;
+height: 110px;
+}
+
+.struct-li9 {
+left: 510px;
+top: 1590px;
+width: 330px;
+height: 170px;
+}
+}
+
+</style>
+</div></div>
+<div class="section pseudocode">
+<h2 id="pseudocode"><i class="fa fa-hashtag" aria-hidden="true"></i> Pseudocódigo</h2>
+<p>Este exemplo usa o padrão Memento junto com o padrão <a href="command.html">Command</a> para armazenar retratos do estado de um editor de texto complexo e restaurá-lo para um estado anterior desses retratos quando necessário</p>
+<figure class="image"><img src="../../images/patterns/diagrams/memento/example4526.png?id=fb2196b065f374a1c2a64a0943463760" alt="Exemplo da estrutura do Memento" width="600" srcset="/images/patterns/diagrams/memento/example-2x.png?id=41a73f3cc22bc3dd180f53e6968974d4 2x" loading="lazy" /><figcaption>
+<p>Salvando retratos do estado de um editor de texto.</p>
+</figcaption></figure>
+<p>Os objetos comando agem como cuidadores. Eles buscam o memento do editor antes de executar operações relacionadas aos comandos. Quando um usuário tenta desfazer o comando mais recente, o editor pode usar o memento armazenando naquele comando para reverter a si mesmo para o estado anterior.</p>
+<p>A classe memento não declara qualquer campo público, getters, ou setters. Portanto nenhum objeto pode alterar seus conteúdos. Os mementos estão ligados ao objeto do editor que os criou. Isso permite que um memento restaure o estado do editor ligado a ele passando os dados via setters no objeto do editor. Já que mementos são ligados com objetos do editor específicos, você pode fazer sua aplicação suportar diversas janelas independentes do editor com uma pilha centralizada de desfazer.</p>
+<figure class="code">
+<pre class="code" lang="pseudocode">// O originador tem alguns dados importantes que podem mudar com
+// o tempo. Ele também define um método para salvar seu estado
+// dentro de um memento e outro método para restaurar o estado
+// dele.
+class Editor is
+    private field text, curX, curY, selectionWidth
+
+    method setText(text) is
+        this.text = text
+
+    method setCursor(x, y) is
+        this.curX = x
+        this.curY = y
+
+    method setSelectionWidth(width) is
+        this.selectionWidth = width
+
+    // Salva o estado atual dentro de um memento.
+    method createSnapshot():Snapshot is
+        // O memento é um objeto imutável; é por isso que o
+        // originador passa seu estado para os parâmetros do
+        // construtor do memento.
+        return new Snapshot(this, text, curX, curY, selectionWidth)
+
+// A classe memento armazena o estado anterior do editor.
+class Snapshot is
+    private field editor: Editor
+    private field text, curX, curY, selectionWidth
+
+    constructor Snapshot(editor, text, curX, curY, selectionWidth) is
+        this.editor = editor
+        this.text = text
+        this.curX = x
+        this.curY = y
+        this.selectionWidth = selectionWidth
+
+    // Em algum momento, um estado anterior do editor pode ser
+    // restaurado usando um objeto memento.
+    method restore() is
+        editor.setText(text)
+        editor.setCursor(curX, curY)
+        editor.setSelectionWidth(selectionWidth)
+
+// Um objeto comando pode agir como cuidador. Neste caso, o
+// comando obtém o memento antes que ele mude o estado do
+// originador. Quando o undo(desfazer) é solicitado, ele
+// restaura o estado do originador a partir de um memento.
+class Command is
+    private field backup: Snapshot
+
+    method makeBackup() is
+        backup = editor.createSnapshot()
+
+    method undo() is
+        if (backup != null)
+            backup.restore()
+    // ...
+</pre>
+</figure>
+</div>
+<div class="section applicability-container">
+<h2 id="applicability"><i class="fa fa-lightbulb-on" aria-hidden="true"></i> Aplicabilidade</h2>
+<div class="applicability">
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Utilize o padrão Memento quando você quer produzir retratos do estado de um objeto para ser capaz de restaurar um estado anterior do objeto.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> O padrão Memento permite que você faça cópias completas do estado de um objeto, incluindo campos privados, e armazená-los separadamente do objeto. Embora a maioria das pessoas vão lembrar desse padrão graças ao caso “desfazer”, ele também é indispensável quando se está lidando com transações (isto é, se você precisa reverter uma operação quando se depara com um erro).</p>
+</div>
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Utilize o padrão quando o acesso direto para os campos/getters/setters de um objeto viola seu encapsulamento.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> O Memento faz o próprio objeto ser responsável por criar um retrato de seu estado. Nenhum outro objeto pode ler o retrato, fazendo do estado original do objeto algo seguro e confiável.</p>
+</div>
+</div></div>
+<div class="section checklist">
+<h2 id="checklist"><i class="fa fa-clipboard-list-check" aria-hidden="true"></i> Como implementar</h2>
+<ol>
+<li>
+<p>Determine qual classe vai fazer o papel de originadora. É importante saber se o programa usa um objeto central deste tipo ou múltiplos objetos pequenos.</p>
+</li>
+<li>
+<p>Crie a classe memento. Um por um, declare o conjunto dos campos que espelham os campos declarados dentro da classe originadora.</p>
+</li>
+<li>
+<p>Faça a classe memento ser imutável. Um memento deve aceitar os dados apenas uma vez, através do construtor. A classe não deve ter setters.</p>
+</li>
+<li>
+<p>Se a sua linguagem de programação suporta classes aninhadas, aninhe o memento dentro da originadora. Se não, extraia uma interface em branco da classe memento e faça todos os outros objetos usá-la para se referir ao memento. Você pode adicionar algumas operações de metadados para a interface, mas nada que exponha o estado da originadora.</p>
+</li>
+<li>
+<p>Adicione um método para produção de mementos na classe originadora. A originadora deve passar seu estado para o memento através de um ou múltiplos argumentos do construtor do memento.</p>
+<p>O tipo de retorno do método deve ser o da interface que você extraiu na etapa anterior (assumindo que você extraiu alguma coisa). Por debaixo dos panos, o método de produção de memento deve funcionar diretamente com a classe memento.</p>
+</li>
+<li>
+<p>Adicione um método para restaurar o estado da classe originadora para sua classe. Ele deve aceitar o objeto memento como um argumento. Se você extraiu uma interface na etapa anterior, faça-a do tipo do parâmetro. Neste caso, você precisa converter o tipo do objeto que está vindo para a classe memento, uma vez que a originadora precisa de acesso total a aquele objeto.</p>
+</li>
+<li>
+<p>A cuidadora, estando ela representando um objeto comando, um histórico, ou algo completamente diferente, deve saber quando pedir novos mementos da originadora, como armazená-los, e quando restaurar a originadora com um memento em particular.</p>
+</li>
+<li>
+<p>O elo entre cuidadoras e originadoras deve ser movido para dentro da classe memento. Neste caso, cada memento deve se conectar com a originadora que criou ele. O método de restauração também deve ser movido para a classe memento. Contudo, isso tudo faria sentido somente se a classe memento estiver aninhada dentro da originadora ou a classe originadora fornece setters suficientes para sobrescrever seu estado.</p>
+</li>
+</ol>
+</div>
+<div class="section pros-cons">
+<h2 id="pros-cons"><i class="fa fa-balance-scale" aria-hidden="true"></i> Prós e contras</h2>
+<div class="row"><div class="col-sm-6">
+<ul>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> Você pode produzir retratos do estado de um objeto sem violar seu encapsulamento.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> Você pode simplificar o código da originadora permitindo que a cuidadora mantenha o histórico do estado da originadora.</li>
+</ul>
+</div><div class="col-sm-6">
+<ul>
+<li>
+<i class="fa fa-fw fa-times" aria-hidden="true"></i> A aplicação pode consumir muita RAM se os clientes criarem mementos com muita frequência.</li>
+<li>
+<i class="fa fa-fw fa-times" aria-hidden="true"></i> Cuidadoras devem acompanhar o ciclo de vida da originadora para serem capazes de destruir mementos obsoletos.</li>
+<li>
+<i class="fa fa-fw fa-times" aria-hidden="true"></i> A maioria das linguagens de programação dinâmicas, tais como PHP, Python, e JavaScript, não conseguem garantir que o estado dentro do memento permaneça intacto.</li>
+</ul>
+</div></div></div>
+<div class="section relations">
+<h2 id="relations"><i class="fa fa-exchange-alt" aria-hidden="true"></i> Relações com outros padrões</h2>
+<ul>
+<li>
+<p>Você pode usar o <a href="command.html">Command</a> e o <a href="memento.html">Memento</a> juntos quando implementando um “desfazer”. Neste caso, os comandos são responsáveis pela realização de várias operações sobre um objeto alvo, enquanto que os mementos salvam o estado daquele objeto momentos antes de um comando ser executado.</p>
+</li>
+<li>
+<p>Você pode usar o <a href="memento.html">Memento</a> junto com o <a href="iterator.html">Iterator</a> para capturar o estado de iteração atual e revertê-lo se necessário.</p>
+</li>
+<li>
+<p>Algumas vezes o <a href="prototype.html">Prototype</a> pode ser uma alternativa mais simples a um <a href="memento.html">Memento</a>. Isso funciona se o objeto, o estado no qual você quer armazenar na história, é razoavelmente intuitivo e não tem ligações para recursos externos, ou as ligações são fáceis de se restabelecer.</p>
+</li>
+</ul>
+</div>
+<div class="section implementations">
+<h2 id="implementations"><i class="fa fa-code" aria-hidden="true"></i> Exemplos de código</h2>
+<p><a href="memento/java/example.html" title="Padrões de Projeto: Memento em Java" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/java9ca9.svg?id=e6d87e2dca08c953fe3acd1275ed4f4e" alt="Padrões de Projeto: Memento em Java"></a>
+<a href="memento/csharp/example.html" title="Padrões de Projeto: Memento em C#" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/csharp8c8a.svg?id=da64592defc6e86d57c39c66e9de3e58" alt="Padrões de Projeto: Memento em C#"></a>
+<a href="memento/cpp/example.html" title="Padrões de Projeto: Memento em C++" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/cpp9770.svg?id=f7782ed8b8666246bfcc3f8fefc3b858" alt="Padrões de Projeto: Memento em C++"></a>
+<a href="memento/php/example.html" title="Padrões de Projeto: Memento em PHP" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/phpb8be.svg?id=be1906eb26b71ec1d3b93720d6156618" alt="Padrões de Projeto: Memento em PHP"></a>
+<a href="memento/python/example.html" title="Padrões de Projeto: Memento em Python" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/python25f6.svg?id=6d815d43c0f7050a1151b43e51569c9f" alt="Padrões de Projeto: Memento em Python"></a>
+<a href="memento/ruby/example.html" title="Padrões de Projeto: Memento em Ruby" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/ruby3275.svg?id=b065b718c914bf8e960ef731600be1eb" alt="Padrões de Projeto: Memento em Ruby"></a>
+<a href="memento/swift/example.html" title="Padrões de Projeto: Memento em Swift" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/swift68dd.svg?id=0b716c2d52ec3a48fbe91ac031070c1d" alt="Padrões de Projeto: Memento em Swift"></a>
+<a href="memento/typescript/example.html" title="Padrões de Projeto: Memento em TypeScript" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/typescript325e.svg?id=2239d0f16cb703540c205dd8cb0c0cb7" alt="Padrões de Projeto: Memento em TypeScript"></a>
+<a href="memento/go/example.html" title="Padrões de Projeto: Memento em Go" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../../images/patterns/icons/go3287.svg?id=1a89927eb99b1ea3fde7701d97970aca" alt="Padrões de Projeto: Memento em Go"></a></p>
+</div>
+
+
+    <div class="banner-set2" id="book-promo">
+            <div class="prom banner-content banner-bg banner-striped banner-with-image" data-id="DP: 1: Support our free website and own the eBook!" data-creative-id="standard-pt-br" data-position="content_bottom">
+                <div class="banner-image">
+                    <a href="book.html">
+                        <img width="200" height="200" loading="lazy" src="../../images/patterns/banners/patterns-book-banner-3a29e.png?id=7d445df13c80287beaab234b4f3b698c" srcset="/images/patterns/banners/patterns-book-banner-3-2x.png?id=0cc3f77ab421d1a5c02ee46488231c3a 2x">
+                    </a>
+                </div>
+
+                <div class="banner-text">
+                    <h3 class="title">Apoie nosso website gratuito e ganhe o eBook!</h3>
+                    <ul style="font-size: 14px;">
+                        <li style="margin: 0;">22 padrões de projeto e 8 princípios explicados a fundo.</li>
+                        <li style="margin: 0;">439 páginas bem estruturadas, fáceis de se ler e livres de jargões.</li>
+                        <li style="margin: 0;">225 diagramas e ilustrações claras e úteis.</li>
+                        <li style="margin: 0;">Um arquivo com exemplos de código em 9 línguas.</li>
+                        <li style="margin: 0;">Suportado por todos os dispositivos: formatos PDF/EPUB/MOBI/KFX.</li>
+                    </ul>
+                    <a class="btn btn-secondary" href="book.html"><i class="fa fa-book" aria-hidden="true"></i> Saiba mais…</a>
+                </div>
+            </div>
+        </div>
+
+    </article>
+
+<nav class="prev-next">
+                    <div class="next">
+                <h4>Leia a seguir</h4>
+                <a rel="next" href="observer.html" class="btn btn-primary">Observer&nbsp;<span class="fa fa-arrow-right"></span></a>
+            </div>
+                            <div class="prev">
+                <h4>Voltar</h4>
+                <a rel="prev" href="mediator.html" class="btn btn-default"><span class="fa fa-arrow-left"></span>&nbsp;Mediator </a>
+            </div>
+            </nav>
+</div>
+
+<aside class="feature content-secondary">
+    <div class="prom banner-sidebar" data-id="DP: Sidebar" data-creative-id="standard-sidebar-pt-br" data-position="sidebar">
+        <div class="banner-inner">
+            <div class="image3d-book-right">
+                <div class="image3d-cover" style="background: #0b3752;">
+                    <a href="book.html">
+                        <img width="250" height="375" loading="lazy" src="../../images/patterns/book/web-cover-pt-brb3eb.png?id=cc7d821610ba9186e987ffc0f83476a8" srcset="/images/patterns/book/web-cover-pt-br-2x.png?id=95380743a2833ed832101aa568c16373 2x">
+                    </a>
+                </div>
+            </div>
+            <div style="margin-top: 1rem">
+                <p class="text-center">Este artigo é parte de nosso eBook<br><strong>Mergulho nos Padrões de Projeto</strong>.</p>
+                <a href="book.html" class="btn btn-secondary btn-block"><i class="fa fa-book" aria-hidden="true"></i> Saiba mais…</a>
+            </div>
+        </div>
+    </div>
+
+
+</aside>
+                    </div>
+    </main>
+
+    <nav class="navigation" role="navigation">
+    <div class="navigation-container">
+        <a href="#menu" class="navigation-toggle"><i class="fa fa-bars"></i></a>
+        <a class="navigation-brand" href="../../pt-br.html">
+            <img alt="Refactoring.Guru" src="../../images/content-public/logos/logo-military-mobile78b4.png?id=65ecbd1e688fc695bc20c22a1e8450d9" srcset="/images/content-public/logos/logo-military-mobile-2x.png?id=0f52141f57f67fb678da8407e254b0a3 2x"
+                  width="94"                   height="64"             >
+        </a>
+        <div class="social-likes-block" data-url="../../index.html">
+    <div data-service="facebook" class="facebook" title="Compartilhe no Facebook">Facebook</div>
+        <div data-service="twitter" class="twitter" title="Compartilhe no Twiter">Twitter</div>
+</div>        <ul class="navigation-menu">
+                        <li class="dropdown d-lg-none">
+                <a class="dropdown-toggle" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-globe" aria-hidden="true"></i> <span class="caption d-none d-xl-inline-block">Idioma</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguage">
+                                                                                                        <a href="../../design-patterns/memento.html" class="dropdown-item locale-link " data-locale="en" title="English">English</a>
+                                                                                                                <a href="../../es/design-patterns/memento.html" class="dropdown-item locale-link " data-locale="es" title="Español">Español</a>
+                                                                                                                <a href="../../fr/design-patterns/memento.html" class="dropdown-item locale-link " data-locale="fr" title="Français">Français</a>
+                                                                                                                                                                                                                        <a href="../../pl/design-patterns/memento.html" class="dropdown-item locale-link " data-locale="pl" title="Polski">Polski</a>
+                                                                                                                <a href="memento.html" class="dropdown-item locale-link active" data-locale="pt-br" title="Português Brasileiro">Português Brasileiro</a>
+                                                                                                                <a href="../../ru/design-patterns/memento.html" class="dropdown-item locale-link " data-locale="ru" title="Русский">Русский</a>
+                                                                                                                <a href="../../uk/design-patterns/memento.html" class="dropdown-item locale-link " data-locale="uk" title="Українська">Українська</a>
+                                                                                                                <a href="https://refactoringguru.cn/design-patterns/memento" class="dropdown-item locale-link " data-locale="zh" title="中文">中文</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+            </li>
+                        <li class="nav-contact">
+                <a class="userecho-private" href="https://feedback.refactoring.guru/?show_feedback_form_private=true" rel="nofollow" title="Contate-nos">
+                    <i class="fa fa-envelope"></i> <span class="caption d-none d-xl-inline-block">Contate-nos</span>
+                </a>
+            </li>
+                                                <li class="nav-login">
+                        <a href="../login.html" title="Conectar"><i class="fa fa-user"></i> <span class="caption d-none d-xl-inline-block">Conectar</span></a>
+                    </li>
+                                    </ul>
+    </div>
+    <div>
+        <a class="russia-stop" href="../help-ukraine.html">
+                            Ajude a Ucrânia <b>a parar a Rússia</b>
+                    </a>
+    </div>
+</nav>
+    <aside class="sidebar main-menu nano">
+    <a href="#menu-close" class="navigation-toggle"><i class="fa fa-fw fa-times"></i></a>
+    <div class="nano-content">
+                    <div class="main-menu-lang d-none d-lg-flex main-menu-lang-count-8">
+                                                                                        <a href="../../design-patterns/memento.html" class="locale-link locale-link-en " data-locale="en" title="English"><span class="d-lg-none">English</span><span class="d-none d-lg-inline">English</span></a>
+                                                                                                <a href="../../es/design-patterns/memento.html" class="locale-link locale-link-es " data-locale="es" title="Español"><span class="d-lg-none">Español</span><span class="d-none d-lg-inline">Español</span></a>
+                                                                                                <a href="../../fr/design-patterns/memento.html" class="locale-link locale-link-fr " data-locale="fr" title="Français"><span class="d-lg-none">Français</span><span class="d-none d-lg-inline">Français</span></a>
+                                                                                                                                                                                        <a href="../../pl/design-patterns/memento.html" class="locale-link locale-link-pl " data-locale="pl" title="Polski"><span class="d-lg-none">Polski</span><span class="d-none d-lg-inline">Polski</span></a>
+                                                                                                <a href="memento.html" class="locale-link locale-link-pt-br active" data-locale="pt-br" title="Português Brasileiro"><span class="d-lg-none">Português Brasileiro</span><span class="d-none d-lg-inline">Português-Br</span></a>
+                                                                                                <a href="../../ru/design-patterns/memento.html" class="locale-link locale-link-ru " data-locale="ru" title="Русский"><span class="d-lg-none">Русский</span><span class="d-none d-lg-inline">Русский</span></a>
+                                                                                                <a href="../../uk/design-patterns/memento.html" class="locale-link locale-link-uk " data-locale="uk" title="Українська"><span class="d-lg-none">Українська</span><span class="d-none d-lg-inline">Українська</span></a>
+                                                                                                <a href="https://refactoringguru.cn/design-patterns/memento" class="locale-link locale-link-zh " data-locale="zh" title="中文"><span class="d-lg-none">中文</span><span class="d-none d-lg-inline">中文</span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+        
+        <a class="menu-brand" href="../../pt-br.html">
+                            <img width=200 height=241 loading="lazy" alt="Refactoring.Guru" src="../../images/content-public/logos/logo-militaryd1c3.png?id=3eaf203cb26279327252e2c5f5d37c7f" srcset="/images/content-public/logos/logo-military-2x.png?id=5af1a599d8a4170c9a42e6fa18148b98 2x">
+                    </a>
+        <div>
+            <a class="russia-stop" href="../help-ukraine.html">
+                                    Ajude a Ucrânia<br><b>a parar a Rússia</b>
+                            </a>
+        </div>
+
+
+        <div class="menu-container" style="position: relative">
+                        <ul class="menu-list trail">
+                            <li class="featured">
+            <a href="../store.html">
+                <i class="fa fa-fw fa-star" aria-hidden="true"></i> Conteúdo Premium
+            </a>
+    
+            <ul >
+                            <li class="featured menu-fs15">
+            <a href="book.html">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Mergulho nos<br>Padrões de Projeto
+            </a>
+    
+    
+            </li>
+                                <li class="featured menu-fs15">
+            <a href="../refactoring/course.html">
+                <i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Curso de Refatoração
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="trail">
+            <a href="../design-patterns.html">
+                <i class="fa fa-fw fa-puzzle-piece" aria-hidden="true"></i> Padrões de Projeto
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                O que é um padrão
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                O que é um padrão de projeto?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="history.html">
+                História dos padrões
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="why-learn-patterns.html">
+                Por que devo aprender padrões?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="criticism.html">
+                Crítica dos padrões
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="classification.html">
+                Classificação dos padrões
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="catalog.html">
+                Catálogo
+            </a>
+    
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="creational-patterns.html">
+                Padrões criacionais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="factory-method.html">
+                Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="abstract-factory.html">
+                Abstract Factory
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="builder.html">
+                Builder
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="prototype.html">
+                Prototype
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="singleton.html">
+                Singleton
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="structural-patterns.html">
+                Padrões estruturais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="adapter.html">
+                Adapter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="bridge.html">
+                Bridge
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="composite.html">
+                Composite
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="decorator.html">
+                Decorator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="facade.html">
+                Facade
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="flyweight.html">
+                Flyweight
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="proxy.html">
+                Proxy
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level trail">
+            <a href="behavioral-patterns.html">
+                Padrões comportamentais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="chain-of-responsibility.html">
+                Chain of Responsibility
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="command.html">
+                Command
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="iterator.html">
+                Iterator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="mediator.html">
+                Mediator
+            </a>
+    
+    
+            </li>
+                                <li class="trail active">
+            <a href="memento.html">
+                Memento
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="observer.html">
+                Observer
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="state.html">
+                State
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="strategy.html">
+                Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="template-method.html">
+                Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="visitor.html">
+                Visitor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-code-examples">
+            <a href="examples.html">
+                Exemplos de código
+            </a>
+    
+            <ul >
+                            <li class="menu-code-examples-item">
+            <a href="csharp.html">
+                C#
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="cpp.html">
+                C++
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="go.html">
+                Go
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="java.html">
+                Java
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="php.html">
+                PHP
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="python.html">
+                Python
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="ruby.html">
+                Ruby
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="swift.html">
+                Swift
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="typescript.html">
+                TypeScript
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring.html">
+                <i class="fa fa-fw fa-scissors" aria-hidden="true"></i> Refatoração <span style="font-size: 0.8rem">(em&nbsp;breve)</span>
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                What is Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                Clean code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/technical-debt.html">
+                Technical debt
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/when.html">
+                When to refactor
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/how-to.html">
+                How to refactor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells.html">
+                Code Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/smells/bloaters.html">
+                Bloaters
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/long-method.html">
+                Long Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/large-class.html">
+                Large Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/primitive-obsession.html">
+                Primitive Obsession
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/long-parameter-list.html">
+                Long Parameter List
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-clumps.html">
+                Data Clumps
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/oo-abusers.html">
+                Object-Orientation Abusers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/switch-statements.html">
+                Switch Statements
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/temporary-field.html">
+                Temporary Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/refused-bequest.html">
+                Refused Bequest
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/alternative-classes-with-different-interfaces.html">
+                Alternative Classes with Different Interfaces
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/change-preventers.html">
+                Change Preventers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/divergent-change.html">
+                Divergent Change
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/shotgun-surgery.html">
+                Shotgun Surgery
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/parallel-inheritance-hierarchies.html">
+                Parallel Inheritance Hierarchies
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/dispensables.html">
+                Dispensables
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/comments.html">
+                Comments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/duplicate-code.html">
+                Duplicate Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/lazy-class.html">
+                Lazy Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-class.html">
+                Data Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/dead-code.html">
+                Dead Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/speculative-generality.html">
+                Speculative Generality
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/couplers.html">
+                Couplers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/feature-envy.html">
+                Feature Envy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/inappropriate-intimacy.html">
+                Inappropriate Intimacy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/message-chains.html">
+                Message Chains
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/middle-man.html">
+                Middle Man
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/other.html">
+                Other Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/incomplete-library-class.html">
+                Incomplete Library Class
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques.html">
+                Refactorings
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/techniques/composing-methods.html">
+                Composing Methods
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../extract-method.html">
+                Extract Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-method.html">
+                Inline Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-variable.html">
+                Extract Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-temp.html">
+                Inline Temp
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-temp-with-query.html">
+                Replace Temp with Query
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../split-temporary-variable.html">
+                Split Temporary Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-assignments-to-parameters.html">
+                Remove Assignments to Parameters
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-method-with-method-object.html">
+                Replace Method with Method Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../substitute-algorithm.html">
+                Substitute Algorithm
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/moving-features-between-objects.html">
+                Moving Features between Objects
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../move-method.html">
+                Move Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../move-field.html">
+                Move Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-class.html">
+                Extract Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-class.html">
+                Inline Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-delegate.html">
+                Hide Delegate
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-middle-man.html">
+                Remove Middle Man
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-foreign-method.html">
+                Introduce Foreign Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-local-extension.html">
+                Introduce Local Extension
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/organizing-data.html">
+                Organizing Data
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../self-encapsulate-field.html">
+                Self Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-data-value-with-object.html">
+                Replace Data Value with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-value-to-reference.html">
+                Change Value to Reference
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-reference-to-value.html">
+                Change Reference to Value
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-array-with-object.html">
+                Replace Array with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../duplicate-observed-data.html">
+                Duplicate Observed Data
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-unidirectional-association-to-bidirectional.html">
+                Change Unidirectional Association to Bidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-bidirectional-association-to-unidirectional.html">
+                Change Bidirectional Association to Unidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-magic-number-with-symbolic-constant.html">
+                Replace Magic Number with Symbolic Constant
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-field.html">
+                Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-collection.html">
+                Encapsulate Collection
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-class.html">
+                Replace Type Code with Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-subclasses.html">
+                Replace Type Code with Subclasses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-state-strategy.html">
+                Replace Type Code with State/Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-subclass-with-fields.html">
+                Replace Subclass with Fields
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-conditional-expressions.html">
+                Simplifying Conditional Expressions
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../decompose-conditional.html">
+                Decompose Conditional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-conditional-expression.html">
+                Consolidate Conditional Expression
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-duplicate-conditional-fragments.html">
+                Consolidate Duplicate Conditional Fragments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-control-flag.html">
+                Remove Control Flag
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-nested-conditional-with-guard-clauses.html">
+                Replace Nested Conditional with Guard Clauses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-conditional-with-polymorphism.html">
+                Replace Conditional with Polymorphism
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-null-object.html">
+                Introduce Null Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-assertion.html">
+                Introduce Assertion
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-method-calls.html">
+                Simplifying Method Calls
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../rename-method.html">
+                Rename Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../add-parameter.html">
+                Add Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-parameter.html">
+                Remove Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../separate-query-from-modifier.html">
+                Separate Query from Modifier
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../parameterize-method.html">
+                Parameterize Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-explicit-methods.html">
+                Replace Parameter with Explicit Methods
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../preserve-whole-object.html">
+                Preserve Whole Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-method-call.html">
+                Replace Parameter with Method Call
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-parameter-object.html">
+                Introduce Parameter Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-setting-method.html">
+                Remove Setting Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-method.html">
+                Hide Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-constructor-with-factory-method.html">
+                Replace Constructor with Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-error-code-with-exception.html">
+                Replace Error Code with Exception
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-exception-with-test.html">
+                Replace Exception with Test
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/dealing-with-generalization.html">
+                Dealing with Generalization
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../pull-up-field.html">
+                Pull Up Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-method.html">
+                Pull Up Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-constructor-body.html">
+                Pull Up Constructor Body
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-method.html">
+                Push Down Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-field.html">
+                Push Down Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-subclass.html">
+                Extract Subclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-superclass.html">
+                Extract Superclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-interface.html">
+                Extract Interface
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../collapse-hierarchy.html">
+                Collapse Hierarchy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../form-template-method.html">
+                Form Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-inheritance-with-delegation.html">
+                Replace Inheritance with Delegation
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-delegation-with-inheritance.html">
+                Replace Delegation with Inheritance
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </div>
+        <div class="sidebar-controls">
+            <div class="sidebar-controls-container">
+                <a href="../login.html" title="Conectar"><i
+                            class="fa fa-fw fa-fw fa-user"></i> Conectar</a>
+                <a href="https://feedback.refactoring.guru/" class="userecho-public" rel="nofollow" title="Avaliação"><i class="fa fa-fw fa-fw fa-envelope" aria-hidden="true"></i> Contate-nos</a>
+            </div>
+        </div>
+    </div>
+</aside>
+    <footer class="footer center-content">
+    <div class="footer-container center-content-container">
+        <div class="footer-inner container-fluid">
+            <div class="row">
+                <div class="col-8 col-md-10">
+                    <ul class="footer-list footer-list-horizontal">
+                        <li><a href="../../pt-br.html">Página inicial</a></li>
+                        <li><a href="../refactoring.html">Refatoração</a></li>
+                        <li><a href="../design-patterns.html">Padrões de Projeto</a></li>
+                        <li><a href="../store.html">Conteúdo Premium</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-public">Fórum</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-private">Contate-nos</a></li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-2">
+                    <ul class="footer-list footer-list-iconic">
+                                                    <li><a href="https://www.facebook.com/refactoring.guru"><i class="fa fa-facebook-official"></i></a></li>
+                                                <li><a href="../sendy/form.html" rel="nofollow"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/RefactoringGuru"><i class="fa fa-github-circled"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-second">
+        <div class="footer-container center-content-container">
+            <div class="footer-inner container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <i class="fa fa-fw fa-copyright"></i> 2014-2022 <a href="../../pt-br.html">Refactoring.Guru</a>. <span style="white-space: nowrap">Todos os direitos reservados</span><br>
+                        <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234">
+                            <img class="fa-fw" style="height: 0.8rem;" src="../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                        </object> Khmelnitske shosse 19 / 27, Kamianets-Podilskyi, Ucrânia, 32305<br>
+                        <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+
+                        <div class="mt-2">
+                            <i class="fa fa-fw fa-image"></i> Ilustrações por <a href="http://zhart.us/" rel="nofollow"><span style="white-space: nowrap">Dmitry Zhart</span></a></div>
+                    </div>
+                    <div class="footer-links-right col-12 col-sm-4 mt-4 mt-sm-0">
+                        <div class="row">
+                            <div class="col-8 col-sm-12">
+                                <ul class="footer-list">
+                                    <li><a href="../terms.html"><span>Temos e condições</span></a>
+                                    </li>
+                                    <li><a href="../privacy-policy.html"><span>Política de privacidade</span></a>
+                                    </li>
+                                    <li><a href="../content-usage-policy.html"><span>Política de uso do contéudo</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+
+    <script>
+function extend(){var extended={};var deep=false;var i=0;var length=arguments["length"];if(Object["prototype"]["toString"]["call"](arguments[0])=== '[object Boolean]'){deep= arguments[0];i++};var merge=function(obj){for(var prop in obj){if(Object["prototype"]["hasOwnProperty"]["call"](obj,prop)){if(deep&& Object["prototype"]["toString"]["call"](obj[prop])=== '[object Object]'){extended[prop]= extend(true,extended[prop],obj[prop])}else {extended[prop]= obj[prop]}}}};for(;i< length;i++){var obj=arguments[i];merge(obj)};return extended}
+function defer(method) {if (window.jQuery) {method();} else {setTimeout(function() { defer(method) }, 50);}}
+</script>
+<script>
++function(sd){sd = (typeof sd === "string") ? JSON.parse(atob(sd)) : sd;for(var property in sd){if(window[property]!== null&&  typeof window[property]=== 'object'){window[property]= extend(true,window[property],sd[property])}else {window[property]= sd[property]}}}("eyJsb2NhbGUiOiJwdC1iciIsImxvY2FsZV9wcmVmaXgiOiJwdC1iclwvIiwibG9jYWxpemVkX3VybF9wcmVmaXhfbSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC9wdC1iclwvIiwidXJsX3ByZWZpeF9tIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImxvY2FsaXplZF91cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcL3B0LWJyXC8iLCJ1cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImNoaW5lc2VfaG9tZSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZ2d1cnUuY25cLyIsInVzZXJfZWNob19hbGlhcyI6InJlZmFjdG9yaW5nIiwidXNlcl9lY2hvX2hvc3QiOiJmZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1IiwidXNlcl9lY2hvX3ByaXZhdGVfZm9ydW0iOiIyIiwidXNlcl9lY2hvX2xvY2FsZSI6InB0LWJyIiwidXNlcl9lY2hvX3B1YmxpY19mb3J1bSI6IjMiLCJ1c2VyX2VjaG9fcHVibGljX2ZvcnVtX3VybCI6Imh0dHBzOlwvXC9mZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1c2VyX2VjaG9fc3NvX3Rva2VuIjoiIn0=");
+</script>
+
+    <script defer>
+        if (window.dataLayer && window.google_optimize) {
+            window.dataLayer.push({'event': 'optimize.activate'});
+        }
+    </script>
+ 
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+        {'GTM-M58XZN4':true});</script>
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com/">
+<script>
+    var getCookie = function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    };
+    var eraseCookie = function (name) {
+        document.cookie = name+'=; Path=/; Max-Age=-99999999;';
+    };
+
+    window.google_analytics = 'UA-521840-40';
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+
+    var ga_queue = [];
+    window.gaOnCreate = function(){
+        ga_queue.push(arguments);
+    };
+
+            doTracking();
+    
+    function doTracking(clientId) {
+        window.gaOnCreate = function(){
+            ga.apply(this, arguments);
+        };
+
+        var options = {
+            'siteSpeedSampleRate': 100
+        };
+        if (clientId) {
+            options.clientId = clientId;
+        }
+        ga('create', 'UA-521840-40', options);
+
+                    ga('require', 'GTM-M58XZN4');
+            window.google_optimize = 'GTM-M58XZN4';
+        
+        // Fix broken Social Login referrer.
+        window.social_login_provider = window.social_login_provider || getCookie('social_login_provider');
+        if (window.social_login_provider) {
+            ga('set', 'referrer', null);
+            ga('send', 'social', window.social_login_provider, 'login', window.location.href);
+            eraseCookie('social_login_provider');
+        }
+
+        var user_id = getCookie('user_id');
+        if (user_id) {
+            ga('set', 'userId', user_id);
+        } else {
+            ga('set', 'userId', null);
+        }
+
+        var location = document.location.href;
+        if (typeof window.analytics_path_prefix === 'string') {
+            if (/^(https?:\/\/[^\/]+?)\/$/.test(location)) {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix);
+            }
+            else {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix + '/');
+            }
+            ga('set', 'location', location);
+        }
+
+        if (typeof window.analytics_location_prefix === 'string') {
+            location = location.replace(/(https?:\/\/[^\/]+?)\//, window.analytics_location_prefix);
+            ga('set', 'location', location);
+        }
+
+        ga('require', 'ec');
+        ga('send', 'pageview', (typeof window.analytics_path_prefix === 'string' ? window.analytics_path_prefix : '') + document.location.pathname);
+
+        ga_queue.forEach(function(item){
+            ga.apply(this, item);
+        });
+    }
+</script>
+
+<script defer>
+    window.socialLikesButtons = {
+                facebook: {
+            counterUrl: "",
+            convertNumber: null
+        },
+                        };
+</script>
+
+<script defer>
+    var CodeMirrorScripts = ["/js/codemirror.min.js?id=24aa863dfde7c99eb17d4102684aea27"];
+</script>
+
+
+
+    <script>window.loadContent = true;window.loadCart = true;</script>
+</body>
+
+<!-- Mirrored from refactoring.guru/pt-br/design-patterns/memento by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:21:41 GMT -->
+</html>

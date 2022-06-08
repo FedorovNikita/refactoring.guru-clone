@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!-- Mirrored from refactoring.guru/ru/design-patterns/adapter/typescript/example by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:23:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+    <meta charset="utf-8">
+    <title>Адаптер на TypeScript</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="alternate" href="../../../../design-patterns/adapter/typescript/example.html" hreflang="x-default"/>
+    <link rel="alternate" href="../../../../es/design-patterns/adapter/typescript/example.html" hreflang="es"/>
+    <link rel="alternate" href="../../../../fr/design-patterns/adapter/typescript/example.html" hreflang="fr"/>
+    <link rel="alternate" href="../../../../ja/design-patterns/adapter/typescript/example.html" hreflang="ja"/>
+    <link rel="alternate" href="../../../../ko/design-patterns/adapter/typescript/example.html" hreflang="ko"/>
+    <link rel="alternate" href="../../../../pl/design-patterns/adapter/typescript/example.html" hreflang="pl"/>
+    <link rel="alternate" href="../../../../pt-br/design-patterns/adapter/typescript/example.html" hreflang="pt-br"/>
+    <link rel="alternate" href="example.html" hreflang="ru"/>
+    <link rel="alternate" href="../../../../uk/design-patterns/adapter/typescript/example.html" hreflang="uk"/>
+    <link rel="alternate" href="https://refactoringguru.cn/design-patterns/adapter/typescript/example" hreflang="zh"/>
+
+    <meta name="description" content="Пример паттерна Адаптер (Adapter) на языке программирования TypeScript. Код с детальными комментариями на русском языке. Адаптер — это структурный паттерн, который позволяет подружить несовместимые объекты.">
+
+    <link rel="canonical" href="example.html"/>
+
+    <link rel="icon" type="image/x-icon" href="../../../../favicon.png"/>
+
+<script type="application/ld+json">
+{"@context": "http://schema.org", "@graph": [{"@type":"Person","@id":"https://refactoring.guru/ru#founder","name":"Александр Швец"},{"@type":"Organization","@id":"https://refactoring.guru/ru#organization","name":"Refactoring.Guru / Рефакторинг.Гуру","description":"Рефакторинг.Гуру посвящён тёмным материям программирования: рефакторингу, паттернам проектирования, принципам SOLID и другим важным темам из мира программирования.","image":{"@type":"ImageObject","@id":"https://refactoring.guru/ru#organizationlogo","url":"https://refactoring.guru/images/content-public/logos/logo-plain.png","caption":"Refactoring.Guru"},"logo":{"@id":"https://refactoring.guru/ru#organizationlogo"},"founder":{"@id":"https://refactoring.guru/ru#founder"},"sameAs":["https://www.facebook.com/refactoring.guru","https://twitter.com/RefactoringGuru","https://github.com/RefactoringGuru"]},{"@type":"WebSite","@id":"https://refactoring.guru/ru#website","url":"https://refactoring.guru/ru","name":"Refactoring.Guru / Рефакторинг.Гуру","description":"Рефакторинг.Гуру посвящён тёмным материям программирования: рефакторингу, паттернам проектирования, принципам SOLID и другим важным темам из мира программирования.","author":{"@id":"https://refactoring.guru/ru#founder"},"publisher":{"@id":"https://refactoring.guru/ru#organization"},"copyrightYear":2014},{"@type":"WebPage","@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#webpage","url":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example","inLanguage":"ru","name":"Адаптер на TypeScript","description":"Пример паттерна Адаптер (Adapter) на языке программирования TypeScript. Код с детальными комментариями на русском языке. Адаптер — это структурный паттерн, который позволяет подружить несовместимые объекты.","isPartOf":{"@id":"https://refactoring.guru/ru#website"},"breadcrumb":{"@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#breadcrumb"},"primaryImageOfPage":{"@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#primaryimage"},"image":{"@type":"ImageObject","@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#primaryimage","url":"https://refactoring.guru/images/patterns/cards/adapter-mini-3x.png","width":420,"height":300}},{"@type":"Article","@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#article","isPartOf":{"@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#webpage"},"mainEntityOfPage":{"@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#webpage"},"author":{"@id":"https://refactoring.guru/ru#founder"},"publisher":{"@id":"https://refactoring.guru/ru#organization"},"headline":"Адаптер на TypeScript","datePublished":"2021-01-01","dateModified":"2022-01-01","articleSection":"Адаптер","image":{"@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#primaryimage"}},{"@type":"BreadcrumbList","@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://refactoring.guru/ru"},{"@type":"ListItem","position":2,"name":"Паттерны проектирования","item":"https://refactoring.guru/ru/design-patterns"},{"@type":"ListItem","position":3,"name":"Адаптер","item":"https://refactoring.guru/ru/design-patterns/adapter"},{"@type":"ListItem","position":4,"name":"TypeScript","item":"https://refactoring.guru/ru/design-patterns/typescript"}]},{"@type":"SoftwareSourceCode","@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#code","isPartOf":{"@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#webpage"},"mainEntityOfPage":{"@id":"https://refactoring.guru/ru/design-patterns/adapter/typescript/example#webpage"},"author":{"@id":"https://refactoring.guru/ru#founder"},"publisher":{"@id":"https://refactoring.guru/ru#organization"},"headline":"Адаптер на TypeScript","datePublished":"2021-01-01","dateModified":"2022-01-01","programmingLanguage":"TypeScript","codeSampleType":"full"}] }
+</script>
+
+<meta property="fb:app_id" content="666819623386327" />
+<meta property="og:type"  content="website" />
+<meta property="og:image" content="https://refactoring.guru/ru/images/refactoring/social/facebook-share-preview.png?id=dbf9e98269595be86eb668f365be6868"/>
+
+        <link rel="stylesheet" href="../../../../css/public-packed.min29c2.css?id=72df70415a2662bdd8f64ffd40983c30">
+
+<style type="text/css">
+    @font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../../../fonts/PTSans/ptsans-regular_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../../../fonts/PTSans/ptsans-regular_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../../../fonts/PTSans/ptsans-regular_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../../../fonts/PTSans/ptsans-regular_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../../../fonts/PTSans/ptsans-bold_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../../../fonts/PTSans/ptsans-bold_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../../../fonts/PTSans/ptsans-bold_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../../../fonts/PTSans/ptsans-bold_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<link rel="preload" href="../../../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../../fonts/PTSans/ptsans-regular_cyrillicc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../../../../fonts/PTSans/ptsans-bold_cyrillicc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../../../fonts/fontello/fontawesomea92a.woff2?15843843" as="font" type="font/woff2" crossorigin>
+
+
+<script defer src="../../../../js/public.min1749.js?id=77d40430343920ca57d184f85668a382"></script>
+
+
+
+</head>
+<body class="locale-ru    announcement   adapter-in-typescript" data-body_class="adapter-in-typescript">
+
+<div class="body-holder">
+
+
+            <div class="announcement-block prom" style="background:black;" data-id="DIDP-announcement" data-creative-id="ru" data-position="top"><div class="announcement-block-inner">
+                САЙТ ЗАБЛОКИРОВАН РОСКОМНАДЗОРОМ <span style="color: red; font-weight: bold;">ИЗ-ЗА КАРТИНКИ ЕНОТА</span>. <a href="https://feedback.refactoring.guru/ru/communities/1/topics/4116-sajt-zablokirovan-v-rossii">С VPN всё работает »</a>
+            </div></div>
+    
+    <div class="cart-placeholder">
+    <div class="cart-block-container" style="display:none">
+        <div class="cart-block btn-group">
+            <a href="#checkout" class="btn cart open-checkout">
+                <span class="cart-text"></span>&nbsp;<strong class="cart-total font-money"></strong>
+            </a><a href="#checkout" class="btn btn-secondary checkout open-checkout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="btn-text-span d-none d-sm-inline-block d-lg-none d-hg-inline-block"></span></a>
+        </div>
+    </div>
+</div>
+    <main role="main" class="main-content top-content center-content " data-page_class="">
+        <div class="main-content-container center-content-container">
+                        <div class="pattern pattern-example page text">
+<article>
+    <div class="breadcrumb">
+                                    <a class="home" href="../../../../index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                                / <a class="type" href="../../../design-patterns.html">Паттерны проектирования</a>
+                                                / <a class="type" href="../../adapter.html">Адаптер</a>
+                                                / <a class="type" href="../../typescript.html">TypeScript</a>
+                        </div>
+
+    <a href="../../adapter.html" class="pattern-card-example adapter-in-typescript">
+        <span class="pattern-image"><img alt="Адаптер" src="../../../../images/patterns/cards/adapter-minid866.png?id=b2ee4f681fb589be5a0685b94692aebb" srcset="/images/patterns/cards/adapter-mini-2x.png?id=8274d99afbbe9c63bfbfd0d68ceeffc7 2x"></span>
+    </a>
+
+    <h1 class="title"><strong>Адаптер</strong> на TypeScript</h1>
+
+    <div class="pattern-example-brief">
+        <p class="big"><b>Адаптер</b> — это структурный паттерн, который позволяет подружить несовместимые объекты.</p>
+<p>Адаптер выступает прослойкой между двумя объектами, превращая вызовы одного в вызовы понятные другому.</p>
+
+    </div>
+
+    <div style="text-align:center; margin-bottom: 40px;">
+        <a href="../../adapter.html" class="btn btn-lg btn-primary"><i class="fa fa-newspaper" aria-hidden="true"></i> Подробней об Адаптере <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+
+        <h2 id="lang-features">Особенности паттерна на TypeScript</h2>
+
+    <p><strong>Сложность:</strong> <span class="fa-stars"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></p>
+<p><strong>Популярность:</strong> <span class="fa-stars"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i></span></p>
+<p><strong>Применимость:</strong> Паттерн можно часто встретить в TypeScript-коде, особенно там, где требуется конвертация разных типов данных или совместная работа классов с разными интерфейсами.</p>
+<p><strong>Признаки применения паттерна:</strong> Адаптер получает конвертируемый объект в конструкторе или через параметры своих методов. Методы Адаптера обычно совместимы с интерфейсом одного объекта. Они делегируют вызовы вложенному объекту, превратив перед этим параметры вызова в формат, поддерживаемый вложенным объектом.</p>
+
+    
+    <div class="sidebar-navigation with-scroll">
+            
+        <div class="en-title">
+            Навигация
+        </div>
+
+                    
+        <div class="en-intro">
+            <i class="fa fa-fw fa-newspaper" aria-hidden="true"></i>&nbsp;<a href="#">Интро</a>
+        </div>
+
+                    
+        <div class="en-intro">
+            <i class="fa fa-fw fa-newspaper" aria-hidden="true"></i>&nbsp;<a href="#example-0">Концептуальный пример</a>
+        </div>
+
+                    
+        <div class="en-file">
+            <i class="fa fa-fw fa-file-code" aria-hidden="true"></i>&nbsp;<a href="#example-0--index-ts">index</a>
+        </div>
+
+                    
+        <div class="en-file">
+            <i class="fa fa-fw fa-file-text" aria-hidden="true"></i>&nbsp;<a href="#example-0--Output-txt">Output</a>
+        </div>
+
+                </div>
+
+            <a id="example-0"></a>
+                    <h2 id="example-0-title">Концептуальный пример</h2>
+            <p>Этот пример показывает структуру паттерна <strong>Адаптер</strong>, а именно — из каких классов он состоит, какие роли эти классы выполняют и как они взаимодействуют друг с другом.</p>
+<h4><a class="anchor" id="example-0--index-ts"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i></a> <strong>index.ts:</strong>  Пример структуры паттерна</h4>
+<figure class="code">
+<pre class="code" lang="typescript">/**
+ * Целевой класс объявляет интерфейс, с которым может работать клиентский код.
+ */
+class Target {
+    public request(): string {
+        return 'Target: The default target\'s behavior.';
+    }
+}
+
+/**
+ * Адаптируемый класс содержит некоторое полезное поведение, но его интерфейс
+ * несовместим с существующим клиентским кодом. Адаптируемый класс нуждается в
+ * некоторой доработке, прежде чем клиентский код сможет его использовать.
+ */
+class Adaptee {
+    public specificRequest(): string {
+        return '.eetpadA eht fo roivaheb laicepS';
+    }
+}
+
+/**
+ * Адаптер делает интерфейс Адаптируемого класса совместимым с целевым
+ * интерфейсом.
+ */
+class Adapter extends Target {
+    private adaptee: Adaptee;
+
+    constructor(adaptee: Adaptee) {
+        super();
+        this.adaptee = adaptee;
+    }
+
+    public request(): string {
+        const result = this.adaptee.specificRequest().split('').reverse().join('');
+        return `Adapter: (TRANSLATED) ${result}`;
+    }
+}
+
+/**
+ * Клиентский код поддерживает все классы, использующие целевой интерфейс.
+ */
+function clientCode(target: Target) {
+    console.log(target.request());
+}
+
+console.log('Client: I can work just fine with the Target objects:');
+const target = new Target();
+clientCode(target);
+
+console.log('');
+
+const adaptee = new Adaptee();
+console.log('Client: The Adaptee class has a weird interface. See, I don\'t understand it:');
+console.log(`Adaptee: ${adaptee.specificRequest()}`);
+
+console.log('');
+
+console.log('Client: But I can work with it via the Adapter:');
+const adapter = new Adapter(adaptee);
+clientCode(adapter);
+</pre>
+</figure>
+<h4><a class="anchor" id="example-0--Output-txt"><i class="fa fa-fw fa-file-text" aria-hidden="true"></i></a> <strong>Output.txt:</strong>  Результат выполнения</h4>
+<figure class="code">
+<pre class="code" lang="output">Client: I can work just fine with the Target objects:
+Target: The default target's behavior.
+
+Client: The Adaptee class has a weird interface. See, I don't understand it:
+Adaptee: .eetpadA eht fo roivaheb laicepS
+
+Client: But I can work with it via the Adapter:
+Adapter: (TRANSLATED) Special behavior of the Adaptee.
+</pre>
+</figure>
+
+            
+    
+
+    </article>
+
+<nav class="prev-next">
+                    <div class="next">
+                <h4>Читаем дальше</h4>
+                <a rel="next" href="../../bridge/typescript/example.html" class="btn btn-primary">Мост на TypeScript&nbsp;<span class="fa fa-arrow-right"></span></a>
+            </div>
+                            <div class="prev">
+                <h4>Вернуться назад</h4>
+                <a rel="prev" href="../../singleton/typescript/example.html" class="btn btn-default"><span class="fa fa-arrow-left"></span>&nbsp;Одиночка на TypeScript </a>
+            </div>
+            </nav>
+
+<h2><strong>Адаптер</strong> на других языках программирования</h2>
+
+<a href="../java/example.html" title="Адаптер на Java" class="prog-lang-link"><img src="../../../../images/patterns/icons/java9ca9.svg?id=e6d87e2dca08c953fe3acd1275ed4f4e" alt="Адаптер на Java"></a>
+<a href="../csharp/example.html" title="Адаптер на C#" class="prog-lang-link"><img src="../../../../images/patterns/icons/csharp8c8a.svg?id=da64592defc6e86d57c39c66e9de3e58" alt="Адаптер на C#"></a>
+<a href="../cpp/example.html" title="Адаптер на C++" class="prog-lang-link"><img src="../../../../images/patterns/icons/cpp9770.svg?id=f7782ed8b8666246bfcc3f8fefc3b858" alt="Адаптер на C++"></a>
+<a href="../php/example.html" title="Адаптер на PHP" class="prog-lang-link"><img src="../../../../images/patterns/icons/phpb8be.svg?id=be1906eb26b71ec1d3b93720d6156618" alt="Адаптер на PHP"></a>
+<a href="../python/example.html" title="Адаптер на Python" class="prog-lang-link"><img src="../../../../images/patterns/icons/python25f6.svg?id=6d815d43c0f7050a1151b43e51569c9f" alt="Адаптер на Python"></a>
+<a href="../ruby/example.html" title="Адаптер на Ruby" class="prog-lang-link"><img src="../../../../images/patterns/icons/ruby3275.svg?id=b065b718c914bf8e960ef731600be1eb" alt="Адаптер на Ruby"></a>
+<a href="../swift/example.html" title="Адаптер на Swift" class="prog-lang-link"><img src="../../../../images/patterns/icons/swift68dd.svg?id=0b716c2d52ec3a48fbe91ac031070c1d" alt="Адаптер на Swift"></a>
+<a href="../go/example.html" title="Адаптер на Go" class="prog-lang-link"><img src="../../../../images/patterns/icons/go3287.svg?id=1a89927eb99b1ea3fde7701d97970aca" alt="Адаптер на Go"></a>
+
+</div>
+
+<aside class="feature content-secondary">
+    <div class="prom banner-sidebar banner banner-striped banner-examples" data-id="DP: Examples-IDE" data-creative-id="examples-sidebar-ru" data-position="sidebar">
+        <div class="banner-inner" style="font-size: 14px; line-height: 21px;">
+            <div class="banner-examples-img">
+                <a href="../../book.html">
+                    <img width="215" height="158" loading="lazy" src="../../../../images/patterns/banners/examples-ide91ca.png?id=3115b4b548fb96b75974e2de8f4f49bc" srcset="/images/patterns/banners/examples-ide-2x.png?id=93c007a6d157b97c28eb213f59d716ae 2x">
+                </a>
+            </div>
+            <div class="banner-examples-fade">
+                <a href="../../book.html" class="btn btn-secondary btn-block"><i class="fa fa-file-archive" aria-hidden="true"></i> Архив с примерами</a>
+            </div>
+            <div class="banner-examples-text" style="margin-top: 1rem;">
+                <p>Купи книгу <b>Погружение в Паттерны</b> и получи архив с десятками детальных примеров, которые можно открывать прямо в IDE.</p>
+                <a href="../../book.html" class="btn btn-secondary btn-block"><i class="fa fa-book" aria-hidden="true"></i> Узнать больше…</a>
+            </div>
+        </div>
+    </div>
+
+
+</aside>
+                    </div>
+    </main>
+
+    <nav class="navigation" role="navigation">
+    <div class="navigation-container">
+        <a href="#menu" class="navigation-toggle"><i class="fa fa-bars"></i></a>
+        <a class="navigation-brand" href="../../../../ru.html">
+            <img alt="Refactoring.Guru" src="../../../../images/content-public/logos/logo-military-mobile78b4.png?id=65ecbd1e688fc695bc20c22a1e8450d9" srcset="/images/content-public/logos/logo-military-mobile-2x.png?id=0f52141f57f67fb678da8407e254b0a3 2x"
+                  width="94"                   height="64"             >
+        </a>
+        <div class="social-likes-block" data-url="../../../../index.html">
+    <div data-service="facebook" class="facebook" title="Поделиться в Facebook">Facebook</div>
+        <div data-service="vkontakte" class="vkontakte" title="Поделиться ВКонтакте">Вконтакте</div>
+        <div data-service="twitter" class="twitter" title="Поделиться в Twitter">Twitter</div>
+</div>        <ul class="navigation-menu">
+                        <li class="dropdown d-lg-none">
+                <a class="dropdown-toggle" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-globe" aria-hidden="true"></i> <span class="caption d-none d-xl-inline-block">Язык</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguage">
+                                                                                                        <a href="../../../../design-patterns/adapter/typescript/example.html" class="dropdown-item locale-link " data-locale="en" title="English">English</a>
+                                                                                                                <a href="../../../../es/design-patterns/adapter/typescript/example.html" class="dropdown-item locale-link " data-locale="es" title="Español">Español</a>
+                                                                                                                <a href="../../../../fr/design-patterns/adapter/typescript/example.html" class="dropdown-item locale-link " data-locale="fr" title="Français">Français</a>
+                                                                                                                                                                                                                        <a href="../../../../pl/design-patterns/adapter/typescript/example.html" class="dropdown-item locale-link " data-locale="pl" title="Polski">Polski</a>
+                                                                                                                <a href="../../../../pt-br/design-patterns/adapter/typescript/example.html" class="dropdown-item locale-link " data-locale="pt-br" title="Português Brasileiro">Português Brasileiro</a>
+                                                                                                                <a href="example.html" class="dropdown-item locale-link active" data-locale="ru" title="Русский">Русский</a>
+                                                                                                                <a href="../../../../uk/design-patterns/adapter/typescript/example.html" class="dropdown-item locale-link " data-locale="uk" title="Українська">Українська</a>
+                                                                                                                <a href="https://refactoringguru.cn/design-patterns/adapter/typescript/example" class="dropdown-item locale-link " data-locale="zh" title="中文">中文</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+            </li>
+                        <li class="nav-contact">
+                <a class="userecho-private" href="https://feedback.refactoring.guru/communities/1-russkij-russian?show_feedback_form_private=true" rel="nofollow" title="Связаться">
+                    <i class="fa fa-envelope"></i> <span class="caption d-none d-xl-inline-block">Связаться</span>
+                </a>
+            </li>
+                                                <li class="nav-login">
+                        <a href="../../../login.html" title="Войти"><i class="fa fa-user"></i> <span class="caption d-none d-xl-inline-block">Войти</span></a>
+                    </li>
+                                    </ul>
+    </div>
+    <div>
+        <a class="russia-stop" href="../../../help-ukraine.html">
+                            HELP UKRAINE <b>STOP RUSSIA</b>
+                    </a>
+    </div>
+</nav>
+    <aside class="sidebar main-menu nano">
+    <a href="#menu-close" class="navigation-toggle"><i class="fa fa-fw fa-times"></i></a>
+    <div class="nano-content">
+                    <div class="main-menu-lang d-none d-lg-flex main-menu-lang-count-8">
+                                                                                        <a href="../../../../design-patterns/adapter/typescript/example.html" class="locale-link locale-link-en " data-locale="en" title="English"><span class="d-lg-none">English</span><span class="d-none d-lg-inline">English</span></a>
+                                                                                                <a href="../../../../es/design-patterns/adapter/typescript/example.html" class="locale-link locale-link-es " data-locale="es" title="Español"><span class="d-lg-none">Español</span><span class="d-none d-lg-inline">Español</span></a>
+                                                                                                <a href="../../../../fr/design-patterns/adapter/typescript/example.html" class="locale-link locale-link-fr " data-locale="fr" title="Français"><span class="d-lg-none">Français</span><span class="d-none d-lg-inline">Français</span></a>
+                                                                                                                                                                                        <a href="../../../../pl/design-patterns/adapter/typescript/example.html" class="locale-link locale-link-pl " data-locale="pl" title="Polski"><span class="d-lg-none">Polski</span><span class="d-none d-lg-inline">Polski</span></a>
+                                                                                                <a href="../../../../pt-br/design-patterns/adapter/typescript/example.html" class="locale-link locale-link-pt-br " data-locale="pt-br" title="Português Brasileiro"><span class="d-lg-none">Português Brasileiro</span><span class="d-none d-lg-inline">Português-Br</span></a>
+                                                                                                <a href="example.html" class="locale-link locale-link-ru active" data-locale="ru" title="Русский"><span class="d-lg-none">Русский</span><span class="d-none d-lg-inline">Русский</span></a>
+                                                                                                <a href="../../../../uk/design-patterns/adapter/typescript/example.html" class="locale-link locale-link-uk " data-locale="uk" title="Українська"><span class="d-lg-none">Українська</span><span class="d-none d-lg-inline">Українська</span></a>
+                                                                                                <a href="https://refactoringguru.cn/design-patterns/adapter/typescript/example" class="locale-link locale-link-zh " data-locale="zh" title="中文"><span class="d-lg-none">中文</span><span class="d-none d-lg-inline">中文</span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+        
+        <a class="menu-brand" href="../../../../ru.html">
+                            <img width=200 height=241 loading="lazy" alt="Refactoring.Guru" src="../../../../images/content-public/logos/logo-militaryd1c3.png?id=3eaf203cb26279327252e2c5f5d37c7f" srcset="/images/content-public/logos/logo-military-2x.png?id=5af1a599d8a4170c9a42e6fa18148b98 2x">
+                    </a>
+        <div>
+            <a class="russia-stop" href="../../../help-ukraine.html">
+                                    HELP UKRAINE
+                    <br><b>STOP RUSSIA</b>
+                            </a>
+        </div>
+
+
+        <div class="menu-container" style="position: relative">
+                        <ul class="menu-list">
+                            <li class="featured">
+            <a href="../../../store.html">
+                <i class="fa fa-fw fa-star" aria-hidden="true"></i> Премиум контент
+            </a>
+    
+            <ul >
+                            <li class="featured menu-fs15">
+            <a href="../../book.html">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Книга о паттернах
+            </a>
+    
+    
+            </li>
+                                <li class="featured menu-fs15">
+            <a href="../../../refactoring/course.html">
+                <i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Курс по рефакторингу
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring.html">
+                <i class="fa fa-fw fa-scissors" aria-hidden="true"></i> Рефакторинг
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../refactoring/what-is-refactoring.html">
+                Введение в рефакторинг
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../refactoring/what-is-refactoring.html">
+                Чистый код
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/technical-debt.html">
+                Технический долг
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/when.html">
+                Когда рефакторить
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/how-to.html">
+                Как рефакторить
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/catalog.html">
+                Каталог
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells.html">
+                Запахи кода
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../refactoring/smells/bloaters.html">
+                Раздувальщики
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/long-method.html">
+                Длинный метод
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/large-class.html">
+                Большой класс
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/primitive-obsession.html">
+                Одержимость элементарными типами
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/long-parameter-list.html">
+                Длинный список параметров
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/data-clumps.html">
+                Группы данных
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells/oo-abusers.html">
+                Нарушители объектно-ориентированного дизайна
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/switch-statements.html">
+                Операторы switch
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/temporary-field.html">
+                Временное поле
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/refused-bequest.html">
+                Отказ от наследства
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/alternative-classes-with-different-interfaces.html">
+                Альтернативные классы с разными интерфейсами
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells/change-preventers.html">
+                Утяжелители изменений
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/divergent-change.html">
+                Расходящиеся модификации
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/shotgun-surgery.html">
+                Стрельба дробью
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/parallel-inheritance-hierarchies.html">
+                Параллельные иерархии наследования
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells/dispensables.html">
+                Замусориватели
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/comments.html">
+                Комментарии
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/duplicate-code.html">
+                Дублирование кода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/lazy-class.html">
+                Ленивый класс
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/data-class.html">
+                Класс данных
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/dead-code.html">
+                Мёртвый код
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/speculative-generality.html">
+                Теоретическая общность
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells/couplers.html">
+                Опутыватели связями
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/feature-envy.html">
+                Завистливые функции
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/inappropriate-intimacy.html">
+                Неуместная близость
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/message-chains.html">
+                Цепочка вызовов
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../smells/middle-man.html">
+                Посредник
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/smells/other.html">
+                Остальные запахи
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../smells/incomplete-library-class.html">
+                Неполнота библиотечного класса
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques.html">
+                Техники
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../refactoring/techniques/composing-methods.html">
+                Составление методов
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../extract-method.html">
+                Извлечение метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../inline-method.html">
+                Встраивание метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../extract-variable.html">
+                Извлечение переменной
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../inline-temp.html">
+                Встраивание переменной
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-temp-with-query.html">
+                Замена переменной вызовом метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../split-temporary-variable.html">
+                Расщепление переменной
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../remove-assignments-to-parameters.html">
+                Удаление присваиваний параметрам
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-method-with-method-object.html">
+                Замена метода объектом методов
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../substitute-algorithm.html">
+                Замена алгоритма
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques/moving-features-between-objects.html">
+                Перемещение функций между объектами
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../move-method.html">
+                Перемещение метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../move-field.html">
+                Перемещение поля
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../extract-class.html">
+                Извлечение класса
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../inline-class.html">
+                Встраивание класса
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../hide-delegate.html">
+                Сокрытие делегирования
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../remove-middle-man.html">
+                Удаление посредника
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../introduce-foreign-method.html">
+                Введение внешнего метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../introduce-local-extension.html">
+                Введение локального расширения
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques/organizing-data.html">
+                Организация данных
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../self-encapsulate-field.html">
+                Самоинкапсуляция поля
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-data-value-with-object.html">
+                Замена простого поля объектом
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../change-value-to-reference.html">
+                Замена значения ссылкой
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../change-reference-to-value.html">
+                Замена ссылки значением
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-array-with-object.html">
+                Замена поля-массива объектом
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../duplicate-observed-data.html">
+                Дублирование видимых данных
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../change-unidirectional-association-to-bidirectional.html">
+                Замена однонаправленной связи двунаправленной
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../change-bidirectional-association-to-unidirectional.html">
+                Замена двунаправленной связи однонаправленной
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-magic-number-with-symbolic-constant.html">
+                Замена магического числа символьной константой
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../encapsulate-field.html">
+                Инкапсуляция поля
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../encapsulate-collection.html">
+                Инкапсуляция коллекции
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-type-code-with-class.html">
+                Замена кодирования типа классом
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-type-code-with-subclasses.html">
+                Замена кодирования типа подклассами
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-type-code-with-state-strategy.html">
+                Замена кодирования типа состоянием/стратегией
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-subclass-with-fields.html">
+                Замена подкласса полями
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques/simplifying-conditional-expressions.html">
+                Упрощение условных выражений
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../decompose-conditional.html">
+                Разбиение условного оператора
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../consolidate-conditional-expression.html">
+                Объединение условных операторов
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../consolidate-duplicate-conditional-fragments.html">
+                Объединение дублирующихся фрагментов в условных операторах
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../remove-control-flag.html">
+                Удаление управляющего флага
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-nested-conditional-with-guard-clauses.html">
+                Замена вложенных условных операторов граничным оператором
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-conditional-with-polymorphism.html">
+                Замена условного оператора полиморфизмом
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../introduce-null-object.html">
+                Введение Null-объекта
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../introduce-assertion.html">
+                Введение проверки утверждения
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques/simplifying-method-calls.html">
+                Упрощение вызовов методов
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../rename-method.html">
+                Переименование метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../add-parameter.html">
+                Добавление параметра
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../remove-parameter.html">
+                Удаление параметра
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../separate-query-from-modifier.html">
+                Разделение запроса и модификатора
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../parameterize-method.html">
+                Параметризация метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-parameter-with-explicit-methods.html">
+                Замена параметра набором специализированных методов
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../preserve-whole-object.html">
+                Передача всего объекта
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-parameter-with-method-call.html">
+                Замена параметра вызовом метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../introduce-parameter-object.html">
+                Замена параметров объектом
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../remove-setting-method.html">
+                Удаление сеттера
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../hide-method.html">
+                Сокрытие метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-constructor-with-factory-method.html">
+                Замена конструктора фабричным методом
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-error-code-with-exception.html">
+                Замена кода ошибки исключением
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-exception-with-test.html">
+                Замена исключения проверкой условия
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../refactoring/techniques/dealing-with-generalization.html">
+                Решение задач обобщения
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../../pull-up-field.html">
+                Подъём поля
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../pull-up-method.html">
+                Подъём метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../pull-up-constructor-body.html">
+                Подъём тела конструктора
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../push-down-method.html">
+                Спуск метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../push-down-field.html">
+                Спуск поля
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../extract-subclass.html">
+                Извлечение подкласса
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../extract-superclass.html">
+                Извлечение суперкласса
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../extract-interface.html">
+                Извлечение интерфейса
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../collapse-hierarchy.html">
+                Свёртывание иерархии
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../form-template-method.html">
+                Создание шаблонного метода
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-inheritance-with-delegation.html">
+                Замена наследования делегированием
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../../replace-delegation-with-inheritance.html">
+                Замена делегирования наследованием
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../../design-patterns.html">
+                <i class="fa fa-fw fa-puzzle-piece" aria-hidden="true"></i> Паттерны
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../what-is-pattern.html">
+                Введение в паттерны
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../what-is-pattern.html">
+                Что такое Паттерн?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../history.html">
+                История паттернов
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../why-learn-patterns.html">
+                Зачем знать паттерны?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../criticism.html">
+                Критика паттернов
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../classification.html">
+                Классификация паттернов
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../../catalog.html">
+                Каталог
+            </a>
+    
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="../../creational-patterns.html">
+                Порождающие
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../factory-method.html">
+                Фабричный метод
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../abstract-factory.html">
+                Абстрактная фабрика
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../builder.html">
+                Строитель
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../prototype.html">
+                Прототип
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../singleton.html">
+                Одиночка
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="../../structural-patterns.html">
+                Структурные
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../adapter.html">
+                Адаптер
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../bridge.html">
+                Мост
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../composite.html">
+                Компоновщик
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../decorator.html">
+                Декоратор
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../facade.html">
+                Фасад
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../flyweight.html">
+                Легковес
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../proxy.html">
+                Заместитель
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="../../behavioral-patterns.html">
+                Поведенческие
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../../chain-of-responsibility.html">
+                Цепочка обязанностей
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../command.html">
+                Команда
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../iterator.html">
+                Итератор
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../mediator.html">
+                Посредник
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../memento.html">
+                Снимок
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../observer.html">
+                Наблюдатель
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../state.html">
+                Состояние
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../strategy.html">
+                Стратегия
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../template-method.html">
+                Шаблонный метод
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../../visitor.html">
+                Посетитель
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-code-examples">
+            <a href="../../examples.html">
+                Примеры кода
+            </a>
+    
+            <ul >
+                            <li class="menu-code-examples-item">
+            <a href="../../csharp.html">
+                C#
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../cpp.html">
+                C++
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../go.html">
+                Go
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../java.html">
+                Java
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../php.html">
+                PHP
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../python.html">
+                Python
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../ruby.html">
+                Ruby
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../swift.html">
+                Swift
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="../../typescript.html">
+                TypeScript
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </div>
+        <div class="sidebar-controls">
+            <div class="sidebar-controls-container">
+                <a href="../../../login.html" title="Войти"><i
+                            class="fa fa-fw fa-fw fa-user"></i> Войти</a>
+                <a href="https://feedback.refactoring.guru/communities/1-russkij-russian" class="userecho-public" rel="nofollow" title="Обратная связь"><i class="fa fa-fw fa-fw fa-envelope" aria-hidden="true"></i> Связаться</a>
+            </div>
+        </div>
+    </div>
+</aside>
+    <footer class="footer center-content">
+    <div class="footer-container center-content-container">
+        <div class="footer-inner container-fluid">
+            <div class="row">
+                <div class="col-8 col-md-10">
+                    <ul class="footer-list footer-list-horizontal">
+                        <li><a href="../../../../ru.html">Главная</a></li>
+                        <li><a href="../../../refactoring.html">Рефакторинг</a></li>
+                        <li><a href="../../../design-patterns.html">Паттерны</a></li>
+                        <li><a href="../../../store.html">Премиум контент</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-public">Форум</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-private">Связаться</a></li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-2">
+                    <ul class="footer-list footer-list-iconic">
+                                                    <li><a href="https://www.facebook.com/refactoring.guru"><i class="fa fa-facebook-official"></i></a></li>
+                                                <li><a href="../../../sendy/form.html" rel="nofollow"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/RefactoringGuru"><i class="fa fa-github-circled"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-second">
+        <div class="footer-container center-content-container">
+            <div class="footer-inner container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <i class="fa fa-fw fa-copyright"></i> 2014-2022 <a href="../../../../ru.html">Refactoring.Guru</a>. <span style="white-space: nowrap">Все права защищены.</span><br>
+                        <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="../../../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234">
+                            <img class="fa-fw" style="height: 0.8rem;" src="../../../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                        </object> Хмельницкое шоссе 19 / 27, Каменец-Подольский, Украина, 32305<br>
+                        <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+
+                        <div class="mt-2">
+                            <i class="fa fa-fw fa-image"></i> Иллюстрации нарисовал <a href="http://zhart.us/" rel="nofollow"><span style="white-space: nowrap">Дмитрий Жарт</span></a></div>
+                    </div>
+                    <div class="footer-links-right col-12 col-sm-4 mt-4 mt-sm-0">
+                        <div class="row">
+                            <div class="col-8 col-sm-12">
+                                <ul class="footer-list">
+                                    <li><a href="../../../terms.html"><span>Условия использования</span></a>
+                                    </li>
+                                    <li><a href="../../../privacy-policy.html"><span>Политика конфиденциальности</span></a>
+                                    </li>
+                                    <li><a href="../../../content-usage-policy.html"><span>Использование контента</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+
+    <script>
+function extend(){var extended={};var deep=false;var i=0;var length=arguments["length"];if(Object["prototype"]["toString"]["call"](arguments[0])=== '[object Boolean]'){deep= arguments[0];i++};var merge=function(obj){for(var prop in obj){if(Object["prototype"]["hasOwnProperty"]["call"](obj,prop)){if(deep&& Object["prototype"]["toString"]["call"](obj[prop])=== '[object Object]'){extended[prop]= extend(true,extended[prop],obj[prop])}else {extended[prop]= obj[prop]}}}};for(;i< length;i++){var obj=arguments[i];merge(obj)};return extended}
+function defer(method) {if (window.jQuery) {method();} else {setTimeout(function() { defer(method) }, 50);}}
+</script>
+<script>
++function(sd){sd = (typeof sd === "string") ? JSON.parse(atob(sd)) : sd;for(var property in sd){if(window[property]!== null&&  typeof window[property]=== 'object'){window[property]= extend(true,window[property],sd[property])}else {window[property]= sd[property]}}}("eyJsb2NhbGUiOiJydSIsImxvY2FsZV9wcmVmaXgiOiJydVwvIiwibG9jYWxpemVkX3VybF9wcmVmaXhfbSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC9ydVwvIiwidXJsX3ByZWZpeF9tIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImxvY2FsaXplZF91cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcL3J1XC8iLCJ1cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImNoaW5lc2VfaG9tZSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZ2d1cnUuY25cLyIsInVzZXJfZWNob19hbGlhcyI6InJlZmFjdG9yaW5nIiwidXNlcl9lY2hvX2hvc3QiOiJmZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1IiwidXNlcl9lY2hvX3ByaXZhdGVfZm9ydW0iOiIyIiwidXNlcl9lY2hvX2xvY2FsZSI6InJ1IiwidXNlcl9lY2hvX3B1YmxpY19mb3J1bSI6IjEiLCJ1c2VyX2VjaG9fcHVibGljX2ZvcnVtX3VybCI6Imh0dHBzOlwvXC9mZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1XC9jb21tdW5pdGllc1wvMS1ydXNza2lqLXJ1c3NpYW4iLCJ1c2VyX2VjaG9fc3NvX3Rva2VuIjoiIn0=");
+</script>
+
+    <script defer>
+        if (window.dataLayer && window.google_optimize) {
+            window.dataLayer.push({'event': 'optimize.activate'});
+        }
+    </script>
+ 
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+        {'GTM-M58XZN4':true});</script>
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com/">
+<script>
+    var getCookie = function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    };
+    var eraseCookie = function (name) {
+        document.cookie = name+'=; Path=/; Max-Age=-99999999;';
+    };
+
+    window.google_analytics = 'UA-521840-40';
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../../../../www.google-analytics.com/analytics.js','ga');
+
+    var ga_queue = [];
+    window.gaOnCreate = function(){
+        ga_queue.push(arguments);
+    };
+
+            doTracking();
+    
+    function doTracking(clientId) {
+        window.gaOnCreate = function(){
+            ga.apply(this, arguments);
+        };
+
+        var options = {
+            'siteSpeedSampleRate': 100
+        };
+        if (clientId) {
+            options.clientId = clientId;
+        }
+        ga('create', 'UA-521840-40', options);
+
+                    ga('require', 'GTM-M58XZN4');
+            window.google_optimize = 'GTM-M58XZN4';
+        
+        // Fix broken Social Login referrer.
+        window.social_login_provider = window.social_login_provider || getCookie('social_login_provider');
+        if (window.social_login_provider) {
+            ga('set', 'referrer', null);
+            ga('send', 'social', window.social_login_provider, 'login', window.location.href);
+            eraseCookie('social_login_provider');
+        }
+
+        var user_id = getCookie('user_id');
+        if (user_id) {
+            ga('set', 'userId', user_id);
+        } else {
+            ga('set', 'userId', null);
+        }
+
+        var location = document.location.href;
+        if (typeof window.analytics_path_prefix === 'string') {
+            if (/^(https?:\/\/[^\/]+?)\/$/.test(location)) {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix);
+            }
+            else {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix + '/');
+            }
+            ga('set', 'location', location);
+        }
+
+        if (typeof window.analytics_location_prefix === 'string') {
+            location = location.replace(/(https?:\/\/[^\/]+?)\//, window.analytics_location_prefix);
+            ga('set', 'location', location);
+        }
+
+        ga('require', 'ec');
+        ga('send', 'pageview', (typeof window.analytics_path_prefix === 'string' ? window.analytics_path_prefix : '') + document.location.pathname);
+
+        ga_queue.forEach(function(item){
+            ga.apply(this, item);
+        });
+    }
+</script>
+
+<script defer>
+    window.socialLikesButtons = {
+                facebook: {
+            counterUrl: "",
+            convertNumber: null
+        },
+                            vkontakte: {
+            counterUrl: "",
+            counter: null
+        },
+            };
+</script>
+
+<script defer>
+    var CodeMirrorScripts = ["/js/codemirror.min.js?id=24aa863dfde7c99eb17d4102684aea27"];
+</script>
+
+
+
+    <script>window.loadContent = true;window.loadCart = true;</script>
+</body>
+
+<!-- Mirrored from refactoring.guru/ru/design-patterns/adapter/typescript/example by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:23:38 GMT -->
+</html>

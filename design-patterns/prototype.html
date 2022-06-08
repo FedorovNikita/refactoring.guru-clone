@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from refactoring.guru/design-patterns/prototype by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:13:41 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+    <meta charset="utf-8">
+    <title>Prototype</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="alternate" href="prototype.html" hreflang="x-default"/>
+    <link rel="alternate" href="../es/design-patterns/prototype.html" hreflang="es"/>
+    <link rel="alternate" href="../fr/design-patterns/prototype.html" hreflang="fr"/>
+    <link rel="alternate" href="../ja/design-patterns/prototype.html" hreflang="ja"/>
+    <link rel="alternate" href="../ko/design-patterns/prototype.html" hreflang="ko"/>
+    <link rel="alternate" href="../pl/design-patterns/prototype.html" hreflang="pl"/>
+    <link rel="alternate" href="../pt-br/design-patterns/prototype.html" hreflang="pt-br"/>
+    <link rel="alternate" href="../ru/design-patterns/prototype.html" hreflang="ru"/>
+    <link rel="alternate" href="../uk/design-patterns/prototype.html" hreflang="uk"/>
+    <link rel="alternate" href="https://refactoringguru.cn/design-patterns/prototype" hreflang="zh"/>
+
+    <meta name="description" content="Prototype is a creational design pattern that lets you copy existing objects without making your code dependent on their classes.">
+
+    <link rel="canonical" href="prototype.html"/>
+
+    <link rel="icon" type="image/x-icon" href="../favicon.png"/>
+
+<script type="application/ld+json">
+{"@context": "http://schema.org", "@graph": [{"@type":"Person","@id":"https://refactoring.guru/#founder","name":"Alexander Shvets"},{"@type":"Organization","@id":"https://refactoring.guru/#organization","name":"Refactoring.Guru","description":"Refactoring.Guru makes it easy for you to discover everything you need to know about refactoring, design patterns, SOLID principles, and other smart programming topics.","image":{"@type":"ImageObject","@id":"https://refactoring.guru/#organizationlogo","url":"https://refactoring.guru/images/content-public/logos/logo-plain.png","caption":"Refactoring.Guru"},"logo":{"@id":"https://refactoring.guru/#organizationlogo"},"founder":{"@id":"https://refactoring.guru/#founder"},"sameAs":["https://www.facebook.com/refactoring.guru","https://twitter.com/RefactoringGuru","https://github.com/RefactoringGuru"]},{"@type":"WebSite","@id":"https://refactoring.guru/#website","url":"https://refactoring.guru/","name":"Refactoring.Guru","description":"Refactoring.Guru makes it easy for you to discover everything you need to know about refactoring, design patterns, SOLID principles, and other smart programming topics.","author":{"@id":"https://refactoring.guru/#founder"},"publisher":{"@id":"https://refactoring.guru/#organization"},"copyrightYear":2014},{"@type":"WebPage","@id":"https://refactoring.guru/design-patterns/prototype#webpage","url":"https://refactoring.guru/design-patterns/prototype","inLanguage":"en","name":"Prototype","description":"Prototype is a creational design pattern that lets you copy existing objects without making your code dependent on their classes.","isPartOf":{"@id":"https://refactoring.guru#website"},"breadcrumb":{"@id":"https://refactoring.guru/design-patterns/prototype#breadcrumb"},"primaryImageOfPage":{"@id":"https://refactoring.guru/design-patterns/prototype#primaryimage"},"image":{"@type":"ImageObject","@id":"https://refactoring.guru/design-patterns/prototype#primaryimage","url":"https://refactoring.guru/images/patterns/content/prototype/prototype-3x.png","width":1920,"height":1200}},{"@type":"Article","@id":"https://refactoring.guru/design-patterns/prototype#article","isPartOf":{"@id":"https://refactoring.guru/design-patterns/prototype#webpage"},"mainEntityOfPage":{"@id":"https://refactoring.guru/design-patterns/prototype#webpage"},"author":{"@id":"https://refactoring.guru#founder"},"publisher":{"@id":"https://refactoring.guru#organization"},"headline":"Prototype","datePublished":"2021-01-01","dateModified":"2022-01-01","articleSection":"Design Patterns","image":{"@id":"https://refactoring.guru/design-patterns/prototype#primaryimage"}},{"@type":"BreadcrumbList","@id":"https://refactoring.guru/design-patterns/prototype#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://refactoring.guru"},{"@type":"ListItem","position":2,"name":"Design Patterns","item":"https://refactoring.guru/design-patterns"},{"@type":"ListItem","position":3,"name":"Creational Patterns","item":"https://refactoring.guru/design-patterns/creational-patterns"}]}] }
+</script>
+
+<meta property="fb:app_id" content="666819623386327" />
+<meta property="og:type"  content="website" />
+<meta property="og:image" content="https://refactoring.guru/images/refactoring/social/facebook-share-preview.png?id=dbf9e98269595be86eb668f365be6868"/>
+
+        <link rel="stylesheet" href="../css/public-packed.min29c2.css?id=72df70415a2662bdd8f64ffd40983c30">
+
+<style type="text/css">
+    @font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<link rel="preload" href="../fonts/PTSans/ptsans-regular_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/PTSans/ptsans-bold_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/fontello/fontawesomea92a.woff2?15843843" as="font" type="font/woff2" crossorigin>
+
+
+<script defer src="../js/public.min1749.js?id=77d40430343920ca57d184f85668a382"></script>
+
+
+
+</head>
+<body class="locale-en    announcement   prototype" data-body_class="prototype">
+
+<div class="body-holder">
+
+
+            <div class="announcement-block prom" data-id="DIDP-announcement" data-creative-id="en" data-position="top"><div class="announcement-block-inner">
+            <img src="../images/content-public/announcement-en-17032.svg?id=2b6bba0470947f2a60cdac20b809cf3d" loading="lazy" style="width: 36px; height:36px;">
+                Hey, I have just reduced the price for all products. Let's prepare our programming skills for the post-COVID era. <a href="../store.html">Check it out »</a>
+            <img src="../images/content-public/announcement-en-26d3b.svg?id=d0c7bf36cfcc7c733fad50a30fd99920" loading="lazy" style="width: 36px; height:36px;">
+        </div></div>
+    
+    <div class="cart-placeholder">
+    <div class="cart-block-container" style="display:none">
+        <div class="cart-block btn-group">
+            <a href="#checkout" class="btn cart open-checkout">
+                <span class="cart-text"></span>&nbsp;<strong class="cart-total font-money"></strong>
+            </a><a href="#checkout" class="btn btn-secondary checkout open-checkout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="btn-text-span d-none d-sm-inline-block d-lg-none d-hg-inline-block"></span></a>
+        </div>
+    </div>
+</div>
+    <main role="main" class="main-content top-content center-content " data-page_class="">
+        <div class="main-content-container center-content-container">
+                        <div class="pattern page text">
+<article>
+    <div class="breadcrumb">
+                                    <a class="home" href="../index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
+                                                / <a class="type" href="../design-patterns.html">Design Patterns</a>
+                                                / <a class="type" href="creational-patterns.html">Creational Patterns</a>
+                        </div>
+    <h1 class="title">Prototype</h1>
+
+    <script type="text/javascript">
+        // Shorten examples titles for users.
+        var h1 = document.getElementsByTagName("H1")[0];
+        if (h1.offsetHeight > 160) {
+            h1.className += ' smaller';
+        }
+
+        // Small beautification for pattern examples.
+        var title = h1.innerHTML;
+        title = title.replace(/^(Java|C\+\+|C#|PHP|Python|Ruby|Delphi): (.*)$/, '<strong>$1:</strong> $2');
+        h1.innerHTML = title;
+    </script>
+
+            <div class="aka">
+            Also known as: <span style="display:inline-block">Clone</span>
+        </div>
+    
+    
+
+    <div class="section intent">
+<h2 id="intent"><i class="fa fa-flip-horizontal fa-comment-alt-dots" aria-hidden="true"></i> Intent</h2>
+<p><strong>Prototype</strong> is a creational design pattern that lets you copy existing objects without making your code dependent on their classes.</p>
+<figure class="image"><img src="../images/patterns/content/prototype/prototype3cb9.png?id=e912b1ada20bbf7b2ffc09e93b9fab20" alt="Prototype Design&amp;nbsp;Pattern" width="640" srcset="/images/patterns/content/prototype/prototype-2x.png?id=670789c80c8a114e25838ede2da4a881 2x" /></figure>
+</div>
+<div class="section problem">
+<h2 id="problem"><i class="fa fa-frown" aria-hidden="true"></i> Problem</h2>
+<p>Say you have an object, and you want to create an exact copy of it. How would you do it? First, you have to create a new object of the same class. Then you have to go through all the fields of the original object and copy their values over to the new object.</p>
+<p>Nice! But there’s a catch. Not all objects can be copied that way because some of the object’s fields may be private and not visible from outside of the object itself.</p>
+<figure class="image"><img src="../images/patterns/content/prototype/prototype-comic-1-ene940.png?id=4cc45ae42e26cc9533a6ac540713d1fa" alt="What can go wrong when copying things “from the outside&quot;?” width="600" srcset="/images/patterns/content/prototype/prototype-comic-1-en-2x.png?id=1f5b9eeb00df663f4630ca6d38c4804d 2x" loading="lazy" /><figcaption>
+<p>Copying an object “from the outside” <a href="https://vimeo.com/120816425">isn’t</a> always possible.</p>
+</figcaption></figure>
+<p>There’s one more problem with the direct approach. Since you have to know the object’s class to create a duplicate, your code becomes dependent on that class. If the extra dependency doesn’t scare you, there’s another catch. Sometimes you only know the interface that the object follows, but not its concrete class, when, for example, a parameter in a method accepts any objects that follow some interface.</p>
+</div>
+<div class="section solution">
+<h2 id="solution"><i class="fa fa-smile-beam" aria-hidden="true"></i> Solution</h2>
+<p>The Prototype pattern delegates the cloning process to the actual objects that are being cloned. The pattern declares a common interface for all objects that support cloning. This interface lets you clone an object without coupling your code to the class of that object. Usually, such an interface contains just a single <code>clone</code> method.</p>
+<p>The implementation of the <code>clone</code> method is very similar in all classes. The method creates an object of the current class and carries over all of the field values of the old object into the new one. You can even copy private fields because most programming languages let objects access private fields of other objects that belong to the same class.</p>
+<p>An object that supports cloning is called a <em>prototype</em>. When your objects have dozens of fields and hundreds of possible configurations, cloning them might serve as an alternative to subclassing.</p>
+<figure class="image"><img src="../images/patterns/content/prototype/prototype-comic-2-en87c7.png?id=e1df2dc39404c5eb2d485b7ae7c9914f" alt="Pre-built prototypes" width="343" srcset="/images/patterns/content/prototype/prototype-comic-2-en-2x.png?id=dda1589983832b69aee763037293beab 2x" loading="lazy" /><figcaption>
+<p>Pre-built prototypes can be an alternative to subclassing.</p>
+</figcaption></figure>
+<p>Here’s how it works: you create a set of objects, configured in various ways. When you need an object like the one you’ve configured, you just clone a prototype instead of constructing a new object from scratch.</p>
+</div>
+<div class="section analogy">
+<h2 id="analogy"><i class="fa fa-car-side" aria-hidden="true"></i> Real-World Analogy</h2>
+<p>In real life, prototypes are used for performing various tests before starting mass production of a product. However, in this case, prototypes don’t participate in any actual production, playing a passive role instead.</p>
+<figure class="image"><img src="../images/patterns/content/prototype/prototype-comic-3-en47fb.png?id=ff16dedbd0c10944d27bf87d2adcf8a6" alt="The cell division" width="600" srcset="/images/patterns/content/prototype/prototype-comic-3-en-2x.png?id=63dd16812865486d174b646882effd9a 2x" loading="lazy" /><figcaption>
+<p>The division of a cell.</p>
+</figcaption></figure>
+<p>Since industrial prototypes don’t really copy themselves, a much closer analogy to the pattern is the process of mitotic cell division (biology, remember?). After mitotic division, a pair of identical cells is formed. The original cell acts as a prototype and takes an active role in creating the copy.</p>
+</div>
+<div class="section structure-container">
+<h2 id="structure"><i class="fa fa-sitemap" aria-hidden="true"></i> Structure</h2>
+<div class="structure">
+<h4>Basic implementation</h4>
+<div class="prototype-normal">
+<div class="struct-image1 struct-image">
+<figure class="image"><img class="structure-img-non-indexed d-none d-xl-block" src="../images/patterns/diagrams/prototype/structure87f6.png?id=088102c5e9785ff45debbbce86f4df81" alt="The structure of the Prototype design pattern" width="500" srcset="/images/patterns/diagrams/prototype/structure-2x.png?id=ba75079f42f08028ae4cdbda0cfecc26 2x" loading="lazy" /><img class="structure-img-indexed d-xl-none" src="../images/patterns/diagrams/prototype/structure-indexed6499.png?id=0e1c809842f5c43aca0541a2eba1f844" alt="The structure of the Prototype design pattern" width="520" srcset="/images/patterns/diagrams/prototype/structure-indexed-2x.png?id=74584ac729c0f6b49d2a97a53cc266ff 2x" loading="lazy" /></figure>
+</div>
+</div>
+<ol><li class="struct-li1">
+<p>The <strong>Prototype</strong> interface declares the cloning methods. In most cases, it’s a single <code>clone</code> method.</p>
+</li>
+<li class="struct-li2">
+<p>The <strong>Concrete Prototype</strong> class implements the cloning method. In addition to copying the original object’s data to the clone, this method may also handle some edge cases of the cloning process related to cloning linked objects, untangling recursive dependencies, etc.</p>
+</li>
+<li class="struct-li3">
+<p>The <strong>Client</strong> can produce a copy of any object that follows the prototype interface.</p>
+</li></ol>
+<h4>Prototype registry implementation</h4>
+<div class="prototype-pool">
+<div class="struct-image2 struct-image">
+<figure class="image"><img class="structure-img-non-indexed d-none d-xl-block" src="../images/patterns/diagrams/prototype/structure-prototype-cache9d19.png?id=609c2af5d14ed55dcbb218a00f98e7d5" alt="The prototype registry" width="550" srcset="/images/patterns/diagrams/prototype/structure-prototype-cache-2x.png?id=a1e4514bbcc9b10968b856f19b407105 2x" loading="lazy" /><img class="structure-img-indexed d-xl-none" src="../images/patterns/diagrams/prototype/structure-prototype-cache-indexed1801.png?id=10a4a84a1a318f59dbc2b806fc936d04" alt="The prototype registry" width="550" srcset="/images/patterns/diagrams/prototype/structure-prototype-cache-indexed-2x.png?id=47b99eb7ae51158bdbb31deea4f5e98f 2x" loading="lazy" /></figure>
+</div>
+</div>
+<ol><li class="struct-li4">
+<p>The <strong>Prototype Registry</strong> provides an easy way to access frequently-used prototypes. It stores a set of pre-built objects that are ready to be copied. The simplest prototype registry is a <code>name → prototype</code> hash map. However, if you need better search criteria than a simple name, you can build a much more robust version of the registry.</p>
+</li></ol>
+<style structure type="text/css" >
+@media (min-width: 1200px) {
+.structure {
+margin: 0;
+width: auto;
+height: 1190px;
+}
+
+.prototype-normal {
+height: 490px;
+}
+
+.prototype-pool {
+height: 500px;
+}
+
+.struct-image1 {
+left: 0px;
+top: 170px;
+}
+
+.struct-li1 {
+left: 300px;
+top: 70px;
+width: 260px;
+height: 90px;
+}
+
+.struct-li2 {
+left: 510px;
+top: 310px;
+width: 280px;
+height: 170px;
+}
+
+.struct-li3 {
+left: 0px;
+top: 70px;
+width: 240px;
+height: 90px;
+}
+
+.struct-image2 {
+left: 100px;
+top: 670px;
+}
+
+.struct-li4 {
+left: 0px;
+top: 1020px;
+width: 390px;
+height: 150px;
+}
+}
+
+</style>
+</div></div>
+<div class="section pseudocode">
+<h2 id="pseudocode"><i class="fa fa-hashtag" aria-hidden="true"></i> Pseudocode</h2>
+<p>In this example, the <strong>Prototype</strong> pattern lets you produce exact copies of geometric objects, without coupling the code to their classes.</p>
+<figure class="image"><img src="../images/patterns/diagrams/prototype/examplee491.png?id=47bc6c1058cb100b81e675b5ca6bda6c" alt="The structure of the Prototype pattern example" width="470" srcset="/images/patterns/diagrams/prototype/example-2x.png?id=80393e0df17ae8130e5ada832d494949 2x" loading="lazy" /><figcaption>
+<p>Cloning a set of objects that belong to a class hierarchy.</p>
+</figcaption></figure>
+<p>All shape classes follow the same interface, which provides a cloning method. A subclass may call the parent’s cloning method before copying its own field values to the resulting object.</p>
+<figure class="code">
+<pre class="code" lang="pseudocode">// Base prototype.
+abstract class Shape is
+    field X: int
+    field Y: int
+    field color: string
+
+    // A regular constructor.
+    constructor Shape() is
+        // ...
+
+    // The prototype constructor. A fresh object is initialized
+    // with values from the existing object.
+    constructor Shape(source: Shape) is
+        this()
+        this.X = source.X
+        this.Y = source.Y
+        this.color = source.color
+
+    // The clone operation returns one of the Shape subclasses.
+    abstract method clone():Shape
+
+
+// Concrete prototype. The cloning method creates a new object
+// and passes it to the constructor. Until the constructor is
+// finished, it has a reference to a fresh clone. Therefore,
+// nobody has access to a partly-built clone. This keeps the
+// cloning result consistent.
+class Rectangle extends Shape is
+    field width: int
+    field height: int
+
+    constructor Rectangle(source: Rectangle) is
+        // A parent constructor call is needed to copy private
+        // fields defined in the parent class.
+        super(source)
+        this.width = source.width
+        this.height = source.height
+
+    method clone():Shape is
+        return new Rectangle(this)
+
+
+class Circle extends Shape is
+    field radius: int
+
+    constructor Circle(source: Circle) is
+        super(source)
+        this.radius = source.radius
+
+    method clone():Shape is
+        return new Circle(this)
+
+
+// Somewhere in the client code.
+class Application is
+    field shapes: array of Shape
+
+    constructor Application() is
+        Circle circle = new Circle()
+        circle.X = 10
+        circle.Y = 10
+        circle.radius = 20
+        shapes.add(circle)
+
+        Circle anotherCircle = circle.clone()
+        shapes.add(anotherCircle)
+        // The `anotherCircle` variable contains an exact copy
+        // of the `circle` object.
+
+        Rectangle rectangle = new Rectangle()
+        rectangle.width = 10
+        rectangle.height = 20
+        shapes.add(rectangle)
+
+    method businessLogic() is
+        // Prototype rocks because it lets you produce a copy of
+        // an object without knowing anything about its type.
+        Array shapesCopy = new Array of Shapes.
+
+        // For instance, we don't know the exact elements in the
+        // shapes array. All we know is that they are all
+        // shapes. But thanks to polymorphism, when we call the
+        // `clone` method on a shape the program checks its real
+        // class and runs the appropriate clone method defined
+        // in that class. That's why we get proper clones
+        // instead of a set of simple Shape objects.
+        foreach (s in shapes) do
+            shapesCopy.add(s.clone())
+
+        // The `shapesCopy` array contains exact copies of the
+        // `shape` array's children.
+</pre>
+</figure>
+</div>
+<div class="section applicability-container">
+<h2 id="applicability"><i class="fa fa-lightbulb-on" aria-hidden="true"></i> Applicability</h2>
+<div class="applicability">
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Use the Prototype pattern when your code shouldn’t depend on the concrete classes of objects that you need to copy.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> This happens a lot when your code works with objects passed to you from 3rd-party code via some interface. The concrete classes of these objects are unknown, and you couldn’t depend on them even if you wanted to.</p>
+<p>The Prototype pattern provides the client code with a general interface for working with all objects that support cloning. This interface makes the client code independent from the concrete classes of objects that it clones.</p>
+</div>
+<div class="applicability-problem">
+<p><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Use the pattern when you want to reduce the number of subclasses that only differ in the way they initialize their respective objects.</p>
+</div><div class="applicability-solution">
+<p><i class="fa fa-fw fa-bolt" aria-hidden="true"></i> Suppose you have a complex class that requires a laborious configuration before it can be used. There are several common ways to configure this class, and this code is scattered through your app. To reduce the duplication, you create several subclasses and put every common configuration code into their constructors. You solved the duplication problem, but now you have lots of dummy subclasses.</p>
+<p>The Prototype pattern lets you use a set of pre-built objects configured in various ways as prototypes. Instead of instantiating a subclass that matches some configuration, the client can simply look for an appropriate prototype and clone it.</p>
+</div>
+</div></div>
+<div class="section checklist">
+<h2 id="checklist"><i class="fa fa-clipboard-list-check" aria-hidden="true"></i> How to Implement</h2>
+<ol>
+<li>
+<p>Create the prototype interface and declare the <code>clone</code> method in it. Or just add the method to all classes of an existing class hierarchy, if you have one.</p>
+</li>
+<li>
+<p>A prototype class must define the alternative constructor that accepts an object of that class as an argument. The constructor must copy the values of all fields defined in the class from the passed object into the newly created instance. If you’re changing a subclass, you must call the parent constructor to let the superclass handle the cloning of its private fields.</p>
+<p>If your programming language doesn’t support method overloading, you won’t be able to create a separate “prototype” constructor. Thus, copying the object’s data into the newly created clone will have to be performed within the <code>clone</code> method. Still, having this code in a regular constructor is safer because the resulting object is returned fully configured right after you call the <code>new</code> operator.</p>
+</li>
+<li>
+<p>The cloning method usually consists of just one line: running a <code>new</code> operator with the prototypical version of the constructor. Note, that every class must explicitly override the cloning method and use its own class name along with the <code>new</code> operator. Otherwise, the cloning method may produce an object of a parent class.</p>
+</li>
+<li>
+<p>Optionally, create a centralized prototype registry to store a catalog of frequently used prototypes.</p>
+<p>You can implement the registry as a new factory class or put it in the base prototype class with a static method for fetching the prototype. This method should search for a prototype based on search criteria that the client code passes to the method. The criteria might either be a simple string tag or a complex set of search parameters. After the appropriate prototype is found, the registry should clone it and return the copy to the client.</p>
+<p>Finally, replace the direct calls to the subclasses’ constructors with calls to the factory method of the prototype registry.</p>
+</li>
+</ol>
+</div>
+<div class="section pros-cons">
+<h2 id="pros-cons"><i class="fa fa-balance-scale" aria-hidden="true"></i> Pros and Cons</h2>
+<div class="row"><div class="col-sm-6">
+<ul>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> You can clone objects without coupling to their concrete classes.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> You can get rid of repeated initialization code in favor of cloning pre-built prototypes.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> You can produce complex objects more conveniently.</li>
+<li>
+<i class="fa fa-fw fa-check" aria-hidden="true"></i> You get an alternative to inheritance when dealing with configuration presets for complex objects.</li>
+</ul>
+</div><div class="col-sm-6">
+<ul>
+<li>
+<i class="fa fa-fw fa-times" aria-hidden="true"></i> Cloning complex objects that have circular references might be very tricky.</li>
+</ul>
+</div></div></div>
+<div class="section relations">
+<h2 id="relations"><i class="fa fa-exchange-alt" aria-hidden="true"></i> Relations with Other Patterns</h2>
+<ul>
+<li>
+<p>Many designs start by using <a href="factory-method.html">Factory Method</a> (less complicated and more customizable via subclasses) and evolve toward <a href="abstract-factory.html">Abstract Factory</a>, <a href="prototype.html">Prototype</a>, or <a href="builder.html">Builder</a> (more flexible, but more complicated).</p>
+</li>
+<li>
+<p><a href="abstract-factory.html">Abstract Factory</a> classes are often based on a set of <a href="factory-method.html">Factory Methods</a>, but you can also use <a href="prototype.html">Prototype</a> to compose the methods on these classes.</p>
+</li>
+<li>
+<p><a href="prototype.html">Prototype</a> can help when you need to save copies of <a href="command.html">Commands</a> into history.</p>
+</li>
+<li>
+<p>Designs that make heavy use of <a href="composite.html">Composite</a> and <a href="decorator.html">Decorator</a> can often benefit from using <a href="prototype.html">Prototype</a>. Applying the pattern lets you clone complex structures instead of re-constructing them from scratch.</p>
+</li>
+<li>
+<p><a href="prototype.html">Prototype</a> isn’t based on inheritance, so it doesn’t have its drawbacks. On the other hand, <em>Prototype</em> requires a complicated initialization of the cloned object. <a href="factory-method.html">Factory Method</a> is based on inheritance but doesn’t require an initialization step.</p>
+</li>
+<li>
+<p>Sometimes <a href="prototype.html">Prototype</a> can be a simpler alternative to <a href="memento.html">Memento</a>. This works if the object, the state of which you want to store in the history, is fairly straightforward and doesn’t have links to external resources, or the links are easy to re-establish.</p>
+</li>
+<li>
+<p><a href="abstract-factory.html">Abstract Factories</a>, <a href="builder.html">Builders</a> and <a href="prototype.html">Prototypes</a> can all be implemented as <a href="singleton.html">Singletons</a>.</p>
+</li>
+</ul>
+</div>
+<div class="section implementations">
+<h2 id="implementations"><i class="fa fa-code" aria-hidden="true"></i> Code Examples</h2>
+<p><a href="prototype/java/example.html" title="Design Patterns: Prototype in Java" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/java9ca9.svg?id=e6d87e2dca08c953fe3acd1275ed4f4e" alt="Design Patterns: Prototype in Java"></a>
+<a href="prototype/csharp/example.html" title="Design Patterns: Prototype in C#" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/csharp8c8a.svg?id=da64592defc6e86d57c39c66e9de3e58" alt="Design Patterns: Prototype in C#"></a>
+<a href="prototype/cpp/example.html" title="Design Patterns: Prototype in C++" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/cpp9770.svg?id=f7782ed8b8666246bfcc3f8fefc3b858" alt="Design Patterns: Prototype in C++"></a>
+<a href="prototype/php/example.html" title="Design Patterns: Prototype in PHP" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/phpb8be.svg?id=be1906eb26b71ec1d3b93720d6156618" alt="Design Patterns: Prototype in PHP"></a>
+<a href="prototype/python/example.html" title="Design Patterns: Prototype in Python" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/python25f6.svg?id=6d815d43c0f7050a1151b43e51569c9f" alt="Design Patterns: Prototype in Python"></a>
+<a href="prototype/ruby/example.html" title="Design Patterns: Prototype in Ruby" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/ruby3275.svg?id=b065b718c914bf8e960ef731600be1eb" alt="Design Patterns: Prototype in Ruby"></a>
+<a href="prototype/swift/example.html" title="Design Patterns: Prototype in Swift" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/swift68dd.svg?id=0b716c2d52ec3a48fbe91ac031070c1d" alt="Design Patterns: Prototype in Swift"></a>
+<a href="prototype/typescript/example.html" title="Design Patterns: Prototype in TypeScript" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/typescript325e.svg?id=2239d0f16cb703540c205dd8cb0c0cb7" alt="Design Patterns: Prototype in TypeScript"></a>
+<a href="prototype/go/example.html" title="Design Patterns: Prototype in Go" class="prog-lang-link"><img width="53" height="53" loading="lazy" src="../images/patterns/icons/go3287.svg?id=1a89927eb99b1ea3fde7701d97970aca" alt="Design Patterns: Prototype in Go"></a></p>
+</div>
+
+
+    <div class="banner-set2" id="book-promo">
+            <div class="prom banner-content banner-bg banner-striped banner-with-image" data-id="DP: 1: Support our free website and own the eBook!" data-creative-id="standard-en" data-position="content_bottom">
+                <div class="banner-image">
+                    <a href="book.html">
+                        <img width="200" height="200" loading="lazy" src="../images/patterns/banners/patterns-book-banner-3a29e.png?id=7d445df13c80287beaab234b4f3b698c" srcset="/images/patterns/banners/patterns-book-banner-3-2x.png?id=0cc3f77ab421d1a5c02ee46488231c3a 2x">
+                    </a>
+                </div>
+
+                <div class="banner-text">
+                    <h3 class="title">Support our free website and own the eBook!</h3>
+                    <ul style="font-size: 14px;">
+                        <li style="margin: 0;">22 design patterns and 8 principles explained in depth.</li>
+                        <li style="margin: 0;">409 well-structured, easy to read, jargon-free pages.</li>
+                        <li style="margin: 0;">225 clear and helpful illustrations and diagrams.</li>
+                        <li style="margin: 0;">An archive with code examples in 9 languages.</li>
+                        <li style="margin: 0;">All devices supported: PDF/EPUB/MOBI/KFX formats.</li>
+                    </ul>
+                    <a class="btn btn-secondary" href="book.html"><i class="fa fa-book" aria-hidden="true"></i> Learn more…</a>
+                </div>
+            </div>
+        </div>
+
+    </article>
+
+<nav class="prev-next">
+                    <div class="next">
+                <h4>Read next</h4>
+                <a rel="next" href="singleton.html" class="btn btn-primary">Singleton&nbsp;<span class="fa fa-arrow-right"></span></a>
+            </div>
+                            <div class="prev">
+                <h4>Return</h4>
+                <a rel="prev" href="builder.html" class="btn btn-default"><span class="fa fa-arrow-left"></span>&nbsp;Builder </a>
+            </div>
+            </nav>
+</div>
+
+<aside class="feature content-secondary">
+    <div class="prom banner-sidebar" data-id="DP: Sidebar" data-creative-id="standard-sidebar-en" data-position="sidebar">
+        <div class="banner-inner">
+            <div class="image3d-book-right">
+                <div class="image3d-cover" style="background: #0b3752;">
+                    <a href="book.html">
+                        <img width="250" height="375" loading="lazy" src="../images/patterns/book/web-cover-en00eb.png?id=328861769fd11617674e3b8a7e2dd9e7" srcset="/images/patterns/book/web-cover-en-2x.png?id=02940141c5652ed5a426d87390b16366 2x">
+                    </a>
+                </div>
+            </div>
+            <div style="margin-top: 1rem">
+                <p class="text-center">This article is a part of our eBook<br/><strong>Dive Into Design Patterns</strong>.</p>
+                <a href="book.html" class="btn btn-secondary btn-block"><i class="fa fa-book" aria-hidden="true"></i> Learn more…</a>
+            </div>
+        </div>
+    </div>
+
+
+</aside>
+                    </div>
+    </main>
+
+    <nav class="navigation" role="navigation">
+    <div class="navigation-container">
+        <a href="#menu" class="navigation-toggle"><i class="fa fa-bars"></i></a>
+        <a class="navigation-brand" href="../index.html">
+            <img alt="Refactoring.Guru" src="../images/content-public/logos/logo-military-mobile78b4.png?id=65ecbd1e688fc695bc20c22a1e8450d9" srcset="/images/content-public/logos/logo-military-mobile-2x.png?id=0f52141f57f67fb678da8407e254b0a3 2x"
+                  width="94"                   height="64"             >
+        </a>
+        <div class="social-likes-block" data-url="../index.html">
+    <div data-service="facebook" class="facebook" title="Share on Facebook">Facebook</div>
+        <div data-service="twitter" class="twitter" title="Share on Twitter">Twitter</div>
+</div>        <ul class="navigation-menu">
+                        <li class="dropdown d-lg-none">
+                <a class="dropdown-toggle" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-globe" aria-hidden="true"></i> <span class="caption d-none d-xl-inline-block">Language</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguage">
+                                                                                                        <a href="prototype.html" class="dropdown-item locale-link active" data-locale="en" title="English">English</a>
+                                                                                                                <a href="../es/design-patterns/prototype.html" class="dropdown-item locale-link " data-locale="es" title="Español">Español</a>
+                                                                                                                <a href="../fr/design-patterns/prototype.html" class="dropdown-item locale-link " data-locale="fr" title="Français">Français</a>
+                                                                                                                                                                                                                        <a href="../pl/design-patterns/prototype.html" class="dropdown-item locale-link " data-locale="pl" title="Polski">Polski</a>
+                                                                                                                <a href="../pt-br/design-patterns/prototype.html" class="dropdown-item locale-link " data-locale="pt-br" title="Português Brasileiro">Português Brasileiro</a>
+                                                                                                                <a href="../ru/design-patterns/prototype.html" class="dropdown-item locale-link " data-locale="ru" title="Русский">Русский</a>
+                                                                                                                <a href="../uk/design-patterns/prototype.html" class="dropdown-item locale-link " data-locale="uk" title="Українська">Українська</a>
+                                                                                                                <a href="https://refactoringguru.cn/design-patterns/prototype" class="dropdown-item locale-link " data-locale="zh" title="中文">中文</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+            </li>
+                        <li class="nav-contact">
+                <a class="userecho-private" href="https://feedback.refactoring.guru/?show_feedback_form_private=true" rel="nofollow" title="Contact us">
+                    <i class="fa fa-envelope"></i> <span class="caption d-none d-xl-inline-block">Contact us</span>
+                </a>
+            </li>
+                                                <li class="nav-login">
+                        <a href="../login.html" title="Log in"><i class="fa fa-user"></i> <span class="caption d-none d-xl-inline-block">Log in</span></a>
+                    </li>
+                                    </ul>
+    </div>
+    <div>
+        <a class="russia-stop" href="../help-ukraine.html">
+                            HELP UKRAINE <b>STOP RUSSIA</b>
+                    </a>
+    </div>
+</nav>
+    <aside class="sidebar main-menu nano">
+    <a href="#menu-close" class="navigation-toggle"><i class="fa fa-fw fa-times"></i></a>
+    <div class="nano-content">
+                    <div class="main-menu-lang d-none d-lg-flex main-menu-lang-count-8">
+                                                                                        <a href="prototype.html" class="locale-link locale-link-en active" data-locale="en" title="English"><span class="d-lg-none">English</span><span class="d-none d-lg-inline">English</span></a>
+                                                                                                <a href="../es/design-patterns/prototype.html" class="locale-link locale-link-es " data-locale="es" title="Español"><span class="d-lg-none">Español</span><span class="d-none d-lg-inline">Español</span></a>
+                                                                                                <a href="../fr/design-patterns/prototype.html" class="locale-link locale-link-fr " data-locale="fr" title="Français"><span class="d-lg-none">Français</span><span class="d-none d-lg-inline">Français</span></a>
+                                                                                                                                                                                        <a href="../pl/design-patterns/prototype.html" class="locale-link locale-link-pl " data-locale="pl" title="Polski"><span class="d-lg-none">Polski</span><span class="d-none d-lg-inline">Polski</span></a>
+                                                                                                <a href="../pt-br/design-patterns/prototype.html" class="locale-link locale-link-pt-br " data-locale="pt-br" title="Português Brasileiro"><span class="d-lg-none">Português Brasileiro</span><span class="d-none d-lg-inline">Português-Br</span></a>
+                                                                                                <a href="../ru/design-patterns/prototype.html" class="locale-link locale-link-ru " data-locale="ru" title="Русский"><span class="d-lg-none">Русский</span><span class="d-none d-lg-inline">Русский</span></a>
+                                                                                                <a href="../uk/design-patterns/prototype.html" class="locale-link locale-link-uk " data-locale="uk" title="Українська"><span class="d-lg-none">Українська</span><span class="d-none d-lg-inline">Українська</span></a>
+                                                                                                <a href="https://refactoringguru.cn/design-patterns/prototype" class="locale-link locale-link-zh " data-locale="zh" title="中文"><span class="d-lg-none">中文</span><span class="d-none d-lg-inline">中文</span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+        
+        <a class="menu-brand" href="../index.html">
+                            <img width=200 height=241 loading="lazy" alt="Refactoring.Guru" src="../images/content-public/logos/logo-militaryd1c3.png?id=3eaf203cb26279327252e2c5f5d37c7f" srcset="/images/content-public/logos/logo-military-2x.png?id=5af1a599d8a4170c9a42e6fa18148b98 2x">
+                    </a>
+        <div>
+            <a class="russia-stop" href="../help-ukraine.html">
+                                    HELP UKRAINE
+                    <br><b>STOP RUSSIA</b>
+                            </a>
+        </div>
+
+
+        <div class="menu-container" style="position: relative">
+                        <ul class="menu-list trail">
+                            <li class="featured">
+            <a href="../store.html">
+                <i class="fa fa-fw fa-star" aria-hidden="true"></i> Premium Content
+            </a>
+    
+            <ul >
+                            <li class="featured menu-fs15">
+            <a href="book.html">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Design Patterns eBook
+            </a>
+    
+    
+            </li>
+                                <li class="featured menu-fs15">
+            <a href="../refactoring/course.html">
+                <i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Refactoring Course
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring.html">
+                <i class="fa fa-fw fa-scissors" aria-hidden="true"></i> Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                What is Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                Clean code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/technical-debt.html">
+                Technical debt
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/when.html">
+                When to refactor
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/how-to.html">
+                How to refactor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells.html">
+                Code Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/smells/bloaters.html">
+                Bloaters
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/long-method.html">
+                Long Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/large-class.html">
+                Large Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/primitive-obsession.html">
+                Primitive Obsession
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/long-parameter-list.html">
+                Long Parameter List
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-clumps.html">
+                Data Clumps
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/oo-abusers.html">
+                Object-Orientation Abusers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/switch-statements.html">
+                Switch Statements
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/temporary-field.html">
+                Temporary Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/refused-bequest.html">
+                Refused Bequest
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/alternative-classes-with-different-interfaces.html">
+                Alternative Classes with Different Interfaces
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/change-preventers.html">
+                Change Preventers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/divergent-change.html">
+                Divergent Change
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/shotgun-surgery.html">
+                Shotgun Surgery
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/parallel-inheritance-hierarchies.html">
+                Parallel Inheritance Hierarchies
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/dispensables.html">
+                Dispensables
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/comments.html">
+                Comments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/duplicate-code.html">
+                Duplicate Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/lazy-class.html">
+                Lazy Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-class.html">
+                Data Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/dead-code.html">
+                Dead Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/speculative-generality.html">
+                Speculative Generality
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/couplers.html">
+                Couplers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/feature-envy.html">
+                Feature Envy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/inappropriate-intimacy.html">
+                Inappropriate Intimacy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/message-chains.html">
+                Message Chains
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/middle-man.html">
+                Middle Man
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/other.html">
+                Other Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/incomplete-library-class.html">
+                Incomplete Library Class
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques.html">
+                Refactorings
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/techniques/composing-methods.html">
+                Composing Methods
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../extract-method.html">
+                Extract Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-method.html">
+                Inline Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-variable.html">
+                Extract Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-temp.html">
+                Inline Temp
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-temp-with-query.html">
+                Replace Temp with Query
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../split-temporary-variable.html">
+                Split Temporary Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-assignments-to-parameters.html">
+                Remove Assignments to Parameters
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-method-with-method-object.html">
+                Replace Method with Method Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../substitute-algorithm.html">
+                Substitute Algorithm
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/moving-features-between-objects.html">
+                Moving Features between Objects
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../move-method.html">
+                Move Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../move-field.html">
+                Move Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-class.html">
+                Extract Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-class.html">
+                Inline Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-delegate.html">
+                Hide Delegate
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-middle-man.html">
+                Remove Middle Man
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-foreign-method.html">
+                Introduce Foreign Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-local-extension.html">
+                Introduce Local Extension
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/organizing-data.html">
+                Organizing Data
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../self-encapsulate-field.html">
+                Self Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-data-value-with-object.html">
+                Replace Data Value with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-value-to-reference.html">
+                Change Value to Reference
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-reference-to-value.html">
+                Change Reference to Value
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-array-with-object.html">
+                Replace Array with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../duplicate-observed-data.html">
+                Duplicate Observed Data
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-unidirectional-association-to-bidirectional.html">
+                Change Unidirectional Association to Bidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-bidirectional-association-to-unidirectional.html">
+                Change Bidirectional Association to Unidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-magic-number-with-symbolic-constant.html">
+                Replace Magic Number with Symbolic Constant
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-field.html">
+                Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-collection.html">
+                Encapsulate Collection
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-class.html">
+                Replace Type Code with Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-subclasses.html">
+                Replace Type Code with Subclasses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-state-strategy.html">
+                Replace Type Code with State/Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-subclass-with-fields.html">
+                Replace Subclass with Fields
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-conditional-expressions.html">
+                Simplifying Conditional Expressions
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../decompose-conditional.html">
+                Decompose Conditional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-conditional-expression.html">
+                Consolidate Conditional Expression
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-duplicate-conditional-fragments.html">
+                Consolidate Duplicate Conditional Fragments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-control-flag.html">
+                Remove Control Flag
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-nested-conditional-with-guard-clauses.html">
+                Replace Nested Conditional with Guard Clauses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-conditional-with-polymorphism.html">
+                Replace Conditional with Polymorphism
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-null-object.html">
+                Introduce Null Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-assertion.html">
+                Introduce Assertion
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-method-calls.html">
+                Simplifying Method Calls
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../rename-method.html">
+                Rename Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../add-parameter.html">
+                Add Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-parameter.html">
+                Remove Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../separate-query-from-modifier.html">
+                Separate Query from Modifier
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../parameterize-method.html">
+                Parameterize Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-explicit-methods.html">
+                Replace Parameter with Explicit Methods
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../preserve-whole-object.html">
+                Preserve Whole Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-method-call.html">
+                Replace Parameter with Method Call
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-parameter-object.html">
+                Introduce Parameter Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-setting-method.html">
+                Remove Setting Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-method.html">
+                Hide Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-constructor-with-factory-method.html">
+                Replace Constructor with Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-error-code-with-exception.html">
+                Replace Error Code with Exception
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-exception-with-test.html">
+                Replace Exception with Test
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/dealing-with-generalization.html">
+                Dealing with Generalization
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../pull-up-field.html">
+                Pull Up Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-method.html">
+                Pull Up Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-constructor-body.html">
+                Pull Up Constructor Body
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-method.html">
+                Push Down Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-field.html">
+                Push Down Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-subclass.html">
+                Extract Subclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-superclass.html">
+                Extract Superclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-interface.html">
+                Extract Interface
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../collapse-hierarchy.html">
+                Collapse Hierarchy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../form-template-method.html">
+                Form Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-inheritance-with-delegation.html">
+                Replace Inheritance with Delegation
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-delegation-with-inheritance.html">
+                Replace Delegation with Inheritance
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="trail">
+            <a href="../design-patterns.html">
+                <i class="fa fa-fw fa-puzzle-piece" aria-hidden="true"></i> Design Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                What is a Pattern
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                What's a design pattern?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="history.html">
+                History of patterns
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="why-learn-patterns.html">
+                Why should I learn patterns?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="criticism.html">
+                Criticism of patterns
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="classification.html">
+                Classification of patterns
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="menu-third-level trail">
+            <a href="creational-patterns.html">
+                Creational Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="factory-method.html">
+                Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="abstract-factory.html">
+                Abstract Factory
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="builder.html">
+                Builder
+            </a>
+    
+    
+            </li>
+                                <li class="trail active">
+            <a href="prototype.html">
+                Prototype
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="singleton.html">
+                Singleton
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="structural-patterns.html">
+                Structural Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="adapter.html">
+                Adapter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="bridge.html">
+                Bridge
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="composite.html">
+                Composite
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="decorator.html">
+                Decorator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="facade.html">
+                Facade
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="flyweight.html">
+                Flyweight
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="proxy.html">
+                Proxy
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="behavioral-patterns.html">
+                Behavioral Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="chain-of-responsibility.html">
+                Chain of Responsibility
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="command.html">
+                Command
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="iterator.html">
+                Iterator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="mediator.html">
+                Mediator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="memento.html">
+                Memento
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="observer.html">
+                Observer
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="state.html">
+                State
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="strategy.html">
+                Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="template-method.html">
+                Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="visitor.html">
+                Visitor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-code-examples">
+            <a href="examples.html">
+                Code Examples
+            </a>
+    
+            <ul >
+                            <li class="menu-code-examples-item">
+            <a href="csharp.html">
+                C#
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="cpp.html">
+                C++
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="go.html">
+                Go
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="java.html">
+                Java
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="php.html">
+                PHP
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="python.html">
+                Python
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="ruby.html">
+                Ruby
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="swift.html">
+                Swift
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="typescript.html">
+                TypeScript
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </div>
+        <div class="sidebar-controls">
+            <div class="sidebar-controls-container">
+                <a href="../login.html" title="Log in"><i
+                            class="fa fa-fw fa-fw fa-user"></i> Log in</a>
+                <a href="https://feedback.refactoring.guru/" class="userecho-public" rel="nofollow" title="Feedback"><i class="fa fa-fw fa-fw fa-envelope" aria-hidden="true"></i> Contact us</a>
+            </div>
+        </div>
+    </div>
+</aside>
+    <footer class="footer center-content">
+    <div class="footer-container center-content-container">
+        <div class="footer-inner container-fluid">
+            <div class="row">
+                <div class="col-8 col-md-10">
+                    <ul class="footer-list footer-list-horizontal">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../refactoring.html">Refactoring</a></li>
+                        <li><a href="../design-patterns.html">Design Patterns</a></li>
+                        <li><a href="../store.html">Premium Content</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-public">Forum</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-private">Contact us</a></li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-2">
+                    <ul class="footer-list footer-list-iconic">
+                                                    <li><a href="https://www.facebook.com/refactoring.guru"><i class="fa fa-facebook-official"></i></a></li>
+                                                <li><a href="../sendy/form.html" rel="nofollow"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/RefactoringGuru"><i class="fa fa-github-circled"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-second">
+        <div class="footer-container center-content-container">
+            <div class="footer-inner container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <i class="fa fa-fw fa-copyright"></i> 2014-2022 <a href="../index.html">Refactoring.Guru</a>. <span style="white-space: nowrap">All rights reserved.</span><br>
+                        <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234">
+                            <img class="fa-fw" style="height: 0.8rem;" src="../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                        </object> Khmelnitske shosse 19 / 27, Kamianets-Podilskyi, Ukraine, 32305<br>
+                        <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+
+                        <div class="mt-2">
+                            <i class="fa fa-fw fa-image"></i> Illustrations by <a href="http://zhart.us/" rel="nofollow"><span style="white-space: nowrap">Dmitry Zhart</span></a></div>
+                    </div>
+                    <div class="footer-links-right col-12 col-sm-4 mt-4 mt-sm-0">
+                        <div class="row">
+                            <div class="col-8 col-sm-12">
+                                <ul class="footer-list">
+                                    <li><a href="../terms.html"><span>Terms &amp; Conditions</span></a>
+                                    </li>
+                                    <li><a href="../privacy-policy.html"><span>Privacy Policy</span></a>
+                                    </li>
+                                    <li><a href="../content-usage-policy.html"><span>Content Usage Policy</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+
+    <script>
+function extend(){var extended={};var deep=false;var i=0;var length=arguments["length"];if(Object["prototype"]["toString"]["call"](arguments[0])=== '[object Boolean]'){deep= arguments[0];i++};var merge=function(obj){for(var prop in obj){if(Object["prototype"]["hasOwnProperty"]["call"](obj,prop)){if(deep&& Object["prototype"]["toString"]["call"](obj[prop])=== '[object Object]'){extended[prop]= extend(true,extended[prop],obj[prop])}else {extended[prop]= obj[prop]}}}};for(;i< length;i++){var obj=arguments[i];merge(obj)};return extended}
+function defer(method) {if (window.jQuery) {method();} else {setTimeout(function() { defer(method) }, 50);}}
+</script>
+<script>
++function(sd){sd = (typeof sd === "string") ? JSON.parse(atob(sd)) : sd;for(var property in sd){if(window[property]!== null&&  typeof window[property]=== 'object'){window[property]= extend(true,window[property],sd[property])}else {window[property]= sd[property]}}}("eyJsb2NhbGUiOiJlbiIsImxvY2FsZV9wcmVmaXgiOiIiLCJsb2NhbGl6ZWRfdXJsX3ByZWZpeF9tIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsInVybF9wcmVmaXhfbSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC8iLCJsb2NhbGl6ZWRfdXJsX3ByZWZpeCI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImNoaW5lc2VfaG9tZSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZ2d1cnUuY25cLyIsInVzZXJfZWNob19hbGlhcyI6InJlZmFjdG9yaW5nIiwidXNlcl9lY2hvX2hvc3QiOiJmZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1IiwidXNlcl9lY2hvX3ByaXZhdGVfZm9ydW0iOiIyIiwidXNlcl9lY2hvX2xvY2FsZSI6ImVuIiwidXNlcl9lY2hvX3B1YmxpY19mb3J1bSI6IjMiLCJ1c2VyX2VjaG9fcHVibGljX2ZvcnVtX3VybCI6Imh0dHBzOlwvXC9mZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1c2VyX2VjaG9fc3NvX3Rva2VuIjoiIn0=");
+</script>
+
+    <script defer>
+        if (window.dataLayer && window.google_optimize) {
+            window.dataLayer.push({'event': 'optimize.activate'});
+        }
+    </script>
+ 
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+        {'GTM-M58XZN4':true});</script>
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com/">
+<script>
+    var getCookie = function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    };
+    var eraseCookie = function (name) {
+        document.cookie = name+'=; Path=/; Max-Age=-99999999;';
+    };
+
+    window.google_analytics = 'UA-521840-40';
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../www.google-analytics.com/analytics.js','ga');
+
+    var ga_queue = [];
+    window.gaOnCreate = function(){
+        ga_queue.push(arguments);
+    };
+
+            doTracking();
+    
+    function doTracking(clientId) {
+        window.gaOnCreate = function(){
+            ga.apply(this, arguments);
+        };
+
+        var options = {
+            'siteSpeedSampleRate': 100
+        };
+        if (clientId) {
+            options.clientId = clientId;
+        }
+        ga('create', 'UA-521840-40', options);
+
+                    ga('require', 'GTM-M58XZN4');
+            window.google_optimize = 'GTM-M58XZN4';
+        
+        // Fix broken Social Login referrer.
+        window.social_login_provider = window.social_login_provider || getCookie('social_login_provider');
+        if (window.social_login_provider) {
+            ga('set', 'referrer', null);
+            ga('send', 'social', window.social_login_provider, 'login', window.location.href);
+            eraseCookie('social_login_provider');
+        }
+
+        var user_id = getCookie('user_id');
+        if (user_id) {
+            ga('set', 'userId', user_id);
+        } else {
+            ga('set', 'userId', null);
+        }
+
+        var location = document.location.href;
+        if (typeof window.analytics_path_prefix === 'string') {
+            if (/^(https?:\/\/[^\/]+?)\/$/.test(location)) {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix);
+            }
+            else {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix + '/');
+            }
+            ga('set', 'location', location);
+        }
+
+        if (typeof window.analytics_location_prefix === 'string') {
+            location = location.replace(/(https?:\/\/[^\/]+?)\//, window.analytics_location_prefix);
+            ga('set', 'location', location);
+        }
+
+        ga('require', 'ec');
+        ga('send', 'pageview', (typeof window.analytics_path_prefix === 'string' ? window.analytics_path_prefix : '') + document.location.pathname);
+
+        ga_queue.forEach(function(item){
+            ga.apply(this, item);
+        });
+    }
+</script>
+
+<script defer>
+    window.socialLikesButtons = {
+                facebook: {
+            counterUrl: "",
+            convertNumber: null
+        },
+                        };
+</script>
+
+<script defer>
+    var CodeMirrorScripts = ["/js/codemirror.min.js?id=24aa863dfde7c99eb17d4102684aea27"];
+</script>
+
+
+
+    <script>window.loadContent = true;window.loadCart = true;</script>
+</body>
+
+<!-- Mirrored from refactoring.guru/design-patterns/prototype by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:13:44 GMT -->
+</html>

@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from refactoring.guru/design-patterns/php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:14:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+    <meta charset="utf-8">
+    <title>Design Patterns in PHP</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="alternate" href="php.html" hreflang="x-default"/>
+    <link rel="alternate" href="../es/design-patterns/php.html" hreflang="es"/>
+    <link rel="alternate" href="../fr/design-patterns/php.html" hreflang="fr"/>
+    <link rel="alternate" href="../ja/design-patterns/php.html" hreflang="ja"/>
+    <link rel="alternate" href="../ko/design-patterns/php.html" hreflang="ko"/>
+    <link rel="alternate" href="../pl/design-patterns/php.html" hreflang="pl"/>
+    <link rel="alternate" href="../pt-br/design-patterns/php.html" hreflang="pt-br"/>
+    <link rel="alternate" href="../ru/design-patterns/php.html" hreflang="ru"/>
+    <link rel="alternate" href="../uk/design-patterns/php.html" hreflang="uk"/>
+    <link rel="alternate" href="https://refactoringguru.cn/design-patterns/php" hreflang="zh"/>
+
+    <meta name="description" content="The catalog of annotated code examples of all design patterns, written in PHP.">
+
+    <link rel="canonical" href="php.html"/>
+
+    <link rel="icon" type="image/x-icon" href="../favicon.png"/>
+
+<script type="application/ld+json">
+{"@context": "http://schema.org", "@graph": [{"@type":"Person","@id":"https://refactoring.guru/#founder","name":"Alexander Shvets"},{"@type":"Organization","@id":"https://refactoring.guru/#organization","name":"Refactoring.Guru","description":"Refactoring.Guru makes it easy for you to discover everything you need to know about refactoring, design patterns, SOLID principles, and other smart programming topics.","image":{"@type":"ImageObject","@id":"https://refactoring.guru/#organizationlogo","url":"https://refactoring.guru/images/content-public/logos/logo-plain.png","caption":"Refactoring.Guru"},"logo":{"@id":"https://refactoring.guru/#organizationlogo"},"founder":{"@id":"https://refactoring.guru/#founder"},"sameAs":["https://www.facebook.com/refactoring.guru","https://twitter.com/RefactoringGuru","https://github.com/RefactoringGuru"]},{"@type":"WebSite","@id":"https://refactoring.guru/#website","url":"https://refactoring.guru/","name":"Refactoring.Guru","description":"Refactoring.Guru makes it easy for you to discover everything you need to know about refactoring, design patterns, SOLID principles, and other smart programming topics.","author":{"@id":"https://refactoring.guru/#founder"},"publisher":{"@id":"https://refactoring.guru/#organization"},"copyrightYear":2014}] }
+</script>
+
+<meta property="fb:app_id" content="666819623386327" />
+<meta property="og:type"  content="website" />
+<meta property="og:image" content="https://refactoring.guru/images/refactoring/social/facebook-share-preview.png?id=dbf9e98269595be86eb668f365be6868"/>
+
+        <link rel="stylesheet" href="../css/public-packed.min29c2.css?id=72df70415a2662bdd8f64ffd40983c30">
+
+<style type="text/css">
+    @font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../fonts/PTSans/ptsans-regular_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../fonts/PTSans/ptsans-bold_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<link rel="preload" href="../fonts/PTSans/ptsans-regular_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/PTSans/ptsans-bold_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/fontello/fontawesomea92a.woff2?15843843" as="font" type="font/woff2" crossorigin>
+
+
+<script defer src="../js/public.min1749.js?id=77d40430343920ca57d184f85668a382"></script>
+
+
+
+</head>
+<body class="locale-en    announcement   no-feature dp-lang-main-page " data-body_class="no-feature dp-lang-main-page ">
+
+<div class="body-holder">
+
+
+            <div class="announcement-block prom" data-id="DIDP-announcement" data-creative-id="en" data-position="top"><div class="announcement-block-inner">
+            <img src="../images/content-public/announcement-en-17032.svg?id=2b6bba0470947f2a60cdac20b809cf3d" loading="lazy" style="width: 36px; height:36px;">
+                Hey, I have just reduced the price for all products. Let's prepare our programming skills for the post-COVID era. <a href="../store.html">Check it out »</a>
+            <img src="../images/content-public/announcement-en-26d3b.svg?id=d0c7bf36cfcc7c733fad50a30fd99920" loading="lazy" style="width: 36px; height:36px;">
+        </div></div>
+    
+    <div class="cart-placeholder">
+    <div class="cart-block-container" style="display:none">
+        <div class="cart-block btn-group">
+            <a href="#checkout" class="btn cart open-checkout">
+                <span class="cart-text"></span>&nbsp;<strong class="cart-total font-money"></strong>
+            </a><a href="#checkout" class="btn btn-secondary checkout open-checkout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="btn-text-span d-none d-sm-inline-block d-lg-none d-hg-inline-block"></span></a>
+        </div>
+    </div>
+</div>
+    <main role="main" class="main-content top-content center-content " data-page_class="">
+        <div class="main-content-container center-content-container">
+                            <style>
+    @media (min-width: 712px) {
+
+        .dp-lang-main-page .dp1-h-1, .dp-lang-main-page .dp1-h-2 {
+            text-shadow: 0 5px #fff,
+            0 -5px #fff,
+            5px 0 #fff,
+            -5px 0 #fff,
+            5px 5px #fff,
+            -5px 5px #fff,
+            5px -5px #fff,
+            -5px -5px #fff,
+            0 3px #fff,
+            0 -3px #fff,
+            3px 0 #fff,
+            -3px 0 #fff,
+            3px 3px #fff,
+            -3px 3px #fff,
+            3px -3px #fff,
+            -3px -3px #fff;
+        }
+
+        .dp-lang-main-page .dp-lang {
+            display: none;
+        }
+
+        .dp-lang-main-page .dp-lang-in {
+            font-size: 2.5rem;
+            line-height: 2.5rem;
+        }
+    }
+    @media (min-width: 1354px) {
+        .dp-lang-main-page .illustration-container {
+            height: 585px;
+        }
+    }
+</style>
+
+<div class="page text">
+    <div class="illustration-container" data-width="960" data-height="585">
+        <img width="960" class="dp-bg" loading="lazy" src="../images/patterns/languages/php8a2c.png?id=1cbf824491cf68f4e8e078f7a8c231c5"
+                srcset="/images/patterns/languages/php-2x.png?id=a6c72e0c3ce313e5dbfc8e292271fdf0 2x" alt="Design Patterns in PHP"/>
+
+        <div class="mob-image"><img width="256" class="dp-bg-mini" loading="lazy" src="../images/patterns/languages/mini/phpa828.png?id=c8a3181ebbd3142ec91a6a5ce5e5a12e"
+                srcset="/images/patterns/languages/mini/php-2x.png?id=672d63002f96c4ad7f1841daa241ca73 2x" alt="Design Patterns in PHP"/></div>
+
+        <h1 class="dp1-h dp-abs dp-c dp-h1"><span class="dp1-h-1">Design</span> <span class="dp1-h-2">Patterns</span> <span class="dp-lang-in">in</span> <span class="dp-lang">PHP</span></h1>
+    </div>
+
+    <div class="dp-text">
+
+        <h2 class="dp-h2"><span class="dp-the-catalog">The Catalog of </span><strong>PHP</strong> Examples</h2>
+
+
+        <div class="dp-double-cols">
+
+            <h4 class="dp-h4 dp-creational-title">Creational Patterns</h4>
+
+            <div class="dp-pattern-item dp-creational">
+                <div class="dp-pattern-card"><img alt="Abstract Factory" src="../images/patterns/cards/abstract-factory-minid1c5.png?id=4c3927c446313a38ce77dfee38111e27" srcset="/images/patterns/cards/abstract-factory-mini-2x.png?id=22236aaa65ff52cbde1c713216d52c1f 2x" alt="Design Patterns in PHP"/></div>
+                <h4 class="dp-pattern-title">Abstract Factory <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you produce families of related objects without specifying their concrete classes.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="abstract-factory.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="abstract-factory/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="abstract-factory/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="abstract-factory/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-creational">
+                <div class="dp-pattern-card"><img alt="Builder" src="../images/patterns/cards/builder-mini6d24.png?id=19b95fd05e6469679752c0554b116815" srcset="/images/patterns/cards/builder-mini-2x.png?id=de6d0938678b86903a1426dddfdd13bf 2x"/></div>
+                <h4 class="dp-pattern-title">Builder <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you construct complex objects step by step. The pattern allows you to produce different types and representations of an object using the same construction code.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="builder.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="builder/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="builder/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="builder/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-creational">
+                <div class="dp-pattern-card"><img alt="Factory Method" src="../images/patterns/cards/factory-method-minid7f6.png?id=72619e9527893374b98a5913779ac167" srcset="/images/patterns/cards/factory-method-mini-2x.png?id=fa9d4a8d61a67cc3822e52b9daf69dad 2x"/></div>
+                <h4 class="dp-pattern-title">Factory Method <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="factory-method.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="factory-method/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="factory-method/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="factory-method/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-creational">
+                <div class="dp-pattern-card"><img alt="Prototype" src="../images/patterns/cards/prototype-mini6540.png?id=bc3046bb39ff36574c08d49839fd1c8e" srcset="/images/patterns/cards/prototype-mini-2x.png?id=b871f789a736e7efbb1cd082d2de6398 2x"/></div>
+                <h4 class="dp-pattern-title">Prototype <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you copy existing objects without making your code dependent on their classes.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="prototype.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="prototype/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="prototype/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="prototype/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-creational">
+                <div class="dp-pattern-card"><img alt="Singleton" src="../images/patterns/cards/singleton-minif559.png?id=914e1565dfdf15f240e766163bd303ec" srcset="/images/patterns/cards/singleton-mini-2x.png?id=4a7348083d7719d02709a5c9ff878b9f 2x"/></div>
+                <h4 class="dp-pattern-title">Singleton <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you ensure that a class has only one instance, while providing a global access point to this instance.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="singleton.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="singleton/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="singleton/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Naïve Singleton</span></a></div>
+                    <div><a href="singleton/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Thread-safe Singleton</span></a></div>
+                </div>
+            </div>
+
+
+            <h4 class="dp-h4 dp-structural-title">Structural Patterns</h4>
+
+            <div class="dp-pattern-item dp-structural">
+                <div class="dp-pattern-card"><img alt="Adapter" src="../images/patterns/cards/adapter-minid866.png?id=b2ee4f681fb589be5a0685b94692aebb" srcset="/images/patterns/cards/adapter-mini-2x.png?id=8274d99afbbe9c63bfbfd0d68ceeffc7 2x"/></div>
+                <h4 class="dp-pattern-title">Adapter <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Allows objects with incompatible interfaces to collaborate.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="adapter.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="adapter/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="adapter/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="adapter/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-structural">
+                <div class="dp-pattern-card"><img alt="Bridge" src="../images/patterns/cards/bridge-mini9e60.png?id=b389101d8ee8e23ffa1b534c704d0774" srcset="/images/patterns/cards/bridge-mini-2x.png?id=2622384cf623ed150ee9c21a0812dd87 2x"/></div>
+                <h4 class="dp-pattern-title">Bridge <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you split a large class or a set of closely related classes into two separate hierarchies—abstraction and implementation—which can be developed independently of each other.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="bridge.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="bridge/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="bridge/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="bridge/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-structural">
+                <div class="dp-pattern-card"><img alt="Composite" src="../images/patterns/cards/composite-minib543.png?id=a369d98d18b417f255d04568fd0131b8" srcset="/images/patterns/cards/composite-mini-2x.png?id=3f7f811fefeb0b64f6774746eb42af09 2x"/></div>
+                <h4 class="dp-pattern-title">Composite <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you compose objects into tree structures and then work with these structures as if they were individual objects.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="composite.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="composite/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="composite/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="composite/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-structural">
+                <div class="dp-pattern-card"><img alt="Decorator" src="../images/patterns/cards/decorator-mini6adb.png?id=d30458908e315af195cb183bc52dbef9" srcset="/images/patterns/cards/decorator-mini-2x.png?id=3b58e540d7d28523080cad341ed9b2e9 2x"/></div>
+                <h4 class="dp-pattern-title">Decorator <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="decorator.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="decorator/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="decorator/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="decorator/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-structural">
+                <div class="dp-pattern-card"><img alt="Facade" src="../images/patterns/cards/facade-mini14fd.png?id=71ad6fa98b168c11cb3a1a9517dedf78" srcset="/images/patterns/cards/facade-mini-2x.png?id=d4cc6a5d81a31143cc665f7ac1481ac8 2x"/></div>
+                <h4 class="dp-pattern-title">Facade <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Provides a simplified interface to a library, a framework, or any other complex set of classes.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="facade.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="facade/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="facade/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="facade/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-structural">
+                <div class="dp-pattern-card"><img alt="Flyweight" src="../images/patterns/cards/flyweight-minie3d8.png?id=422ca8d2f90614dce810a8812c626698" srcset="/images/patterns/cards/flyweight-mini-2x.png?id=857ca676fff84317bb0dab76abfce08e 2x"/></div>
+                <h4 class="dp-pattern-title">Flyweight <span class="dp-popularity"><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you fit more objects into the available amount of RAM by sharing common parts of state between multiple objects instead of keeping all of the data in each object.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="flyweight.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="flyweight/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="flyweight/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="flyweight/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-structural">
+                <div class="dp-pattern-card"><img alt="Proxy" src="../images/patterns/cards/proxy-minid8d7.png?id=25890b11e7dc5af29625ccd0678b63a8" srcset="/images/patterns/cards/proxy-mini-2x.png?id=8638fac9dc08c992852492f9cb29d9c6 2x"/></div>
+                <h4 class="dp-pattern-title">Proxy <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you provide a substitute or placeholder for another object. A proxy controls access to the original object, allowing you to perform something either before or after the request gets through to the original object.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="proxy.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="proxy/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="proxy/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="proxy/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <h4 class="dp-h4 dp-behavioral-title">Behavioral Patterns</h4>
+
+        <div class="dp-double-cols">
+            <div class="dp-pattern-item dp-behavioral">
+                <div class="dp-pattern-card"><img alt="Chain of Responsibility" src="../images/patterns/cards/chain-of-responsibility-mini6d42.png?id=36d85eba8d14986f053123de17aac7a7" srcset="/images/patterns/cards/chain-of-responsibility-mini-2x.png?id=8c81f7069e51259b2443801b91135f7f 2x"/></div>
+                <h4 class="dp-pattern-title">Chain of Responsibility <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you pass requests along a chain of handlers. Upon receiving a request, each handler decides either to process the request or to pass it to the next handler in the chain.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="chain-of-responsibility.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="chain-of-responsibility/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="chain-of-responsibility/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="chain-of-responsibility/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-behavioral">
+                <div class="dp-pattern-card"><img alt="Command" src="../images/patterns/cards/command-mini8482.png?id=b149eda017c0583c1e92343b83cfb1eb" srcset="/images/patterns/cards/command-mini-2x.png?id=e5f6332e057f6d352a209da963a8fc54 2x"/></div>
+                <h4 class="dp-pattern-title">Command <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Turns a request into a stand-alone object that contains all information about the request. This transformation lets you pass requests as a method arguments, delay or queue a request's execution, and support undoable operations.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="command.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="command/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="command/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="command/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-behavioral">
+                <div class="dp-pattern-card"><img alt="Iterator" src="../images/patterns/cards/iterator-minie2c2.png?id=76c28bb48f997b36965983dd2b41f02e" srcset="/images/patterns/cards/iterator-mini-2x.png?id=7d28f66a487066774a743cfceaa40ea4 2x"/></div>
+                <h4 class="dp-pattern-title">Iterator <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you traverse elements of a collection without exposing its underlying representation (list, stack, tree, etc.).</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="iterator.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="iterator/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="iterator/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="iterator/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-behavioral">
+                <div class="dp-pattern-card"><img alt="Mediator" src="../images/patterns/cards/mediator-mini1561.png?id=a7e43ee8e17e4474737b1fcb3201d7ba" srcset="/images/patterns/cards/mediator-mini-2x.png?id=d288d7c73f5581ae09701d61200ae09e 2x"/></div>
+                <h4 class="dp-pattern-title">Mediator <span class="dp-popularity"><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you reduce chaotic dependencies between objects. The pattern restricts direct communications between the objects and forces them to collaborate only via a mediator object.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="mediator.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="mediator/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="mediator/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="mediator/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-behavioral">
+                <div class="dp-pattern-card"><img alt="Memento" src="../images/patterns/cards/memento-mini723d.png?id=8b2ea4dc2c5d15775a654808cc9de099" srcset="/images/patterns/cards/memento-mini-2x.png?id=1d7cba189261dd84b11369a6838b1055 2x"/></div>
+                <h4 class="dp-pattern-title">Memento <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you save and restore the previous state of an object without revealing the details of its implementation.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="memento.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="memento/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="memento/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="memento/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+
+            <div class="dp-pattern-item dp-behavioral">
+                <div class="dp-pattern-card"><img alt="Observer" src="../images/patterns/cards/observer-minifa2e.png?id=fd2081ab1cff29c60b499bcf6a62786a" srcset="/images/patterns/cards/observer-mini-2x.png?id=f205b0655572ac8e4636691c0e0debfd 2x"/></div>
+                <h4 class="dp-pattern-title">Observer <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they're observing.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="observer.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="observer/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="observer/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="observer/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-behavioral">
+                <div class="dp-pattern-card"><img alt="State" src="../images/patterns/cards/state-mini63fb.png?id=f4018837e0641d1dade756b6678fd4ee" srcset="/images/patterns/cards/state-mini-2x.png?id=7e24398b27a43c7bd286fc0ea54d2a35 2x"/></div>
+                <h4 class="dp-pattern-title">State <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets an object alter its behavior when its internal state changes. It appears as if the object changed its class.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="state.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="state/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="state/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="state/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-behavioral">
+                <div class="dp-pattern-card"><img alt="Strategy" src="../images/patterns/cards/strategy-mini28f6.png?id=d38abee4fb6f2aed909d262bdadca936" srcset="/images/patterns/cards/strategy-mini-2x.png?id=f4e6608561f8e5d18be6927d4620ad29 2x"/></div>
+                <h4 class="dp-pattern-title">Strategy <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you define a family of algorithms, put each of them into a separate class, and make their objects interchangeable.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="strategy.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="strategy/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="strategy/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="strategy/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-behavioral">
+                <div class="dp-pattern-card"><img alt="Template Method" src="../images/patterns/cards/template-method-mini56e3.png?id=9f200248d88026d8e79d0f3dae411ab4" srcset="/images/patterns/cards/template-method-mini-2x.png?id=178bf56e39b3a1f548dd636076209c98 2x"/></div>
+                <h4 class="dp-pattern-title">Template Method <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Defines the skeleton of an algorithm in the superclass but lets subclasses override specific steps of the algorithm without changing its structure.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="template-method.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="template-method/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="template-method/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="template-method/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+            <div class="dp-pattern-item dp-behavioral">
+                <div class="dp-pattern-card"><img alt="Visitor" src="../images/patterns/cards/visitor-mini0a1c.png?id=854a35a62963bec1d75eab996918989b" srcset="/images/patterns/cards/visitor-mini-2x.png?id=9b87f3f3b772f434b28a25876829b504 2x"/></div>
+                <h4 class="dp-pattern-title">Visitor <span class="dp-popularity"><i class="fa fa-fw fa-star" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i><i class="fa fa-fw fa-star-o" aria-hidden="true"></i></span></h4>
+                <div class="dp-pattern-intent"><p>Lets you separate algorithms from the objects on which they operate.</p>
+</div>
+                <div class="dp-pattern-links">
+                    <div><a href="visitor.html" class="dp-pattern-link"><i class="fa fa-fw fa-newspaper" aria-hidden="true"></i> <span>Main article</span></a></div>
+                    <div><a href="visitor/php/example.html#lang-features" class="dp-pattern-link"><i class="fa fa-fw fa-cubes" aria-hidden="true"></i> <span>Usage in PHP</span></a></div>
+                    <div><a href="visitor/php/example.html#example-0" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Conceptual example</span></a></div>
+                    <div><a href="visitor/php/example.html#example-1" class="dp-pattern-link"><i class="fa fa-fw fa-file-code" aria-hidden="true"></i> <span>Real-world example</span></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                    </div>
+    </main>
+
+    <nav class="navigation" role="navigation">
+    <div class="navigation-container">
+        <a href="#menu" class="navigation-toggle"><i class="fa fa-bars"></i></a>
+        <a class="navigation-brand" href="../index.html">
+            <img alt="Refactoring.Guru" src="../images/content-public/logos/logo-military-mobile78b4.png?id=65ecbd1e688fc695bc20c22a1e8450d9" srcset="/images/content-public/logos/logo-military-mobile-2x.png?id=0f52141f57f67fb678da8407e254b0a3 2x"
+                  width="94"                   height="64"             >
+        </a>
+        <div class="social-likes-block" data-url="https://refactoring.guru">
+    <div data-service="facebook" class="facebook" title="Share on Facebook">Facebook</div>
+        <div data-service="twitter" class="twitter" title="Share on Twitter">Twitter</div>
+</div>        <ul class="navigation-menu">
+                        <li class="dropdown d-lg-none">
+                <a class="dropdown-toggle" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-globe" aria-hidden="true"></i> <span class="caption d-none d-xl-inline-block">Language</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguage">
+                                                                                                        <a href="php.html" class="dropdown-item locale-link active" data-locale="en" title="English">English</a>
+                                                                                                                <a href="../es/design-patterns/php.html" class="dropdown-item locale-link " data-locale="es" title="Español">Español</a>
+                                                                                                                <a href="../fr/design-patterns/php.html" class="dropdown-item locale-link " data-locale="fr" title="Français">Français</a>
+                                                                                                                                                                                                                        <a href="../pl/design-patterns/php.html" class="dropdown-item locale-link " data-locale="pl" title="Polski">Polski</a>
+                                                                                                                <a href="../pt-br/design-patterns/php.html" class="dropdown-item locale-link " data-locale="pt-br" title="Português Brasileiro">Português Brasileiro</a>
+                                                                                                                <a href="../ru/design-patterns/php.html" class="dropdown-item locale-link " data-locale="ru" title="Русский">Русский</a>
+                                                                                                                <a href="../uk/design-patterns/php.html" class="dropdown-item locale-link " data-locale="uk" title="Українська">Українська</a>
+                                                                                                                <a href="https://refactoringguru.cn/design-patterns/php" class="dropdown-item locale-link " data-locale="zh" title="中文">中文</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+            </li>
+                        <li class="nav-contact">
+                <a class="userecho-private" href="https://feedback.refactoring.guru/?show_feedback_form_private=true" rel="nofollow" title="Contact us">
+                    <i class="fa fa-envelope"></i> <span class="caption d-none d-xl-inline-block">Contact us</span>
+                </a>
+            </li>
+                                                <li class="nav-login">
+                        <a href="../login.html" title="Log in"><i class="fa fa-user"></i> <span class="caption d-none d-xl-inline-block">Log in</span></a>
+                    </li>
+                                    </ul>
+    </div>
+    <div>
+        <a class="russia-stop" href="../help-ukraine.html">
+                            HELP UKRAINE <b>STOP RUSSIA</b>
+                    </a>
+    </div>
+</nav>
+    <aside class="sidebar main-menu nano">
+    <a href="#menu-close" class="navigation-toggle"><i class="fa fa-fw fa-times"></i></a>
+    <div class="nano-content">
+                    <div class="main-menu-lang d-none d-lg-flex main-menu-lang-count-8">
+                                                                                        <a href="php.html" class="locale-link locale-link-en active" data-locale="en" title="English"><span class="d-lg-none">English</span><span class="d-none d-lg-inline">English</span></a>
+                                                                                                <a href="../es/design-patterns/php.html" class="locale-link locale-link-es " data-locale="es" title="Español"><span class="d-lg-none">Español</span><span class="d-none d-lg-inline">Español</span></a>
+                                                                                                <a href="../fr/design-patterns/php.html" class="locale-link locale-link-fr " data-locale="fr" title="Français"><span class="d-lg-none">Français</span><span class="d-none d-lg-inline">Français</span></a>
+                                                                                                                                                                                        <a href="../pl/design-patterns/php.html" class="locale-link locale-link-pl " data-locale="pl" title="Polski"><span class="d-lg-none">Polski</span><span class="d-none d-lg-inline">Polski</span></a>
+                                                                                                <a href="../pt-br/design-patterns/php.html" class="locale-link locale-link-pt-br " data-locale="pt-br" title="Português Brasileiro"><span class="d-lg-none">Português Brasileiro</span><span class="d-none d-lg-inline">Português-Br</span></a>
+                                                                                                <a href="../ru/design-patterns/php.html" class="locale-link locale-link-ru " data-locale="ru" title="Русский"><span class="d-lg-none">Русский</span><span class="d-none d-lg-inline">Русский</span></a>
+                                                                                                <a href="../uk/design-patterns/php.html" class="locale-link locale-link-uk " data-locale="uk" title="Українська"><span class="d-lg-none">Українська</span><span class="d-none d-lg-inline">Українська</span></a>
+                                                                                                <a href="https://refactoringguru.cn/design-patterns/php" class="locale-link locale-link-zh " data-locale="zh" title="中文"><span class="d-lg-none">中文</span><span class="d-none d-lg-inline">中文</span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+        
+        <a class="menu-brand" href="../index.html">
+                            <img width=200 height=241 loading="lazy" alt="Refactoring.Guru" src="../images/content-public/logos/logo-militaryd1c3.png?id=3eaf203cb26279327252e2c5f5d37c7f" srcset="/images/content-public/logos/logo-military-2x.png?id=5af1a599d8a4170c9a42e6fa18148b98 2x">
+                    </a>
+        <div>
+            <a class="russia-stop" href="../help-ukraine.html">
+                                    HELP UKRAINE
+                    <br><b>STOP RUSSIA</b>
+                            </a>
+        </div>
+
+
+        <div class="menu-container" style="position: relative">
+                        <ul class="menu-list trail">
+                            <li class="featured">
+            <a href="../store.html">
+                <i class="fa fa-fw fa-star" aria-hidden="true"></i> Premium Content
+            </a>
+    
+            <ul >
+                            <li class="featured menu-fs15">
+            <a href="book.html">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Design Patterns eBook
+            </a>
+    
+    
+            </li>
+                                <li class="featured menu-fs15">
+            <a href="../refactoring/course.html">
+                <i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Refactoring Course
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring.html">
+                <i class="fa fa-fw fa-scissors" aria-hidden="true"></i> Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                What is Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                Clean code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/technical-debt.html">
+                Technical debt
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/when.html">
+                When to refactor
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/how-to.html">
+                How to refactor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells.html">
+                Code Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/smells/bloaters.html">
+                Bloaters
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/long-method.html">
+                Long Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/large-class.html">
+                Large Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/primitive-obsession.html">
+                Primitive Obsession
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/long-parameter-list.html">
+                Long Parameter List
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-clumps.html">
+                Data Clumps
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/oo-abusers.html">
+                Object-Orientation Abusers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/switch-statements.html">
+                Switch Statements
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/temporary-field.html">
+                Temporary Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/refused-bequest.html">
+                Refused Bequest
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/alternative-classes-with-different-interfaces.html">
+                Alternative Classes with Different Interfaces
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/change-preventers.html">
+                Change Preventers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/divergent-change.html">
+                Divergent Change
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/shotgun-surgery.html">
+                Shotgun Surgery
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/parallel-inheritance-hierarchies.html">
+                Parallel Inheritance Hierarchies
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/dispensables.html">
+                Dispensables
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/comments.html">
+                Comments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/duplicate-code.html">
+                Duplicate Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/lazy-class.html">
+                Lazy Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-class.html">
+                Data Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/dead-code.html">
+                Dead Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/speculative-generality.html">
+                Speculative Generality
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/couplers.html">
+                Couplers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/feature-envy.html">
+                Feature Envy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/inappropriate-intimacy.html">
+                Inappropriate Intimacy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/message-chains.html">
+                Message Chains
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/middle-man.html">
+                Middle Man
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/other.html">
+                Other Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/incomplete-library-class.html">
+                Incomplete Library Class
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques.html">
+                Refactorings
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/techniques/composing-methods.html">
+                Composing Methods
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../extract-method.html">
+                Extract Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-method.html">
+                Inline Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-variable.html">
+                Extract Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-temp.html">
+                Inline Temp
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-temp-with-query.html">
+                Replace Temp with Query
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../split-temporary-variable.html">
+                Split Temporary Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-assignments-to-parameters.html">
+                Remove Assignments to Parameters
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-method-with-method-object.html">
+                Replace Method with Method Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../substitute-algorithm.html">
+                Substitute Algorithm
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/moving-features-between-objects.html">
+                Moving Features between Objects
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../move-method.html">
+                Move Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../move-field.html">
+                Move Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-class.html">
+                Extract Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-class.html">
+                Inline Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-delegate.html">
+                Hide Delegate
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-middle-man.html">
+                Remove Middle Man
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-foreign-method.html">
+                Introduce Foreign Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-local-extension.html">
+                Introduce Local Extension
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/organizing-data.html">
+                Organizing Data
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../self-encapsulate-field.html">
+                Self Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-data-value-with-object.html">
+                Replace Data Value with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-value-to-reference.html">
+                Change Value to Reference
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-reference-to-value.html">
+                Change Reference to Value
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-array-with-object.html">
+                Replace Array with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../duplicate-observed-data.html">
+                Duplicate Observed Data
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-unidirectional-association-to-bidirectional.html">
+                Change Unidirectional Association to Bidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-bidirectional-association-to-unidirectional.html">
+                Change Bidirectional Association to Unidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-magic-number-with-symbolic-constant.html">
+                Replace Magic Number with Symbolic Constant
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-field.html">
+                Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-collection.html">
+                Encapsulate Collection
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-class.html">
+                Replace Type Code with Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-subclasses.html">
+                Replace Type Code with Subclasses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-state-strategy.html">
+                Replace Type Code with State/Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-subclass-with-fields.html">
+                Replace Subclass with Fields
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-conditional-expressions.html">
+                Simplifying Conditional Expressions
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../decompose-conditional.html">
+                Decompose Conditional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-conditional-expression.html">
+                Consolidate Conditional Expression
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-duplicate-conditional-fragments.html">
+                Consolidate Duplicate Conditional Fragments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-control-flag.html">
+                Remove Control Flag
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-nested-conditional-with-guard-clauses.html">
+                Replace Nested Conditional with Guard Clauses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-conditional-with-polymorphism.html">
+                Replace Conditional with Polymorphism
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-null-object.html">
+                Introduce Null Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-assertion.html">
+                Introduce Assertion
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-method-calls.html">
+                Simplifying Method Calls
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../rename-method.html">
+                Rename Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../add-parameter.html">
+                Add Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-parameter.html">
+                Remove Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../separate-query-from-modifier.html">
+                Separate Query from Modifier
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../parameterize-method.html">
+                Parameterize Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-explicit-methods.html">
+                Replace Parameter with Explicit Methods
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../preserve-whole-object.html">
+                Preserve Whole Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-method-call.html">
+                Replace Parameter with Method Call
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-parameter-object.html">
+                Introduce Parameter Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-setting-method.html">
+                Remove Setting Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-method.html">
+                Hide Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-constructor-with-factory-method.html">
+                Replace Constructor with Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-error-code-with-exception.html">
+                Replace Error Code with Exception
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-exception-with-test.html">
+                Replace Exception with Test
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/dealing-with-generalization.html">
+                Dealing with Generalization
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../pull-up-field.html">
+                Pull Up Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-method.html">
+                Pull Up Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-constructor-body.html">
+                Pull Up Constructor Body
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-method.html">
+                Push Down Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-field.html">
+                Push Down Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-subclass.html">
+                Extract Subclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-superclass.html">
+                Extract Superclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-interface.html">
+                Extract Interface
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../collapse-hierarchy.html">
+                Collapse Hierarchy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../form-template-method.html">
+                Form Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-inheritance-with-delegation.html">
+                Replace Inheritance with Delegation
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-delegation-with-inheritance.html">
+                Replace Delegation with Inheritance
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="trail">
+            <a href="../design-patterns.html">
+                <i class="fa fa-fw fa-puzzle-piece" aria-hidden="true"></i> Design Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                What is a Pattern
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                What's a design pattern?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="history.html">
+                History of patterns
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="why-learn-patterns.html">
+                Why should I learn patterns?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="criticism.html">
+                Criticism of patterns
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="classification.html">
+                Classification of patterns
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="creational-patterns.html">
+                Creational Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="factory-method.html">
+                Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="abstract-factory.html">
+                Abstract Factory
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="builder.html">
+                Builder
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="prototype.html">
+                Prototype
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="singleton.html">
+                Singleton
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="structural-patterns.html">
+                Structural Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="adapter.html">
+                Adapter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="bridge.html">
+                Bridge
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="composite.html">
+                Composite
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="decorator.html">
+                Decorator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="facade.html">
+                Facade
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="flyweight.html">
+                Flyweight
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="proxy.html">
+                Proxy
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="behavioral-patterns.html">
+                Behavioral Patterns
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="chain-of-responsibility.html">
+                Chain of Responsibility
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="command.html">
+                Command
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="iterator.html">
+                Iterator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="mediator.html">
+                Mediator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="memento.html">
+                Memento
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="observer.html">
+                Observer
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="state.html">
+                State
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="strategy.html">
+                Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="template-method.html">
+                Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="visitor.html">
+                Visitor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-code-examples trail">
+            <a href="examples.html">
+                Code Examples
+            </a>
+    
+            <ul >
+                            <li class="menu-code-examples-item">
+            <a href="csharp.html">
+                C#
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="cpp.html">
+                C++
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="go.html">
+                Go
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="java.html">
+                Java
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item trail active">
+            <a href="php.html">
+                PHP
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="python.html">
+                Python
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="ruby.html">
+                Ruby
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="swift.html">
+                Swift
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="typescript.html">
+                TypeScript
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </div>
+        <div class="sidebar-controls">
+            <div class="sidebar-controls-container">
+                <a href="../login.html" title="Log in"><i
+                            class="fa fa-fw fa-fw fa-user"></i> Log in</a>
+                <a href="https://feedback.refactoring.guru/" class="userecho-public" rel="nofollow" title="Feedback"><i class="fa fa-fw fa-fw fa-envelope" aria-hidden="true"></i> Contact us</a>
+            </div>
+        </div>
+    </div>
+</aside>
+    <footer class="footer center-content">
+    <div class="footer-container center-content-container">
+        <div class="footer-inner container-fluid">
+            <div class="row">
+                <div class="col-8 col-md-10">
+                    <ul class="footer-list footer-list-horizontal">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../refactoring.html">Refactoring</a></li>
+                        <li><a href="../design-patterns.html">Design Patterns</a></li>
+                        <li><a href="../store.html">Premium Content</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-public">Forum</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-private">Contact us</a></li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-2">
+                    <ul class="footer-list footer-list-iconic">
+                                                    <li><a href="https://www.facebook.com/refactoring.guru"><i class="fa fa-facebook-official"></i></a></li>
+                                                <li><a href="../sendy/form.html" rel="nofollow"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/RefactoringGuru"><i class="fa fa-github-circled"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-second">
+        <div class="footer-container center-content-container">
+            <div class="footer-inner container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <i class="fa fa-fw fa-copyright"></i> 2014-2022 <a href="../index.html">Refactoring.Guru</a>. <span style="white-space: nowrap">All rights reserved.</span><br>
+                        <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234">
+                            <img class="fa-fw" style="height: 0.8rem;" src="../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                        </object> Khmelnitske shosse 19 / 27, Kamianets-Podilskyi, Ukraine, 32305<br>
+                        <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+
+                        <div class="mt-2">
+                            <i class="fa fa-fw fa-image"></i> Illustrations by <a href="http://zhart.us/" rel="nofollow"><span style="white-space: nowrap">Dmitry Zhart</span></a></div>
+                    </div>
+                    <div class="footer-links-right col-12 col-sm-4 mt-4 mt-sm-0">
+                        <div class="row">
+                            <div class="col-8 col-sm-12">
+                                <ul class="footer-list">
+                                    <li><a href="../terms.html"><span>Terms &amp; Conditions</span></a>
+                                    </li>
+                                    <li><a href="../privacy-policy.html"><span>Privacy Policy</span></a>
+                                    </li>
+                                    <li><a href="../content-usage-policy.html"><span>Content Usage Policy</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+
+    <script>
+function extend(){var extended={};var deep=false;var i=0;var length=arguments["length"];if(Object["prototype"]["toString"]["call"](arguments[0])=== '[object Boolean]'){deep= arguments[0];i++};var merge=function(obj){for(var prop in obj){if(Object["prototype"]["hasOwnProperty"]["call"](obj,prop)){if(deep&& Object["prototype"]["toString"]["call"](obj[prop])=== '[object Object]'){extended[prop]= extend(true,extended[prop],obj[prop])}else {extended[prop]= obj[prop]}}}};for(;i< length;i++){var obj=arguments[i];merge(obj)};return extended}
+function defer(method) {if (window.jQuery) {method();} else {setTimeout(function() { defer(method) }, 50);}}
+</script>
+<script>
++function(sd){sd = (typeof sd === "string") ? JSON.parse(atob(sd)) : sd;for(var property in sd){if(window[property]!== null&&  typeof window[property]=== 'object'){window[property]= extend(true,window[property],sd[property])}else {window[property]= sd[property]}}}("eyJsb2NhbGUiOiJlbiIsImxvY2FsZV9wcmVmaXgiOiIiLCJsb2NhbGl6ZWRfdXJsX3ByZWZpeF9tIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsInVybF9wcmVmaXhfbSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC8iLCJsb2NhbGl6ZWRfdXJsX3ByZWZpeCI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImNoaW5lc2VfaG9tZSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZ2d1cnUuY25cLyIsInVzZXJfZWNob19hbGlhcyI6InJlZmFjdG9yaW5nIiwidXNlcl9lY2hvX2hvc3QiOiJmZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1IiwidXNlcl9lY2hvX3ByaXZhdGVfZm9ydW0iOiIyIiwidXNlcl9lY2hvX2xvY2FsZSI6ImVuIiwidXNlcl9lY2hvX3B1YmxpY19mb3J1bSI6IjMiLCJ1c2VyX2VjaG9fcHVibGljX2ZvcnVtX3VybCI6Imh0dHBzOlwvXC9mZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1c2VyX2VjaG9fc3NvX3Rva2VuIjoiIn0=");
+</script>
+
+    <script defer>
+        if (window.dataLayer && window.google_optimize) {
+            window.dataLayer.push({'event': 'optimize.activate'});
+        }
+    </script>
+ 
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+        {'GTM-M58XZN4':true});</script>
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com/">
+<script>
+    var getCookie = function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    };
+    var eraseCookie = function (name) {
+        document.cookie = name+'=; Path=/; Max-Age=-99999999;';
+    };
+
+    window.google_analytics = 'UA-521840-40';
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../www.google-analytics.com/analytics.js','ga');
+
+    var ga_queue = [];
+    window.gaOnCreate = function(){
+        ga_queue.push(arguments);
+    };
+
+            doTracking();
+    
+    function doTracking(clientId) {
+        window.gaOnCreate = function(){
+            ga.apply(this, arguments);
+        };
+
+        var options = {
+            'siteSpeedSampleRate': 100
+        };
+        if (clientId) {
+            options.clientId = clientId;
+        }
+        ga('create', 'UA-521840-40', options);
+
+                    ga('require', 'GTM-M58XZN4');
+            window.google_optimize = 'GTM-M58XZN4';
+        
+        // Fix broken Social Login referrer.
+        window.social_login_provider = window.social_login_provider || getCookie('social_login_provider');
+        if (window.social_login_provider) {
+            ga('set', 'referrer', null);
+            ga('send', 'social', window.social_login_provider, 'login', window.location.href);
+            eraseCookie('social_login_provider');
+        }
+
+        var user_id = getCookie('user_id');
+        if (user_id) {
+            ga('set', 'userId', user_id);
+        } else {
+            ga('set', 'userId', null);
+        }
+
+        var location = document.location.href;
+        if (typeof window.analytics_path_prefix === 'string') {
+            if (/^(https?:\/\/[^\/]+?)\/$/.test(location)) {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix);
+            }
+            else {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix + '/');
+            }
+            ga('set', 'location', location);
+        }
+
+        if (typeof window.analytics_location_prefix === 'string') {
+            location = location.replace(/(https?:\/\/[^\/]+?)\//, window.analytics_location_prefix);
+            ga('set', 'location', location);
+        }
+
+        ga('require', 'ec');
+        ga('send', 'pageview', (typeof window.analytics_path_prefix === 'string' ? window.analytics_path_prefix : '') + document.location.pathname);
+
+        ga_queue.forEach(function(item){
+            ga.apply(this, item);
+        });
+    }
+</script>
+
+<script defer>
+    window.socialLikesButtons = {
+                facebook: {
+            counterUrl: "",
+            convertNumber: null
+        },
+                        };
+</script>
+
+<script defer>
+    var CodeMirrorScripts = ["/js/codemirror.min.js?id=24aa863dfde7c99eb17d4102684aea27"];
+</script>
+
+
+
+    <script>window.loadContent = true;window.loadCart = true;</script>
+</body>
+
+<!-- Mirrored from refactoring.guru/design-patterns/php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:14:38 GMT -->
+</html>

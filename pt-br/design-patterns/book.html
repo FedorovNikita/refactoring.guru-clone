@@ -1,0 +1,3091 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<!-- Mirrored from refactoring.guru/pt-br/design-patterns/book by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:20:44 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
+    <meta charset="utf-8">
+    <title>Livro Moderno sobre Padrões de Projeto: Mergulho nos Padrões de Projeto</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="alternate" href="../../design-patterns/book.html" hreflang="x-default"/>
+    <link rel="alternate" href="../../es/design-patterns/book.html" hreflang="es"/>
+    <link rel="alternate" href="../../fr/design-patterns/book.html" hreflang="fr"/>
+    <link rel="alternate" href="../../ja/design-patterns/book.html" hreflang="ja"/>
+    <link rel="alternate" href="../../ko/design-patterns/book.html" hreflang="ko"/>
+    <link rel="alternate" href="../../pl/design-patterns/book.html" hreflang="pl"/>
+    <link rel="alternate" href="book.html" hreflang="pt-br"/>
+    <link rel="alternate" href="../../ru/design-patterns/book.html" hreflang="ru"/>
+    <link rel="alternate" href="../../uk/design-patterns/book.html" hreflang="uk"/>
+    <link rel="alternate" href="https://refactoringguru.cn/design-patterns/book" hreflang="zh"/>
+
+    <meta name="description" content="O Mergulho nos Padrões de Projeto é um livro moderno sobre padrões e princípios de projeto. Está disponível nos formatos PDF/ePUB/MOBI/KFX e inclui o arquivo com exemplos de código em Java, C#, C++, Go, PHP, Python, Ruby, Swift, e TypeScript.">
+
+
+    <link rel="icon" type="image/x-icon" href="../../favicon.png"/>
+
+<script type="application/ld+json">
+{"@context": "http://schema.org", "@graph": [{"@type":"Person","@id":"https://refactoring.guru/pt-br#founder","name":"Alexander Shvets"},{"@type":"Organization","@id":"https://refactoring.guru/pt-br#organization","name":"Refactoring.Guru","description":"O Refactoring.Guru torna mais fácil para você descobrir tudo que você precisa saber sobre refatoração, padrões de projeto, princípios SOLID, e outros tópicos de programação inteligente.","image":{"@type":"ImageObject","@id":"https://refactoring.guru/pt-br#organizationlogo","url":"https://refactoring.guru/pt-brimages/content-public/logos/logo-plain.png","caption":"Refactoring.Guru"},"logo":{"@id":"https://refactoring.guru/pt-br#organizationlogo"},"founder":{"@id":"https://refactoring.guru/pt-br#founder"},"sameAs":["https://www.facebook.com/refactoring.guru","https://twitter.com/RefactoringGuru","https://github.com/RefactoringGuru"]},{"@type":"WebSite","@id":"https://refactoring.guru/pt-br#website","url":"https://refactoring.guru/pt-br","name":"Refactoring.Guru","description":"O Refactoring.Guru torna mais fácil para você descobrir tudo que você precisa saber sobre refatoração, padrões de projeto, princípios SOLID, e outros tópicos de programação inteligente.","author":{"@id":"https://refactoring.guru/pt-br#founder"},"publisher":{"@id":"https://refactoring.guru/pt-br#organization"},"copyrightYear":2014}] }
+</script>
+
+<meta property="fb:app_id" content="666819623386327" />
+<meta property="og:type"  content="website" />
+<meta property="og:image" content="https://refactoring.guru/pt-br/images/refactoring/social/facebook-share-preview.png?id=dbf9e98269595be86eb668f365be6868"/>
+
+        <link rel="stylesheet" href="../../css/public-packed.min29c2.css?id=72df70415a2662bdd8f64ffd40983c30">
+
+<style type="text/css">
+    @font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:400;font-display:swap;src:local("PT Sans"),local("PTSans-Regular"),url(../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_cyrillic-extc4ca.woff2?1) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_cyrillicc4ca.woff2?1) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_latin-extc4ca.woff2?1) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_latinc4ca.woff2?1) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'PT Sans';font-style:normal;font-weight:700;font-display:swap;src:local("PT Sans Bold"),local("PTSans-Bold"),url(../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1) format("woff2");unicode-range:U+0-FF,U+131,U+142,U+152,U+153,U+2BB,U+2BC,U+2C6,U+2DA,U+2DC,U+420,U+423,U+430,U+438-43A,U+43D,U+440,U+441,U+443,U+44C,U+457,U+2000-206F,U+2074,U+20AA-20AC,U+20B4,U+20B9,U+20BA,U+20BD,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<link rel="preload" href="../../fonts/PTSans/ptsans-regular_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/PTSans/ptsans-bold_enc4ca.woff2?1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/fontello/fontawesomea92a.woff2?15843843" as="font" type="font/woff2" crossorigin>
+
+
+<script defer src="../../js/public.min1749.js?id=77d40430343920ca57d184f85668a382"></script>
+
+
+
+</head>
+<body class="locale-pt-br    announcement   " data-body_class="">
+
+<div class="body-holder">
+
+
+            <div class="announcement-block prom" data-id="DIDP-announcement" data-creative-id="pt-br" data-position="top"><div class="announcement-block-inner">
+            <img src="../../images/content-public/announcement-pt-br-13368.svg?id=b246783e4968337574a9760c56b0835d" loading="lazy" style="width: 36px; height:36px;">
+            Ei, acabamos de reduzir o preço de todos os produtos. Vamos capacitar nossas habilidades de programação para a era pós-COVID. <a href="../store.html">Veja as ofertas »</a>
+            </div></div>
+    
+    <div class="cart-placeholder">
+    <div class="cart-block-container" style="display:none">
+        <div class="cart-block btn-group">
+            <a href="#checkout" class="btn cart open-checkout">
+                <span class="cart-text"></span>&nbsp;<strong class="cart-total font-money"></strong>
+            </a><a href="#checkout" class="btn btn-secondary checkout open-checkout"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="btn-text-span d-none d-sm-inline-block d-lg-none d-hg-inline-block"></span></a>
+        </div>
+    </div>
+</div>
+    <main role="main" class="main-content top-content center-content " data-page_class="">
+        <div class="main-content-container center-content-container">
+                            <style>
+    .text h1 {
+        text-align: center;
+    }
+    .text h1 span {
+        font-size: 38px;
+        line-height: 48px;
+        margin: 0;
+        display: block;
+    }
+
+    .text h1 strong {
+        font-size: 38px;
+        line-height: 38px;
+        margin: 0;
+        display: block;
+    }
+
+    .text .lead {
+        text-align: center;
+        font-size: 18px;
+        margin: 0 0 1.5rem
+    }
+
+    @media (min-width: 544px) {
+        .text h1 {
+            text-align: left;
+        }
+        .text h1 span {
+            font-size: 54px;
+            line-height: 54px;
+        }
+
+        .text h1 strong {
+            font-size: 48px;
+            line-height: 56px;
+        }
+        .text .lead {
+            text-align: left;
+            font-size: 22px;
+        }
+    }
+
+
+    @media (min-width: 720px) {
+        .text h1 span {
+            font-size: 54px;
+            line-height: 54px;
+        }
+
+        .text h1 strong {
+            font-size: 68px;
+            line-height: 64px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .text h1 strong {
+            font-size: 64px;
+            line-height: 64px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .text h1 strong {
+            font-size: 52px;
+            line-height: 64px;
+        }
+    }
+
+    @media (min-width: 1300px) {
+        .text h1 strong {
+            font-size: 58px;
+            line-height: 64px;
+        }
+    }
+
+    @media (min-width: 1350px) {
+        .text h1 strong {
+            font-size: 65px;
+            line-height: 64px;
+        }
+    }
+
+    @media (min-width: 640px) {
+        .top-product-block {
+            float:right;
+            margin: 0 0 30px 30px;
+        }
+    }
+    @media (min-width: 1200px) {
+        .top-product-block {
+            display: none;
+        }
+    }
+
+
+
+    /* No iframe preview on mobile phones */
+    #open-pdf {
+        display: none;
+    }
+    #download-pdf {
+        display: block;
+        margin: 5px 0;
+        width:100%;
+    }
+    @media (min-width: 544px) {
+        #download-pdf {
+            display: inline-block;
+            margin: 0;
+            width: auto;
+        }
+    }
+    @media (min-width: 768px) {
+        #open-pdf {
+            display: inline-block;
+        }
+    }
+
+
+
+
+    .book-feature {
+        border: solid 10px #dee;
+        padding: 20px;
+        margin-bottom: 1em;
+    }
+
+    .book-feature .image {
+        margin: 0 0 1em 0;
+    }
+
+    @media (min-width: 544px) {
+        .book-feature {
+            width: 49%;
+        }
+        .book-features {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+    }
+
+    .feedback-details .location {
+        display: none;
+    }
+</style>
+
+<article class="page text">
+    <h1>
+        <span>Mergulho nos</span>
+        <strong>PADRÕES de PROJETO</strong>
+    </h1>
+
+    <div class="lead">Um ebook sobre padrões de projeto e os princípios por trás deles.</div>
+
+    <div class="top-product-block product-block">
+        <div class="image">
+            <a class="do-checkout" href="#buy-now" data-product="Dive Into Design Patterns">
+                <img width="250" src="../../images/patterns/book/web-cover-pt-br.png" srcset="/images/patterns/book/web-cover-pt-br-2x.png 2x, /images/patterns/book/web-cover-pt-br-3x.png 3x" alt="Mergulho nos Padrões de Projeto"/>
+            </a>
+        </div>
+        <div class="buy-widget">
+            <div class="price-tag price-tag-hg compact">
+                <span class="old-price font-money">€30.00</span>
+                <span class="new-price font-money"><span class="offer-text" style="white-space: normal;">Desconto de auxílio COVID</span>€19.95</span>
+            </div>
+            <a class="btn btn-secondary btn-buy do-checkout" href="#buy-now" data-product="Dive Into Design Patterns"><i class="fa fa-shopping-cart"></i> Compre agora</a>
+        </div>
+        <div class="buy-options mt-4">
+            <a class="do-checkout btn btn-block btn-md btn-secondary" href="#buy-now" data-product="Dive Into Design Patterns" data-purchase-type="1"><i class="fa fa-gift"></i> Comprar como presente</a>
+
+            <a class="do-checkout btn btn-block btn-md btn-secondary mt-1" href="#buy-team" data-product="Dive Into Design Patterns" data-purchase-type="2"><i class="fa fa-users"></i> Comprar para minha equipe</a>
+        </div>
+    </div>
+
+
+    <p>Os <strong>padrões de projeto</strong> ajudam você a resolver problemas comuns em design de software. Porém, você não pode apenas encontrar um padrão e copiá-lo para seu programa, do jeito que você faz com bibliotecas e funções. Um padrão não é um pedaço específico de código, mas um conceito geral para resolver um problema em particular. Eles são como plantas de construção pré fabricadas que você pode customizar para resolver recorrentes problemas de projeto em seu código.
+    </p>
+
+    <p>O livro <i>Mergulho nos Padrões de Projeto</i> ilustra 22 padrões de projeto clássicos, e 8 princípios de projeto que esses padrões são baseados.</p>
+
+    <ul>
+        <li>Cada capítulo começa com um problema de projeto de software que você poderia encontrar no mundo real, que é depois resolvido usando um dos padrões.</li>
+        <li>Então nós mergulhamos em uma revisão detalhada da estrutura do padrão e suas variações, seguida por um exemplo de código.</li>
+        <li>Depois o livro mostra várias aplicações do padrão e ensina como implementar o padrão passo a passo, mesmo em um programa já existente.</li>
+        <li>Cada capítulo finaliza com uma discussão dos prós e contras do padrão e explora suas relações, similaridades, e diferenças com outros padrões.</li>
+    </ul>
+
+    <blockquote style="border: solid 10px #ede; margin-top: 3em;">
+        <h2>Por que você precisa saber sobre os padrões?</h2>
+
+        <p>
+            <b>Dê o máximo nas entrevistas e revisões.</b> Perguntas sobre padrões aparecem em quase todas as entrevistas de emprego e em todas as revisões de performance. Obtenha mais trabalho e aquele aumento/promoção que você merece.
+        </p>
+
+        <p>
+            <b>Estenda seu kit de ferramentas de programação.</b> Os padrões permitem que você customize soluções prontas ao invés de reinventar a roda. Seu código terá menos erros porque você estará usando uma solução padronizada que cobre todos os problemas escondidos.
+        </p>
+
+        <p>
+            <b>Comunique-se melhor com seus colegas.</b> Apenas compartilhe o nome do padrão ao invés de perder horas explicando os detalhes de seu design maneiro e suas classes para outros programadores. Obtenha glória sem esforço.
+        </p>
+    </blockquote>
+
+    <h2>Para quem esse livro é indicado?</h2>
+
+    <p>
+        <b>Iniciantes em Padrões.</b> Se você nunca estudou padrões, o livro explica os princípios básicos da programação voltada a objetos com exemplos da vida real. Antes de mergulhar nos padrões, vamos olhar os valores de projeto e princípios nos quais cada padrão é construído.
+    </p>
+
+    <p>
+        <b>Refrescando a Memória.</b> Se você já estudou padrões há um tempo, mas esqueceu de algumas coisas, o ebook pode refrescar sua memória e servir como uma fonte de referência. Rapidamente encontre seções de interesse sem ter que ler todo o livro do começo ao fim.
+    </p>
+
+    <p>
+        <b>Trocando de Linguagem.</b> Se você está trocando para uma linguagem voltada a objetos (Java, C#, C++, Go, PHP, Python, Ruby, Swift, ou TypeScript), você pode facilmente captar a essência do texto graças às várias analogias e exemplos do mundo real, suportados por ilustrações e diagramas úteis.
+    </p>
+
+    <blockquote class="demo" style="border: solid 10px #edd; margin-top: 3em; margin-bottom: 3em;">
+        <h2><i class="fa fa-eye" aria-hidden="true"></i> Demonstração gratuita</h2>
+        <div style="margin:-0.5rem 0 1rem;">
+            <a href="../../files/design-patterns-pt-br-demo.pdf" id="open-pdf" style="margin-right:10px;" class="btn btn-secondary"><i class="fa fa-compass" aria-hidden="true"></i> Abrir no navegador</a>
+            <a href="../../files/design-patterns-pt-br-demo.pdf" id="download-pdf" download="dive-into-design-patterns-pt-br-demo.pdf" class="btn btn-primary"><i class="fa fa-file-pdf" aria-hidden="true"></i> Baixar PDF</a>
+        </div>
+
+
+        <p style="margin-bottom: 0">Veja a qualidade do livro você mesmo. A demonstração inclui o sumário, alguns capítulos introdutórios, três princípios de projeto, e o padrão Factory Method.</p>
+
+        <script>
+            document.getElementById('open-pdf').onclick = function (e) {
+                document.getElementById('pdf').style.height = '700px';
+                document.getElementById('pdf').style.marginTop = '20px';
+                document.getElementById('pdf').innerHTML = '<iframe src="/files/design-patterns-en-demo.pdf" style="width: 100%; height: 100%;" frameborder="0" scrolling="no"><p>Desculpe, parece que seu navegador não suporta pré visualização de PDF. Por favor baixe o arquivo PDF ao invés disso.</p></iframe>';
+                e.preventDefault();
+            }
+        </script>
+        <div id="pdf" style="width: 100%; height: 0; transition: all 0.25s;"></div>
+    </blockquote>
+
+
+    <div class="section guarantee d-sm-flex align-items-sm-center text-center text-sm-left">
+        <img class="mb-4 mb-sm-0" style="width:140px;" src="../../images/content-public/100-satisfaction-pt-br.png" srcset="/images/content-public/100-satisfaction-pt-br-2x.png 2x, /images/content-public/100-satisfaction-pt-br-3x.png 3x" alt="Satisfação garantida"/>
+        <div class="ml-sm-4">
+            <h2 class="title">Satisfação garantida</h2>
+            <p>Compre agora sem riscos. Se em um mês da sua compra você decidiu que o livro não foi útil, todo seu dinheiro será devolvido. Sem perguntas.</p>
+        </div>
+    </div>
+
+
+    <div class="section section-bordered buy-button d-block d-sm-flex">
+        <div class="flex-grow-1 text-center">
+            <div class="price-tag price-tag-hg">
+                <div class="price-tag offer">
+                    <span class="old-price font-money">€30.00</span>
+                    <span class="new-price font-money">
+                        <span class="offer-text">Desconto de auxílio COVID</span>€19.95
+                    </span>
+                </div>
+            </div>
+            <a class="btn btn-secondary btn-buy btn-hg add-to-cart do-checkout" href="#buy-now" data-product="Dive Into Design Patterns">
+                <i class="fa fa-shopping-cart"></i> Compre agora
+                <br>
+                <span>(Será mais caro mais tarde!)</span>
+            </a>
+        </div>
+        <div class="flex-grow-1">
+            <ul>
+                <li>Sua cópia personalizada de <b>Mergulho nos Padrões de Projeto</b>
+                </li>
+                <li>439 páginas de escrita técnica de qualidade</li>
+                <li>225 (!) ilustrações e diagramas</li>
+                <li>Arquivo rico com exemplos de códigos<br/>(Java, C#, C++, Go, PHP, Python, Ruby, Swift, TypeScript)</li>
+                <li>Garantia de dinheiro de volta em 30 dias</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+
+        <h2 class="inline-block" style="margin-top:0;">O que outros dizem?</h2>
+
+        <div>
+            <a href="https://www.goodreads.com/book/show/43125355-dive-into-design-patterns"><img  src="../../images/content-public/goodreads-badge-read-reviews.png"/></a>
+
+            <span class="social-likes-block" data-url="../../index.html">
+                <span class="facebook" title="Compartilhar no Facebook">Facebook</span>
+            </span>
+
+            <a href="../login6363.html?destination=https%3A%2F%2Ffeedback.refactoring.guru%3Flang%3Dru%26show_feedback_form_private%3Dtrue" class="btn btn-xs btn-success"><i class="fa fa-star" aria-hidden="true"></i> Adicionar opinião</a>
+        </div>
+
+        <div class="feedback-container">
+            <div class="feedback-list">
+
+<div class="feedback-item visible">
+    <div class="feedback">
+        <p>— Você já leu o livro?<br>
+            Estou lendo.<br><br>
+
+            — O que você acha dele?<br>
+            Excelente.<br><br>
+
+            — O que você gostou e o que não gostou?<br>
+            Como professor da disciplina de Programação Orientada a Objetos, eu gosto muito dos exemplos do livro. Eles são simples e diretos.
+            Sempre recomendo o seu livro durante minhas aulas.<br><br>
+
+            — Você tem alguma sugestão de como melhorá-lo?<br>
+            Faltam alguns design patterns, por exemplo o Interpreter.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Tarley Lana</div>
+        <div class="location">Brazil</div>
+    </div>
+</div>
+
+<div class="feedback-item visible">
+    <div class="feedback">
+        <p>Eu gostei muito do livro ainda não li ele todo, achei o livro bem completo para eu que sou mentor de alguns desenvolvedores eu indico esse livro ah eles também, espero algum dia te conhecer pessoalmente para te agradecer pelo conteúdo que você entrega, se algum dia quiser conhecer meu negócio de mentoria fique a vontade será bem vindo, muito obrigado pelo grande conteúdo que você faz, site muito bem trabalhado!</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Lucas Antonio</div>
+        <div class="location">Brazil</div>
+    </div>
+</div>
+
+<div class="feedback-item visible">
+    <div class="feedback">
+        <p>Tudo é muito bem explicado e gostei muito como as coisas básicas foram introduzidas (UML, SOLID) para então irmos em cada padrão de projeto e brincar com eles. A única melhoria que vejo seria ter uma versão impressa disponível (eu prefiro papel à pdf) e talvez em outros idiomas.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Mickaël Andrieu</div>
+        <div class="location">France</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>Your book is great. I am junior level developer and certainly happy with the purchase! I like the structure of how each pattern is presented, and the UML and examples really clarify things. I also like the "vibe", which keeps it fun yet on-point. I can't think of a con. Thanks for this!</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Leon Wong</div>
+        <div class="location">Canada</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>The book is awesome, easy-understanding and well-written. Just have a little suggestion to organize the content not in alphabetical order but by categories would be better. And also put some code in it [rather than having it in separate archive] so that it would be easier to read on an iPad when travel.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+        </div>
+        <div class="name">Zhang Lingkang</div>
+        <div class="location">Canada</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I read it the same day I got it, I mostly use it as a refresher on on when I dont see the woods for the trees. I think it's fine the way it is.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Christopher Lousberg</div>
+        <div class="location">Czech Republic</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I have been really busy with work recently. The info you have on design patterns has been a huge help and an excellent reference!</p>
+
+        <p>I think what you have currently is well done and the organization is superb!</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Pamela Wheeler</div>
+        <div class="location">USA</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I only had time to glance at the book but it seems really amazing. I hope to have time since next month to read it.
+            <br/>About the things that made me to buy it are the cartoons and UML diagrams that simplifies the understanding of each pattern. I really like them!
+            <br/>I would like to suggest you to do something similar (including cartoons) with the most famous programming antipatterns.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Alvaro Prieto</div>
+        <div class="location">Spain</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I have just read the book and I think it is amazing. I have bought both of your patterns books and refactoring course and if you need me to buy from you again I will :)</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Toni Dezman</div>
+        <div class="location">Slovenia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>So far I find this book very interesting and useful in terms of examples/diagrams and ideas. I wish you could have the code written in Java.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Ion Apostol</div>
+        <div class="location">Romania</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I am loving the book so far. I'm currently reading it on my Kindle. I'll use it to make dojos with some friends of mine so that we practice the principles of the book.</p>
+
+        <p>As for suggestions, maybe it's a bit too soon to say since I'm still at the beginning and I'm a slow reader, but maybe exercises? I don't even know if the book presents exercises. Maybe it does and I didn't get there yet.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Vinícius Guerra Cardoso</div>
+        <div class="location">Brazil</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>The book is great and makes all the patterns more easier to understand than the books or examples i found on the internet.
+            <br/>I like your style of writting, it`s easy to understand. You are going from the problem to the solution and that process give me the best understanding about pattern.
+            <br/>Comparations betweem patterns are helpful alot.
+            <br/>Maybe the UML diagrams should have cardinality and the role that a class plays in the relationship because it's difficult for the first reading for every problem follow all properties from the code or from the text.
+            <br/>Maybe for some patters you should use the same problem, saving time to understand the new problem but to concentrate just on pattern, and make good comparision of new pattern with the old one. Well it's good to have more different problems for diversity but it's more time consuming and little blury the pattern.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Nikola Pajić</div>
+        <div class="location">Serbia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I have already started reading the book, though I'm not quite half way yet. My impressions so far is that I like it!  I enjoy the UML diagrams high diagrams explaining the connections and the coding examples.  I also appreciate the explanation on when to use a particular pattern and what are it's strengths and weaknesses. There is a lot of good information and I have been re-reading sections to make sure I have a firm understanding as to why a particular pattern is beneficial and how to properly implement it before moving on.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Akin Delamarre</div>
+        <div class="location">Canada</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>The book is great!  I discovered your site a few months ago in my ongoing quest to design better code.  I bought the book because it has information on SOLID design principles, and I like that I can read it on a Kindle. I'm a big fan of the illustrations - they're funny and do a good job of illustrating the concepts.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Brian Dumez</div>
+        <div class="location">USA</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I'm a long-term user of your website refactoring.guru from as early as my undergrad era. I have to say the website (refactor.guru and design patterns) are great! It's the 101 for me to learn how to improve my code in a higher level than just learning grammars and best practices of programming languages.</p>
+
+        <p>To me, the e-book is a modernized Design Patterns: Elements of Reusable Object-Oriented Software. Although I've purchased the old Design Patterns book long before and put it on my bookshelf, I seldom read it. Your book changed this awkward situation, because it has a much better look and more readable contents. It also have updated understandings of trade-off, nice illustrations and better summaries for each of the design patterns. Much more attractive to me. And the book is well organized by chapters, letting me to read it through many times on my phone during leisure time.</p>
+
+        <p>Sincerely, it's perfect as an e-book to me as a guidebook to improve my skills as a software developer and I have recommended the book to all of my friends. Yet I'm wondering if there is a further plan to make a more "advanced" version. What I mean is that a version with more detailed explanation with the theories behind these design patterns, probably citing some academic researches of software engineering, some industry cases, etc. This advanced book will be the best choice for people who want to dive even deeper into the story behind the scene. Its form might be somehow like that of Peopleware and Pragmatic Programmer where the author introduced the experiences by telling stories or some industry cases they know.</p>
+
+        <p>Another advice is that it might be a good business decision to make a paper-based version of the e-book. I believe almost every programmer will be willing to put one on his/her shelf. I noticed the e-book has some hyperlinks as part of the organization. But I believe it's possible to make some arrangement to minimize the jumps and make it highly sequentially readable.</p>
+
+        <p>Again, thank you so much for creating the awesome website and book. It's a huge help to me. The thing is that I found trade-offs in software engineering cannot be taught easily in universities. So in the past a newgrad have to spend several years to learn these experiences by working in a big company for years. However, this might not be everyone's ideal career path. Your website and book made it all flatten and now a newgrad or student can learn very quickly by using your website. It enabled an agile career path directly from a startup (or even "non-profit" career path by simply start to working on open-source projects).</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Zhaoxiong Cui</div>
+        <div class="location">USA</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I did read your book. Twice. It is a very comprehensive book and a joy to read and to walk through. It serves great as a reference and I probably won't need another reference book for patterns. I like your writing. No lengthy fluff, no excessive jargon, no just dry code. To the point. Also I like the way you explain the design and SOLID principles. Thank you very much.</p>
+
+        <p>What I would like to see more in the book is a reference to typical, real life use cases of each pattern. For example, I have heard the command pattern can be used to radio groups or for writing wizards. How is this done? Are there any examples of real life code using the visitor pattern? Are there any simple examples we can study? No need for extra book pages, just a link to a online repo with code examples probably would do. Maybe more examples would help the stick better to the memory.</p>
+
+        <p>Yes, it is up to me to come up with good use cases for each pattern but as a newbie I find it difficult to remember what each pattern does and what it is good for. Some, like the singleton, the facade, the observer etc. are obvious and easy to remember their purpose and general functionality, others not so much.</p>
+
+        <p>Also it would be great if there was an option for a dead tree version of the book. I want to keep it as reference. I will feed the PDF to my laser printer but I would like to have it printed and bound looking like a real book.</p>
+
+        <p>All and all I give your book a solid 5 stars. Thank you very much.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Alkis Tsamis</div>
+        <div class="location">Grece</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I've read a considerable part of the book already. I loved what I read! You explain the concepts in such an easy way. I wish I had the opportunity to read it when I was in college. I don't have, currently, any suggestions to improve it. But it would be great if it were available in more languages. Since I'm from Brazil, I'm not gonna lie, it would be great to have it in Portuguese (so I could tell my non-English speaking friends to get it as well, 'cause they really need some of the knowledge in the book).</p>
+
+        <p>I stumbled across your website when searching "why refactoring is important" if I'm not mistaken. I immediately saved it to my bookmarks that day and shared it with some of my colleagues. </p>
+
+        <p>Thank you for the book.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Renato Oliveira</div>
+        <div class="location">Brazil</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I like your book, it is easy to understand even if  I'm not good in English and really really beginner, of course the illustrate each pattern make me smile, real world example and class diagram help me better understanding, relation between pattern really  help me to understand when and why pattern exist.</p>
+
+        <p>I hope you can write code in JavaScript, because sometime I convert the code into Typescript/ES7</p><div class="feedback-reply">
+        <b>Note:</b> since March, 2019, the book comes with TypeScript examples.
+    </div>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Rozaliyana Aushuria</div>
+        <div class="location">Indonesia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I am half way through the design patterns book and I must say I am more than 100% happy that I purchased the books. I must say you have a knack of telling the things in the right way. I am really enjoying the book and I am very sure even the refactoring book would be great as well.</p>
+
+        <p>I like the way topics are presented and the examples. That helped be get the context and better understand them. This way, I will not forget the concepts over a period of time. I wish the SOLID principles content should be expanded a little more by taking a real world complete use case and applying step by step like before and after. I know this kind of thing may be tricky to make, but, it would help.</p>
+
+        <p>Moreover, I would suggest breaking the design pattern book in to design patterns and also OOAD book. The OOAD book can focus on SOLID principles, OOP in general and how OOAD can be done. The design patterns then can augment the same.</p>
+
+        <p>I am glad to have purchased the books and they will definitely help me in understanding and applying them at my work. Keep up the good work. I will be watching out for any new content that you put out.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Vamsikrishna Koundinya</div>
+        <div class="location">India</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I like the way you have explained each of design patterns although I have the original GoF books but it's really hard to understand.</p>
+
+        <p>No suggestion as of now I am still in between and I am happy with my purchase. Thanks!</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Majed Samyal</div>
+        <div class="location">India</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>The Design Patterns are something I was not very familiar with. I already learned a lot from your book and I hope I will be able soon to get a new role in my career and maybe to teach other people about the patterns.</p>
+
+        <p>Everything is explained very well, the introductory part includes SOLID and fundamentals of OOP which is very good. I would do more examples if I could. What I would put here is a brief of symptoms of a bad design like rigidity, fragility, imobility and viscosity. But for me, it's exactly what I was looking for - design patterns with explanations and concrete examples in one place. And to be honest it was at the best price - personally I wouldn't do it for this amount.</p>
+
+        <p>Thank you again and congratulations for your work. I would be glad to share you my pieces of code in the future if you want. Good luck!</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Daniel Belu</div>
+        <div class="location">Romania</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>This is a very good book you have. This is well explained at the level of the principles and through examples.
+            <br/>My only concern is my level of English which is very low and it takes me a lot of time to understand the quite complex designs. I am a symfony developer and currently I am in the process of deciding the use of these patterns at the framwork level.
+            <br/>The use of SOLID is quite understandable and I think it is the basis, so I did not have the same problems for the factory. It's the others that I'm investing more. I found, for example, that symfony formlaries are rich enough to find use cases (factoryMethod, builder, composite).
+            <br/>This will interest me a lot if you can help me find the use of the symfony designs.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Setra Ratefiniaina</div>
+        <div class="location">France</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I'm still reading the book, but so far I really like it!  It has been a helpful refresher to me on OOP principles.  I liked the explanation of UML diagram symbols.</p>
+
+        <p>I'm relatively new to design patterns, but you explain them in a very clear manner which is easy to understand.  I enjoy the illustrations and the real-world examples.  Other material I had previously read on design patterns was pretty abstract without saying how it would be helpful in real life.  But your book makes it all very clear!</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Edward Gulbransen</div>
+        <div class="location">USA</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>The book is really awesome and explains the concepts in great detail. I read the book completely and I think its the fastest I completed any book.I am also considering to buy the other book on code refactoring. </p>
+
+        <p>The improvements I would like to see in the book is to add some more design patterns. I guess some design patterns from the Gang of Four missing and also some patterns outside GoF which we use most often. Some information on Anti patterns & code smells and also examples of how multiple patterns can be used together within applications would be great.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Raghavendra Somannavar</div>
+        <div class="location">USA</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I would like to thank you for your excellent book. It's one of the best purchases I have recently made and has helped me a ton with work.</p>
+
+        <p>I've read the book as soon as I got it after I had read through the examples available on your website, because it convinced me that the information in it would be very useful to me. Since I have got your book, I have kept it open at work on one of the displays as a reference and guidelines for my designs and whenever I extend the functionality of my software I always follow the design patterns presented in the book. </p>
+
+        <p>What I love about the book is that it is a recent and modern document about design patterns, which is in my experience the bread and butter of object oriented software design. It is very concise, provides many examples and very concrete applications, and actual implementations in all the programming languages I use at work. While the information in the unavoidable "Gang of Four" design patterns book is very good on its own and a great text, I was looking for a book in the same scope, but a recent one to keep up with the new designs, technology and concepts that come and your book is a perfect candidate for that.</p>
+
+        <p>The text itself is pretty, with very nice diagrams and images, great formatting and typesetting. While these are details, they make the information much more readable and enhances the whole experience. And the cover art is very nice !
+            <br/>I honestly have no idea on how to improve the book. It has been a pleasure to read, and has become a very important tool at work and one of my "definite references", so it's difficult to improve something you are already very satisfied with !</p>
+
+        <p>So, thank you again, props to you for making this great text. The first recommendation for books about design patterns and object oriented software design that I would give would be definitely yours, hands down.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Julien Belmon</div>
+        <div class="location">France</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I’m very happy with the book. It’s easier to read than a GoF book.</p>
+
+        <p>- I can’t say anything bad.<br/>
+            - Complex structures are explained in an easy to understand way.<br/>
+            - I believe it would be great if a few chapters on anti-patterns were added.</p>
+
+        <p>Overall, thank you very much for the high-quality material.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Evgeny Stelmashok</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I liked everything, I read it only once for now. And I have not yet found anything that could be improved. I keep it in my favorites as a reference book.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Vladislav Karpenko</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I use your website, and bought the book to support the project! I like
+            everything very much. Simple and user-friendly! Keep it up!</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Maksim Berezin</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>To my surprise, the book is very well suited for different levels of
+            specialists. That’s why we even added a link to your website as a
+            recommendation.</p>
+        <p>I enjoyed the illustrations and the method of
+            presenting the material. Thank you for popularizing useful
+            educational materials.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Andrej Grekov</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I believe the presentation is ideal: brief, without unnecessary discussion.
+            A clear description of the problem, a way to solve it, a pseudocode: all
+            you need is there. Illustrations also help a lot. If I need to remember why
+            one or another pattern is needed, I just look at the picture and I remember
+            everything.</p>
+        <p>This is what could be improved, in my opinion. Maybe a few more examples of
+            the practical application of a particular pattern. Without a code. Just a
+            description of the situation and its solution using a pattern. I.e.
+            real-life examples. I am, of course, more interested in Web development.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Andrej Senichev</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I'm reading the book right now. The website has almost everything that is
+            written in the book, so technically I could have just read about it on the
+            website. As to what could be improved, it is difficult to say. Sometimes
+            you write about the same thing over and over 10 times, but many of us
+            (including myself) need it for initial understanding.</p>
+
+        <p>I would love to see more examples, maybe even without code. For example - you can talk with developers from different
+            industries and ask around, where and how they apply this or that pattern.</p>
+
+        <p>I’m an Android developer and some of your patterns are stacked on commonly
+            occurring screens. Maybe you should add some links to designs of other guys
+            as an example.</p>
+
+        <p>But overall the book is quite good. The pictures are cool. Sometimes it's
+            hard to figure out what's what, but what can you do? We must persevere.
+            Read again, try again.</p>
+
+        <p>It would be great to see the version for Kotlin. I actually rewrite your
+            examples in order to learn the language.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+        </div>
+        <div class="name">Dmitry Mitroshin</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I started reading the book, and I'm very pleased with it. Great,
+            high-quality examples and schemes.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Taras Savranskij</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>My first impression is a positive one, the author should continue writing.
+            I'd like to buy the book for a friend. I understand that the only option is
+            to register under a new account.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Denis Zaharov</div>
+        <div class="location">Belarus</div>
+    </div>
+</div>
+
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I previously studied these patterns in the book titled “The Gang of Four”.
+            I liked the simplicity of descriptions in your book, as well as the
+            excellent usage examples. I use your book as a reference guide in order to
+            refresh my knowledge about a particular template or to search for a
+            template I may need at the moment. I can't say anything about how the book
+            can be improved, because I haven't even thought about it.</p>
+
+        <p>The author did a great job creating this book)</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Dmitry Borodin</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>Thanks for the great material! I'm reading the book in sections, I really
+            like how the material is presented, user-friendly presentation on several
+            levels, interesting examples, clear illustrations. I can't help but compare
+            it to Freeman's “Design Patterns”, and the presentation in your book is
+            more informative in my opinion. It is convenient not only to read the book
+            in a sequential order, but to also use it as a reference guide.</p>
+
+        <p>I plan to use the materials you have collected to put together training
+            materials, reports inside and outside my company, in the context of
+            front-end development.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Andrej Alekseev</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>Truth be told, I bought the book to give back for the work the authors did
+            when creating the website, it helped me and continues to help + I was
+            interested to see how SOLID will be outlined.</p>
+
+        <p>I think it would be cool for newbies if there were c# examples as well,
+            although everything is quite clear anyway. Since I have a stable Internet
+            connection, I use the website as a reference guide instead of the book.</p>
+        <div class="feedback-reply">
+            <b>Note:</b> the book is supplied with C# examples since spring, 2018.
+        </div>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Pavel Bobrovskij</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I'm reading the book, it's interesting, not boring, and it offers quite an
+            exciting and fresh perspective. I would love to see it a paperback edition
+            as well.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Dmitry Udovenko</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>Thank you for the book. The material is presented beautifully and in a
+            user-friendly manner. The examples are clear, the diagrams are accurate,
+            the illustrations are interesting. It works as a reference book, as well as
+            an introductory guide for the topic. I use it for both purposes.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Vladimir Lebed</div>
+        <div class="location">Kazakhstan</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I work as a C# developer. I had read an article online that included many
+            references to patterns. I went to Google and found your website, where I
+            read about the pattern that was of interest to me. Your information is very
+            well structured, but what I liked the most was the style of illustrations.
+            There is something home-like about them)) As a beginner, I really liked the
+            fact that the patterns are described from the point of view of the issues
+            that they solve, and not from the standpoint of the description of the
+            pattern itself. After reading the entire section on patterns on the
+            website, I realized that I wanted to buy the book to thank you for the work
+            you have done collecting and structuring the information.</p>
+        <p>I would like to comment only on one section - “Relationships with other
+            patterns”. Despite the fact that I read about all the patterns, I still
+            don't understand what this section is about. Maybe you could add
+            illustrations there, or even remove this section altogether and add a
+            chapter about using combined patterns?</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Daniil Doniy</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>The project as a whole, and the book in particular, make an excellent
+            impression. It would seem that there are quite a lot of books written on
+            this topic, but you have structured everything and made it rather fun)
+            Wonderful illustrations that help readers memorize everything in a fun way.</p>
+
+        <p>I started reading the book right after I purchased it. I've already learned
+            how to apply a couple of the described patterns quite confidently in
+            practice.</p>
+
+        <p>The book can be improved by publishing it on paper. That way you can give
+            it as a gift, for example.</p>
+
+        <p>I would like to see examples for PHP and Python, but as I understand, you
+            are already working on it.</p>
+
+        <p>Thank you for your work, and good luck in your endeavors!</p>
+
+        <div class="feedback-reply">
+            <b>Note:</b> the book is now supplied with PHP and Python examples.
+        </div>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Vasily Jurlov</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I am completely satisfied with the purchase, I have already read the book
+            from cover to cover. I think that this is the most user-friendly book on
+            patterns I have ever read. I was really happy that I could read it on my
+            iPhone. Thank you for the great book!</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Alexey Bezruchenkov</div>
+        <div class="location">Ukraine</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>Excellent book, everything is explained in detail and presented in a
+            user-friendly manner. Special thanks for supporting multiple formats and
+            providing the readers with the ability to read the book on the go.
+        </p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Alex Chugaev</div>
+        <div class="location">Ukraine</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I liked the book; from time to time I apply the solutions from the book in
+            my work.</p>
+
+        <p>I'm pleased with the book and very thankful for your work.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Dmitry Grusheckij</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I would like to note right away that the book is beautifully illustrated)
+            The information about SOLID, and in particular, about the principle of
+            Barbara Liskov, is presented very well and in a user-friendly manner. I
+            found some new information for myself about the private members of the
+            base classes and the fact that you explicitly separate the restrictions on
+            preconditions by type and attribute values. It is really easier to figure
+            everything out this way.</p>
+
+        <p>It seemed strange that the book is over 30mb, though</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Dmitry Bezik</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>The book is great. Excellent illustrations and examples. I am now preparing
+            a report on Design Patterns at work.</p>
+
+        <p>What can be added: examples with Anti-Patterns, what not to do.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Alexandre Fiveg</div>
+        <div class="location">Munich, Germany</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I do really enjoy your book. And would like to buy printed version to have it on my work place.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Sergii Aleksieiev</div>
+        <div class="location">Київ, Україна</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>Everything that is explained using cats is always clear, and
+            the more allegories the better. I haven't finished the book yet, but the
+            first impression is rather good, thank you!</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Andrej Zemskov</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I confirm that I bought this book, and am satisfied with the purchase,
+            otherwise I would not have bought it :)</p>
+
+        <p>I was looking to find some information on the most widely used patterns
+            (builder and factory), and I ended up finding the materials on the website.
+            And everything after that is history - I really liked the design of the
+            website and its structure; other similar resources usually just have a
+            description of random ~5 patterns, and the rest are “coming soon...”.</p>
+
+        <p>Your website is by far the BEST of all that I have come across on this
+            topic, and that's why I bookmarked it and added the PDF version to the
+            offline library on my tablet. Although I am an experienced “pirate”, I am
+            always happy to pay an ADEQUATE price for the product that I use for my
+            professional activity.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">Denis Zaharov</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>I almost finished reading the book. I will say right away that I liked it;
+            the book offers real-life examples, the descriptions and the pseudocode are
+            good.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+        </div>
+        <div class="name">Albert Gizetdinov</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+<div class="feedback-item">
+    <div class="feedback">
+        <p>The material is interesting, even though it was a bit unusual to learn on
+            examples with pseudocode. For pros, this approach is, of course, quite
+            acceptable. In general, the book is definitely worth its price.</p>
+    </div>
+    <div class="feedback-details">
+        <div class="stars">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="name">NeonDT</div>
+        <div class="location">Russia</div>
+    </div>
+</div>
+
+            </div>
+            <div class="feedback-controls"><a href="#" class="btn btn-primary btn-sm load-more"><i class="fa fa-arrow-up" aria-hidden="true"></i> Mostrar próxima opinião</a></div>
+        </div>
+    </div>
+
+    <div class="section">
+
+        <h2>O que você obtém após a compra?</h2>
+
+        <div class="row">
+            <div class="col-12 col-sm-6">
+
+                <p><b>Um eBook multilíngue em 4 formatos</b>
+                </p>
+                <ul>
+                    <li>Formatos: PDF, EPUB, MOBI, KFX</li>
+                    <li>Línguas: Português, Inglês, Espanhol, Francês, Russo, Ucraniano, Polonês, Chinês</li>
+                    <li>Volume: 439 páginas</li>
+                    <li>Gráficos: 225 ilustrações e diagramas</li>
+                    <li>Atualizações e Revisões: gratuito</li>
+                </ul>
+
+            </div>
+            <div class="col-12 col-sm-6">
+
+                <p><b>Um arquivo com exemplos de código</b></p>
+                <ul>
+                    <li>Os exemplos estão em Java, C#, C++, Go, PHP, Python, Ruby, Swift, e TypeScript</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="book-features">
+        <div class="book-feature" style="border-color: #dee;">
+            <div class="image">
+                <img width="200" height="200" src="../../images/patterns/banners/patterns-book-banner-5-en.png" srcset="/images/patterns/banners/patterns-book-banner-5-en-2x.png 2x, /images/patterns/banners/patterns-book-banner-5-en-3x.png 3x"/>
+            </div>
+            <div style="">
+                <p><b>Um ebook em uma linguagem amigável e natural.</b>
+                    Escrita com o mínimo de jargões e termos técnicos, recheada de amostras de código e ilustrações.
+                </p>
+            </div>
+        </div>
+
+        <div class="book-feature" style="border-color: #ede;">
+            <div class="image">
+                <img width="200" height="200" src="../../images/patterns/banners/patterns-book-banner-6.png" srcset="/images/patterns/banners/patterns-book-banner-6-2x.png 2x, /images/patterns/banners/patterns-book-banner-6-3x.png 3x"/>
+            </div>
+            <div style="">
+                <p>
+                    <b>Não ligado a qualquer linguagem de programação específica.</b>
+                    Os exemplos de código estão em forma de pseudocódigo, aplicável a maioria das linguagens modernas voltadas a objetos.
+                </p>
+            </div>
+        </div>
+
+        <div class="book-feature" style="border-color: #edd;">
+            <div class="image">
+                <img width="200" height="200" src="../../images/patterns/banners/patterns-book-banner-3.png" srcset="/images/patterns/banners/patterns-book-banner-3-2x.png 2x, /images/patterns/banners/patterns-book-banner-3-3x.png 3x"/>
+            </div>
+
+            <div style="">
+                <p style="margin-bottom:0.5em;">
+                    <b>Pode ser lido em qualquer dispositivo.</b>
+                    O eBook está disponível em três formatos:</p>
+
+                <ul style="margin-bottom:0;">
+                    <li>
+                        <b>EPUB</b> para ler em telefones e tablets.
+                    </li>
+                    <li>
+                        <b>MOBI</b>, <b>KFX</b> para leitores do Amazon Kindle.
+                    </li>
+                    <li>
+                        <b>PDF</b> para ler em qualquer lugar ou para imprimir.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="book-feature" style="border-color: #eed;">
+            <div class="image">
+                <img width="200" height="200" src="../../images/patterns/banners/patterns-book-banner-2.png" srcset="/images/patterns/banners/patterns-book-banner-2-2x.png 2x, /images/patterns/banners/patterns-book-banner-2-2x.png 3x"/>
+            </div>
+
+            <div style="">
+                <p><b>Sempre prático e pesquisável.</b>
+                    O ebook é um guia de referência conveniente. Ao contrário de uma versão impressa, ele é pesquisável e não tem como esquecê-lo em algum lugar. Está sempre disponível em seu smartphone, tablet, laptop, ou desktop.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="book-feature" style="border-color: #ded;">
+            <div class="image">
+                <img width="200" height="200" src="../../images/patterns/banners/patterns-book-banner-1-a.png" srcset="/images/patterns/banners/patterns-book-banner-1-a-2x.png 2x, /images/patterns/banners/patterns-book-banner-1-a-3x.png 3x"/>
+            </div>
+
+            <div style="">
+                <p><b>Uma leitura agradável quando em deslocamento ou relaxando.</b>
+                    Aonde mais você pode aprender em paz nos dias de hoje se não durante voos e no ônibus ou metrô? Bem, talvez na cama...
+                </p>
+            </div>
+        </div>
+
+        <div class="book-feature" style="border-color: #555; background: #333; color: #eee">
+            <div class="image">
+                <img width="200" height="200" src="../../images/patterns/banners/patterns-book-banner-4.png" srcset="/images/patterns/banners/patterns-book-banner-4-2x.png 2x, /images/patterns/banners/patterns-book-banner-4-3x.png 3x"/>
+            </div>
+
+            <div style="">
+                <p>
+                    <b>Uma leitura fácil seja dia ou noite.</b>
+                    Boa notícia para aqueles que varam a noite acordados! O eBook fica ótimo em um fundo branco para leitura durante o dia ou em um fundo escuro para leitura noturna.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="section questions">
+        <h2>Perguntas frequentes</h2>
+
+        <div class="dl icon">
+            <div class="dt"><i class="fa fa-fw fa-credit-card" aria-hidden="true"></i> Que métodos de pagamento você aceita?</div>
+            <div class="dd">Você pode pagar com cartões de crédito/débito (Visa, MasterCard, AmEx, Discover, JBC, Elo, Hipercard e muito mais), PayPal, Apple Pay, Google Pay, Konbini, WeChat e Alipay.</div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt"><i class="fa fa-fw fa-lock" aria-hidden="true"></i> Como você mantém meus dados seguros?</div>
+            <div class="dd">Suas informações de pagamento são encriptadas e mandadas diretamente ao portal de pagamento. Nunca ficam armazenadas em nosso servidor.</div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt">
+                <i class="fa fa-fw fa-credit-card" aria-hidden="true"></i> Tentei fazer o pedido, mas meu pagamento falha todas as vezes. O que posso fazer?
+            </div>
+            <div class="dd">Certifique-se de que seu cartão esteja habilitado para transações online e que você não tenha atingindo seu limite de gastos online. Em seguida, tente fazer o pedido novamente. Se não funcionar, <a href="https://refactoring.userecho.com/?show_feedback_form=true" class="userecho-private" rel="nofollow">envie uma mensagem</a> que buscaremos opções alternativas de pagamento.</div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt"><i class="fa fa-fw fa-money-bill" aria-hidden="true"></i> Posso ter meu dinheiro de volta se não ficar satisfeito?
+            </div>
+            <div class="dd">Sim! Se nosso livro não ajudar você, basta mandar um email para support@refactoring.guru com seu recibo. Nós iremos reembolsá-lo no valor total da sua compra, e sem fazer perguntas.</div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt"><i class="fa fa-fw fa-file-text" aria-hidden="true"></i> Posso receber uma fatura depois da compra? Posso adicionar os detalhes de minha empresa ou número de identificação fiscal à fatura?
+            </div>
+            <div class="dd">Sim! Você poderá baixar a fatura após a compra e poderá editar ou adicionar qualquer informação adicional a qualquer momento.</div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Posso comprar uma versão em papel do livro?
+            </div>
+            <div class="dd">Perdão, no presente momento o livro está disponível apenas como um ebook.
+            </div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt">
+                <i class="fa fa-fw fa-amazon" aria-hidden="true"></i> Posso comprar o livro na Amazon?
+            </div>
+            <div class="dd">Infelizmente não. O livro só pode ser comprado no Refactoring.Guru. A venda do livro a partir do nosso próprio site nos permite evitar grandes custos impostos pelas plataformas de terceiros e equilibrar as contas, mantendo o preço acessível. Se você estiver mais interessado nas resenhas, pode consultar a página do livro no <a href="https://www.goodreads.com/book/show/43125355-dive-into-design-patterns">Goodreads</a>.
+            </div>
+        </div>
+
+        <div class="dl icon">
+            <div class="dt">
+                <i class="fa fa-fw fa-language" aria-hidden="true"></i> Após a compra, receberei as versões em todos os idiomas? (português, espanhol, etc.)
+            </div>
+            <div class="dd">Sim! Você tem acesso a todas as versões do e-book, nos idiomas atuais e futuros.
+            </div>
+        </div>
+
+        <h2>Tem mais perguntas?</h2>
+
+        <p><a href="https://refactoring.userecho.com/?show_feedback_form=true"
+              class="userecho-private" rel="nofollow">
+            Envie-nos uma mensagem no fórum</a> ou um email para <a href="mailto:support@refactoring.guru">support@refactoring.guru</a>. Nós geralmente respondemos em algumas horas.</p>
+    </div>
+
+    <div class="section section-bordered buy-button">
+        <h3 style="margin-top: 0; text-align: center">Mergulho nos
+            <strong>PADRÕES de PROJETO</strong></h3>
+
+        <div class="d-block d-sm-flex">
+            <div class="flex-grow-1 text-center">
+                <div class="price-tag price-tag-hg">
+                    <div class="price-tag offer">
+                        <span class="old-price font-money">€30.00</span>
+                        <span class="new-price font-money">
+                        <span class="offer-text">Desconto de auxílio COVID</span>€19.95
+                    </span>
+                    </div>
+                </div>
+                <a class="btn btn-secondary btn-buy btn-hg add-to-cart do-checkout" href="#buy-now" data-product="Dive Into Design Patterns">
+                    <i class="fa fa-shopping-cart"></i> Compre agora
+                </a>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 15px;">
+            <div>
+                <strong>PDF, EPUB, MOBI, KFX + exemplos de código</strong>
+                <br>Atualizações gratuitas / Garantia de dinheiro de volta em 30 dias</div>
+        </div>
+    </div>
+</article>
+
+<div class="feature product-block">
+    <div class="image">
+        <div class="image3d-book-right">
+            <div class="image3d-cover" style="background: #0b3752;">
+                <a class="do-checkout" href="#buy-now" data-product="Dive Into Design Patterns">
+                    <img width="250" height="375" src="../../images/patterns/book/web-cover-pt-br.png" srcset="/images/patterns/book/web-cover-pt-br-2x.png 2x, /images/patterns/book/web-cover-pt-br-3x.png 3x"/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="buy-widget">
+        <div class="price-tag price-tag-hg compact">
+            <span class="old-price font-money">€30.00</span>
+            <span class="new-price font-money"><span class="offer-text" style="white-space: normal;">Desconto de auxílio COVID</span>€19.95</span>
+        </div>
+        <a class="btn btn-hg btn-secondary btn-buy do-checkout" href="#buy-now" data-product="Dive Into Design Patterns"><i class="fa fa-shopping-cart"></i> Compre agora</a>
+    </div>
+    <div class="buy-options mt-4">
+        <a class="do-checkout btn btn-block btn-md btn-secondary" href="#buy-now" data-product="Dive Into Design Patterns" data-purchase-type="1"><i class="fa fa-gift"></i> Comprar como presente</a>
+
+        <a class="do-checkout btn btn-block btn-md btn-secondary mt-1" href="#buy-team" data-product="Dive Into Design Patterns" data-purchase-type="2"><i class="fa fa-users"></i> Comprar para minha equipe</a>
+    </div>
+    <div class="product-features">
+        <div class="product-feature">
+            <div class="image">
+                <img src="../../images/content-public/landings/ipadiphone.png" alt="" class=""/>
+            </div>
+            <div class="description" style="margin-top:10px;">PDF, EPUB, MOBI, KFX<br/>+ exemplos de código
+            </div>
+        </div>
+        <div class="product-feature">
+            <div class="image">
+                <img src="../../images/content-public/landings/satisf.gif" alt="" class=""/>
+            </div>
+            <div class="description">Garantia de dinheiro de volta em 30 dias</div>
+        </div>
+    </div>
+</div>
+                    </div>
+    </main>
+
+    <nav class="navigation" role="navigation">
+    <div class="navigation-container">
+        <a href="#menu" class="navigation-toggle"><i class="fa fa-bars"></i></a>
+        <a class="navigation-brand" href="../../pt-br.html">
+            <img alt="Refactoring.Guru" src="../../images/content-public/logos/logo-military-mobile78b4.png?id=65ecbd1e688fc695bc20c22a1e8450d9" srcset="/images/content-public/logos/logo-military-mobile-2x.png?id=0f52141f57f67fb678da8407e254b0a3 2x"
+                  width="94"                   height="64"             >
+        </a>
+        <div class="social-likes-block" data-url="../../index.html">
+    <div data-service="facebook" class="facebook" title="Compartilhe no Facebook">Facebook</div>
+        <div data-service="twitter" class="twitter" title="Compartilhe no Twiter">Twitter</div>
+</div>        <ul class="navigation-menu">
+                        <li class="dropdown d-lg-none">
+                <a class="dropdown-toggle" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-globe" aria-hidden="true"></i> <span class="caption d-none d-xl-inline-block">Idioma</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguage">
+                                                                                                        <a href="../../design-patterns/book.html" class="dropdown-item locale-link " data-locale="en" title="English">English</a>
+                                                                                                                <a href="../../es/design-patterns/book.html" class="dropdown-item locale-link " data-locale="es" title="Español">Español</a>
+                                                                                                                <a href="../../fr/design-patterns/book.html" class="dropdown-item locale-link " data-locale="fr" title="Français">Français</a>
+                                                                                                                                                                                                                        <a href="../../pl/design-patterns/book.html" class="dropdown-item locale-link " data-locale="pl" title="Polski">Polski</a>
+                                                                                                                <a href="book.html" class="dropdown-item locale-link active" data-locale="pt-br" title="Português Brasileiro">Português Brasileiro</a>
+                                                                                                                <a href="../../ru/design-patterns/book.html" class="dropdown-item locale-link " data-locale="ru" title="Русский">Русский</a>
+                                                                                                                <a href="../../uk/design-patterns/book.html" class="dropdown-item locale-link " data-locale="uk" title="Українська">Українська</a>
+                                                                                                                <a href="https://refactoringguru.cn/design-patterns/book" class="dropdown-item locale-link " data-locale="zh" title="中文">中文</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+            </li>
+                        <li class="nav-contact">
+                <a class="userecho-private" href="https://feedback.refactoring.guru/?show_feedback_form_private=true" rel="nofollow" title="Contate-nos">
+                    <i class="fa fa-envelope"></i> <span class="caption d-none d-xl-inline-block">Contate-nos</span>
+                </a>
+            </li>
+                                                <li class="nav-login">
+                        <a href="../login.html" title="Conectar"><i class="fa fa-user"></i> <span class="caption d-none d-xl-inline-block">Conectar</span></a>
+                    </li>
+                                    </ul>
+    </div>
+    <div>
+        <a class="russia-stop" href="../help-ukraine.html">
+                            Ajude a Ucrânia <b>a parar a Rússia</b>
+                    </a>
+    </div>
+</nav>
+    <aside class="sidebar main-menu nano">
+    <a href="#menu-close" class="navigation-toggle"><i class="fa fa-fw fa-times"></i></a>
+    <div class="nano-content">
+                    <div class="main-menu-lang d-none d-lg-flex main-menu-lang-count-8">
+                                                                                        <a href="../../design-patterns/book.html" class="locale-link locale-link-en " data-locale="en" title="English"><span class="d-lg-none">English</span><span class="d-none d-lg-inline">English</span></a>
+                                                                                                <a href="../../es/design-patterns/book.html" class="locale-link locale-link-es " data-locale="es" title="Español"><span class="d-lg-none">Español</span><span class="d-none d-lg-inline">Español</span></a>
+                                                                                                <a href="../../fr/design-patterns/book.html" class="locale-link locale-link-fr " data-locale="fr" title="Français"><span class="d-lg-none">Français</span><span class="d-none d-lg-inline">Français</span></a>
+                                                                                                                                                                                        <a href="../../pl/design-patterns/book.html" class="locale-link locale-link-pl " data-locale="pl" title="Polski"><span class="d-lg-none">Polski</span><span class="d-none d-lg-inline">Polski</span></a>
+                                                                                                <a href="book.html" class="locale-link locale-link-pt-br active" data-locale="pt-br" title="Português Brasileiro"><span class="d-lg-none">Português Brasileiro</span><span class="d-none d-lg-inline">Português-Br</span></a>
+                                                                                                <a href="../../ru/design-patterns/book.html" class="locale-link locale-link-ru " data-locale="ru" title="Русский"><span class="d-lg-none">Русский</span><span class="d-none d-lg-inline">Русский</span></a>
+                                                                                                <a href="../../uk/design-patterns/book.html" class="locale-link locale-link-uk " data-locale="uk" title="Українська"><span class="d-lg-none">Українська</span><span class="d-none d-lg-inline">Українська</span></a>
+                                                                                                <a href="https://refactoringguru.cn/design-patterns/book" class="locale-link locale-link-zh " data-locale="zh" title="中文"><span class="d-lg-none">中文</span><span class="d-none d-lg-inline">中文</span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
+        
+        <a class="menu-brand" href="../../pt-br.html">
+                            <img width=200 height=241 loading="lazy" alt="Refactoring.Guru" src="../../images/content-public/logos/logo-militaryd1c3.png?id=3eaf203cb26279327252e2c5f5d37c7f" srcset="/images/content-public/logos/logo-military-2x.png?id=5af1a599d8a4170c9a42e6fa18148b98 2x">
+                    </a>
+        <div>
+            <a class="russia-stop" href="../help-ukraine.html">
+                                    Ajude a Ucrânia<br><b>a parar a Rússia</b>
+                            </a>
+        </div>
+
+
+        <div class="menu-container" style="position: relative">
+                        <ul class="menu-list trail">
+                            <li class="featured trail">
+            <a href="../store.html">
+                <i class="fa fa-fw fa-star" aria-hidden="true"></i> Conteúdo Premium
+            </a>
+    
+            <ul >
+                            <li class="featured menu-fs15 trail active">
+            <a href="book.html">
+                <i class="fa fa-fw fa-book" aria-hidden="true"></i> Mergulho nos<br>Padrões de Projeto
+            </a>
+    
+    
+            </li>
+                                <li class="featured menu-fs15">
+            <a href="../refactoring/course.html">
+                <i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Curso de Refatoração
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../design-patterns.html">
+                <i class="fa fa-fw fa-puzzle-piece" aria-hidden="true"></i> Padrões de Projeto
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                O que é um padrão
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="what-is-pattern.html">
+                O que é um padrão de projeto?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="history.html">
+                História dos padrões
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="why-learn-patterns.html">
+                Por que devo aprender padrões?
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="criticism.html">
+                Crítica dos padrões
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="classification.html">
+                Classificação dos padrões
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="catalog.html">
+                Catálogo
+            </a>
+    
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="creational-patterns.html">
+                Padrões criacionais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="factory-method.html">
+                Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="abstract-factory.html">
+                Abstract Factory
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="builder.html">
+                Builder
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="prototype.html">
+                Prototype
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="singleton.html">
+                Singleton
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="structural-patterns.html">
+                Padrões estruturais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="adapter.html">
+                Adapter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="bridge.html">
+                Bridge
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="composite.html">
+                Composite
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="decorator.html">
+                Decorator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="facade.html">
+                Facade
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="flyweight.html">
+                Flyweight
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="proxy.html">
+                Proxy
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-third-level">
+            <a href="behavioral-patterns.html">
+                Padrões comportamentais
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="chain-of-responsibility.html">
+                Chain of Responsibility
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="command.html">
+                Command
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="iterator.html">
+                Iterator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="mediator.html">
+                Mediator
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="memento.html">
+                Memento
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="observer.html">
+                Observer
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="state.html">
+                State
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="strategy.html">
+                Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="template-method.html">
+                Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="visitor.html">
+                Visitor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="menu-code-examples">
+            <a href="examples.html">
+                Exemplos de código
+            </a>
+    
+            <ul >
+                            <li class="menu-code-examples-item">
+            <a href="csharp.html">
+                C#
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="cpp.html">
+                C++
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="go.html">
+                Go
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="java.html">
+                Java
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="php.html">
+                PHP
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="python.html">
+                Python
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="ruby.html">
+                Ruby
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="swift.html">
+                Swift
+            </a>
+    
+    
+            </li>
+                                <li class="menu-code-examples-item">
+            <a href="typescript.html">
+                TypeScript
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring.html">
+                <i class="fa fa-fw fa-scissors" aria-hidden="true"></i> Refatoração <span style="font-size: 0.8rem">(em&nbsp;breve)</span>
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                What is Refactoring
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/what-is-refactoring.html">
+                Clean code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/technical-debt.html">
+                Technical debt
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/when.html">
+                When to refactor
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/how-to.html">
+                How to refactor
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/catalog.html">
+                Catalog
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells.html">
+                Code Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/smells/bloaters.html">
+                Bloaters
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/long-method.html">
+                Long Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/large-class.html">
+                Large Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/primitive-obsession.html">
+                Primitive Obsession
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/long-parameter-list.html">
+                Long Parameter List
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-clumps.html">
+                Data Clumps
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/oo-abusers.html">
+                Object-Orientation Abusers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/switch-statements.html">
+                Switch Statements
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/temporary-field.html">
+                Temporary Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/refused-bequest.html">
+                Refused Bequest
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/alternative-classes-with-different-interfaces.html">
+                Alternative Classes with Different Interfaces
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/change-preventers.html">
+                Change Preventers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/divergent-change.html">
+                Divergent Change
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/shotgun-surgery.html">
+                Shotgun Surgery
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/parallel-inheritance-hierarchies.html">
+                Parallel Inheritance Hierarchies
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/dispensables.html">
+                Dispensables
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/comments.html">
+                Comments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/duplicate-code.html">
+                Duplicate Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/lazy-class.html">
+                Lazy Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/data-class.html">
+                Data Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/dead-code.html">
+                Dead Code
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/speculative-generality.html">
+                Speculative Generality
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/couplers.html">
+                Couplers
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/feature-envy.html">
+                Feature Envy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/inappropriate-intimacy.html">
+                Inappropriate Intimacy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/message-chains.html">
+                Message Chains
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../smells/middle-man.html">
+                Middle Man
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/smells/other.html">
+                Other Smells
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../smells/incomplete-library-class.html">
+                Incomplete Library Class
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques.html">
+                Refactorings
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../refactoring/techniques/composing-methods.html">
+                Composing Methods
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../extract-method.html">
+                Extract Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-method.html">
+                Inline Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-variable.html">
+                Extract Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-temp.html">
+                Inline Temp
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-temp-with-query.html">
+                Replace Temp with Query
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../split-temporary-variable.html">
+                Split Temporary Variable
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-assignments-to-parameters.html">
+                Remove Assignments to Parameters
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-method-with-method-object.html">
+                Replace Method with Method Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../substitute-algorithm.html">
+                Substitute Algorithm
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/moving-features-between-objects.html">
+                Moving Features between Objects
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../move-method.html">
+                Move Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../move-field.html">
+                Move Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-class.html">
+                Extract Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../inline-class.html">
+                Inline Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-delegate.html">
+                Hide Delegate
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-middle-man.html">
+                Remove Middle Man
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-foreign-method.html">
+                Introduce Foreign Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-local-extension.html">
+                Introduce Local Extension
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/organizing-data.html">
+                Organizing Data
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../self-encapsulate-field.html">
+                Self Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-data-value-with-object.html">
+                Replace Data Value with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-value-to-reference.html">
+                Change Value to Reference
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-reference-to-value.html">
+                Change Reference to Value
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-array-with-object.html">
+                Replace Array with Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../duplicate-observed-data.html">
+                Duplicate Observed Data
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-unidirectional-association-to-bidirectional.html">
+                Change Unidirectional Association to Bidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../change-bidirectional-association-to-unidirectional.html">
+                Change Bidirectional Association to Unidirectional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-magic-number-with-symbolic-constant.html">
+                Replace Magic Number with Symbolic Constant
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-field.html">
+                Encapsulate Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../encapsulate-collection.html">
+                Encapsulate Collection
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-class.html">
+                Replace Type Code with Class
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-subclasses.html">
+                Replace Type Code with Subclasses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-type-code-with-state-strategy.html">
+                Replace Type Code with State/Strategy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-subclass-with-fields.html">
+                Replace Subclass with Fields
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-conditional-expressions.html">
+                Simplifying Conditional Expressions
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../decompose-conditional.html">
+                Decompose Conditional
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-conditional-expression.html">
+                Consolidate Conditional Expression
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../consolidate-duplicate-conditional-fragments.html">
+                Consolidate Duplicate Conditional Fragments
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-control-flag.html">
+                Remove Control Flag
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-nested-conditional-with-guard-clauses.html">
+                Replace Nested Conditional with Guard Clauses
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-conditional-with-polymorphism.html">
+                Replace Conditional with Polymorphism
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-null-object.html">
+                Introduce Null Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-assertion.html">
+                Introduce Assertion
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/simplifying-method-calls.html">
+                Simplifying Method Calls
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../rename-method.html">
+                Rename Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../add-parameter.html">
+                Add Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-parameter.html">
+                Remove Parameter
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../separate-query-from-modifier.html">
+                Separate Query from Modifier
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../parameterize-method.html">
+                Parameterize Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-explicit-methods.html">
+                Replace Parameter with Explicit Methods
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../preserve-whole-object.html">
+                Preserve Whole Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-parameter-with-method-call.html">
+                Replace Parameter with Method Call
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../introduce-parameter-object.html">
+                Introduce Parameter Object
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../remove-setting-method.html">
+                Remove Setting Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../hide-method.html">
+                Hide Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-constructor-with-factory-method.html">
+                Replace Constructor with Factory Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-error-code-with-exception.html">
+                Replace Error Code with Exception
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-exception-with-test.html">
+                Replace Exception with Test
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                                <li class="">
+            <a href="../refactoring/techniques/dealing-with-generalization.html">
+                Dealing with Generalization
+            </a>
+    
+            <ul >
+                            <li class="">
+            <a href="../pull-up-field.html">
+                Pull Up Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-method.html">
+                Pull Up Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../pull-up-constructor-body.html">
+                Pull Up Constructor Body
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-method.html">
+                Push Down Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../push-down-field.html">
+                Push Down Field
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-subclass.html">
+                Extract Subclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-superclass.html">
+                Extract Superclass
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../extract-interface.html">
+                Extract Interface
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../collapse-hierarchy.html">
+                Collapse Hierarchy
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../form-template-method.html">
+                Form Template Method
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-inheritance-with-delegation.html">
+                Replace Inheritance with Delegation
+            </a>
+    
+    
+            </li>
+                                <li class="">
+            <a href="../replace-delegation-with-inheritance.html">
+                Replace Delegation with Inheritance
+            </a>
+    
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </li>
+                        </ul>
+    
+            </div>
+        <div class="sidebar-controls">
+            <div class="sidebar-controls-container">
+                <a href="../login.html" title="Conectar"><i
+                            class="fa fa-fw fa-fw fa-user"></i> Conectar</a>
+                <a href="https://feedback.refactoring.guru/" class="userecho-public" rel="nofollow" title="Avaliação"><i class="fa fa-fw fa-fw fa-envelope" aria-hidden="true"></i> Contate-nos</a>
+            </div>
+        </div>
+    </div>
+</aside>
+    <footer class="footer center-content">
+    <div class="footer-container center-content-container">
+        <div class="footer-inner container-fluid">
+            <div class="row">
+                <div class="col-8 col-md-10">
+                    <ul class="footer-list footer-list-horizontal">
+                        <li><a href="../../pt-br.html">Página inicial</a></li>
+                        <li><a href="../refactoring.html">Refatoração</a></li>
+                        <li><a href="../design-patterns.html">Padrões de Projeto</a></li>
+                        <li><a href="../store.html">Conteúdo Premium</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-public">Fórum</a></li>
+                        <li><a href="https://refactoring.userecho.com/" rel="nofollow" class="userecho-private">Contate-nos</a></li>
+                    </ul>
+                </div>
+                <div class="col-4 col-md-2">
+                    <ul class="footer-list footer-list-iconic">
+                                                    <li><a href="https://www.facebook.com/refactoring.guru"><i class="fa fa-facebook-official"></i></a></li>
+                                                <li><a href="../sendy/form.html" rel="nofollow"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                        <li><a href="https://github.com/RefactoringGuru"><i class="fa fa-github-circled"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-second">
+        <div class="footer-container center-content-container">
+            <div class="footer-inner container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-8">
+                        <i class="fa fa-fw fa-copyright"></i> 2014-2022 <a href="../../pt-br.html">Refactoring.Guru</a>. <span style="white-space: nowrap">Todos os direitos reservados</span><br>
+                        <object class="fa-fw" style="height: 0.8rem; filter: invert(50%);"  type="image/svg+xml" data="../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234">
+                            <img class="fa-fw" style="height: 0.8rem;" src="../../images/content-public/icons/fa-building4895.svg?id=afddb5806968b0a9acfc1df75a181234" alt="Organization address"/>
+                        </object> Khmelnitske shosse 19 / 27, Kamianets-Podilskyi, Ucrânia, 32305<br>
+                        <i class="fa fa-fw fa-envelope"></i>  Email: support@refactoring.guru
+
+                        <div class="mt-2">
+                            <i class="fa fa-fw fa-image"></i> Ilustrações por <a href="http://zhart.us/" rel="nofollow"><span style="white-space: nowrap">Dmitry Zhart</span></a></div>
+                    </div>
+                    <div class="footer-links-right col-12 col-sm-4 mt-4 mt-sm-0">
+                        <div class="row">
+                            <div class="col-8 col-sm-12">
+                                <ul class="footer-list">
+                                    <li><a href="../terms.html"><span>Temos e condições</span></a>
+                                    </li>
+                                    <li><a href="../privacy-policy.html"><span>Política de privacidade</span></a>
+                                    </li>
+                                    <li><a href="../content-usage-policy.html"><span>Política de uso do contéudo</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+
+
+    <script>
+function extend(){var extended={};var deep=false;var i=0;var length=arguments["length"];if(Object["prototype"]["toString"]["call"](arguments[0])=== '[object Boolean]'){deep= arguments[0];i++};var merge=function(obj){for(var prop in obj){if(Object["prototype"]["hasOwnProperty"]["call"](obj,prop)){if(deep&& Object["prototype"]["toString"]["call"](obj[prop])=== '[object Object]'){extended[prop]= extend(true,extended[prop],obj[prop])}else {extended[prop]= obj[prop]}}}};for(;i< length;i++){var obj=arguments[i];merge(obj)};return extended}
+function defer(method) {if (window.jQuery) {method();} else {setTimeout(function() { defer(method) }, 50);}}
+</script>
+<script>
++function(sd){sd = (typeof sd === "string") ? JSON.parse(atob(sd)) : sd;for(var property in sd){if(window[property]!== null&&  typeof window[property]=== 'object'){window[property]= extend(true,window[property],sd[property])}else {window[property]= sd[property]}}}("eyJsb2NhbGUiOiJwdC1iciIsImxvY2FsZV9wcmVmaXgiOiJwdC1iclwvIiwicHJvZHVjdCI6eyJza3UiOiJEaXZlIEludG8gRGVzaWduIFBhdHRlcm5zIiwiaW5mbyI6eyJlbiI6eyJ0aXRsZSI6IkRpdmUgSW50byBEZXNpZ24gUGF0dGVybnMiLCJ1cmwiOiJcL2Rlc2lnbi1wYXR0ZXJuc1wvYm9vayIsImltYWdlIjoiXC9pbWFnZXNcL3BhdHRlcm5zXC9ib29rXC93ZWItY292ZXItZW4ucG5nIn0sImVzIjp7InRpdGxlIjoiU3VtXHUwMGU5cmdldGUgZW4gbG9zIHBhdHJvbmVzIGRlIGRpc2VcdTAwZjFvIiwidXJsIjoiXC9lc1wvZGVzaWduLXBhdHRlcm5zXC9ib29rIiwiaW1hZ2UiOiJcL2ltYWdlc1wvcGF0dGVybnNcL2Jvb2tcL3dlYi1jb3Zlci1lcy5wbmcifSwiZnIiOnsidGl0bGUiOiJQbG9uZ1x1MDBlOWUgYXUgY1x1MDE1M3VyIGRlcyBwYXRyb25zIGRlIGNvbmNlcHRpb24iLCJ1cmwiOiJcL2ZyXC9kZXNpZ24tcGF0dGVybnNcL2Jvb2siLCJpbWFnZSI6IlwvaW1hZ2VzXC9wYXR0ZXJuc1wvYm9va1wvd2ViLWNvdmVyLWZyLnBuZyJ9LCJqYSI6eyJ0aXRsZSI6IkRpdmUgSW50byBEZXNpZ24gUGF0dGVybnMiLCJ1cmwiOiJcL2Rlc2lnbi1wYXR0ZXJuc1wvYm9vayIsImltYWdlIjoiXC9pbWFnZXNcL3BhdHRlcm5zXC9ib29rXC93ZWItY292ZXItZW4ucG5nIn0sImtvIjp7InRpdGxlIjoiRGl2ZSBJbnRvIERlc2lnbiBQYXR0ZXJucyIsInVybCI6IlwvZGVzaWduLXBhdHRlcm5zXC9ib29rIiwiaW1hZ2UiOiJcL2ltYWdlc1wvcGF0dGVybnNcL2Jvb2tcL3dlYi1jb3Zlci1lbi5wbmcifSwicGwiOnsidGl0bGUiOiJXem9yY2UgcHJvamVrdG93ZS4gTm93b2N6ZXNueSBwb2RyXHUwMTE5Y3puaWsiLCJ1cmwiOiJcL3BsXC9kZXNpZ24tcGF0dGVybnNcL2Jvb2siLCJpbWFnZSI6IlwvaW1hZ2VzXC9wYXR0ZXJuc1wvYm9va1wvd2ViLWNvdmVyLXBsLnBuZyJ9LCJwdC1iciI6eyJ0aXRsZSI6Ik1lcmd1bGhvIG5vcyBQYWRyXHUwMGY1ZXMgZGUgUHJvamV0byIsInVybCI6IlwvcHQtYnJcL2Rlc2lnbi1wYXR0ZXJuc1wvYm9vayIsImltYWdlIjoiXC9pbWFnZXNcL3BhdHRlcm5zXC9ib29rXC93ZWItY292ZXItcHQtYnIucG5nIn0sInJ1Ijp7InRpdGxlIjoiXHUwNDFmXHUwNDNlXHUwNDMzXHUwNDQwXHUwNDQzXHUwNDM2XHUwNDM1XHUwNDNkXHUwNDM4XHUwNDM1IFx1MDQzMiBcdTA0M2ZcdTA0MzBcdTA0NDJcdTA0NDJcdTA0MzVcdTA0NDBcdTA0M2RcdTA0NGIgXHUwNDNmXHUwNDQwXHUwNDNlXHUwNDM1XHUwNDNhXHUwNDQyXHUwNDM4XHUwNDQwXHUwNDNlXHUwNDMyXHUwNDMwXHUwNDNkXHUwNDM4XHUwNDRmIiwidXJsIjoiXC9ydVwvZGVzaWduLXBhdHRlcm5zXC9ib29rIiwiaW1hZ2UiOiJcL2ltYWdlc1wvcGF0dGVybnNcL2Jvb2tcL3dlYi1jb3Zlci1ydS5wbmcifSwidWsiOnsidGl0bGUiOiJcdTA0MTdcdTA0MzBcdTA0M2RcdTA0NDNcdTA0NDBcdTA0MzVcdTA0M2RcdTA0M2RcdTA0NGYgXHUwNDMyIFx1MDQzZlx1MDQzMFx1MDQ0Mlx1MDQzNVx1MDQ0MFx1MDQzZFx1MDQzOCBcdTA0M2ZcdTA0NDBcdTA0M2VcdTA0MzVcdTA0M2FcdTA0NDJcdTA0NDNcdTA0MzJcdTA0MzBcdTA0M2RcdTA0M2RcdTA0NGYiLCJ1cmwiOiJcL3VrXC9kZXNpZ24tcGF0dGVybnNcL2Jvb2siLCJpbWFnZSI6IlwvaW1hZ2VzXC9wYXR0ZXJuc1wvYm9va1wvd2ViLWNvdmVyLXVrLnBuZyJ9LCJ6aCI6eyJ0aXRsZSI6Ilx1NmRmMVx1NTE2NVx1OGJiZVx1OGJhMVx1NmEyMVx1NWYwZiIsInVybCI6IlwvZGVzaWduLXBhdHRlcm5zXC9ib29rIiwiaW1hZ2UiOiJcL2ltYWdlc1wvcGF0dGVybnNcL2Jvb2tcL3dlYi1jb3Zlci16aC5wbmcifX0sImZlYXR1cmVzIjpbIkRpdmUgSW50byBEZXNpZ24gUGF0dGVybnMiXSwicHJpY2VzIjp7IlVTRCI6eyJsaXN0X3ByaWNlIjozMCwicHJpY2UiOjE5Ljk1LCJwcmljZV9kaXNwbGF5IjoiJDE5Ljk1IiwibGlzdF9wcmljZV9kaXNwbGF5IjoiJDMwLjAwIiwiZGlzY291bnQiOjM1LCJkaXNjb3VudF9kaXNwbGF5IjoiLTM1JSJ9LCJFVVIiOnsibGlzdF9wcmljZSI6MzAsInByaWNlIjoxOS45NSwicHJpY2VfZGlzcGxheSI6Ilx1MjBhYzE5Ljk1IiwibGlzdF9wcmljZV9kaXNwbGF5IjoiXHUyMGFjMzAuMDAiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIkdCUCI6eyJsaXN0X3ByaWNlIjoyNi45NSwicHJpY2UiOjE3Ljk1LCJwcmljZV9kaXNwbGF5IjoiXHUwMGEzMTcuOTUiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJcdTAwYTMyNi45NSIsImRpc2NvdW50IjozNSwiZGlzY291bnRfZGlzcGxheSI6Ii0zNSUifSwiQ0FEIjp7Imxpc3RfcHJpY2UiOjM5Ljk1LCJwcmljZSI6MjYuOTUsInByaWNlX2Rpc3BsYXkiOiJDJDI2Ljk1IiwibGlzdF9wcmljZV9kaXNwbGF5IjoiQyQzOS45NSIsImRpc2NvdW50Ijo0MCwiZGlzY291bnRfZGlzcGxheSI6Ii0zNSUifSwiQVVEIjp7Imxpc3RfcHJpY2UiOjM5Ljk1LCJwcmljZSI6MjYuOTUsInByaWNlX2Rpc3BsYXkiOiJBJDI2Ljk1IiwibGlzdF9wcmljZV9kaXNwbGF5IjoiQSQzOS45NSIsImRpc2NvdW50Ijo0MCwiZGlzY291bnRfZGlzcGxheSI6Ii0zNSUifSwiQ0hGIjp7Imxpc3RfcHJpY2UiOjI5Ljk1LCJwcmljZSI6MTkuOTUsInByaWNlX2Rpc3BsYXkiOiJDSEZcdTAwYTAxOS45NSIsImxpc3RfcHJpY2VfZGlzcGxheSI6IkNIRlx1MDBhMDI5Ljk1IiwiZGlzY291bnQiOjM1LCJkaXNjb3VudF9kaXNwbGF5IjoiLTM1JSJ9LCJTRUsiOnsibGlzdF9wcmljZSI6Mjk5LCJwcmljZSI6MTk5LCJwcmljZV9kaXNwbGF5IjoiMTk5XHUwMGEwa3IiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiIyOTlcdTAwYTBrciIsImRpc2NvdW50IjozNSwiZGlzY291bnRfZGlzcGxheSI6Ii0zNSUifSwiREtLIjp7Imxpc3RfcHJpY2UiOjIxOSwicHJpY2UiOjE0OSwicHJpY2VfZGlzcGxheSI6IjE0OVx1MDBhMGtyLiIsImxpc3RfcHJpY2VfZGlzcGxheSI6IjIxOVx1MDBhMGtyLiIsImRpc2NvdW50IjozMCwiZGlzY291bnRfZGlzcGxheSI6Ii0zMCUifSwiUExOIjp7Imxpc3RfcHJpY2UiOjEzOSwicHJpY2UiOjg5Ljk1LCJwcmljZV9kaXNwbGF5IjoiODksOTVcdTAwYTB6XHUwMTQyIiwibGlzdF9wcmljZV9kaXNwbGF5IjoiMTM5LDAwXHUwMGEwelx1MDE0MiIsImRpc2NvdW50IjozNSwiZGlzY291bnRfZGlzcGxheSI6Ii0zNSUifSwiQlJMIjp7Imxpc3RfcHJpY2UiOjE2OSwicHJpY2UiOjEwOSwicHJpY2VfZGlzcGxheSI6IlIkMTA5LDAwIiwibGlzdF9wcmljZV9kaXNwbGF5IjoiUiQxNjksMDAiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIkFSUyI6eyJsaXN0X3ByaWNlIjoyMjk1LCJwcmljZSI6MTk5NSwicHJpY2VfZGlzcGxheSI6IkFSUyQxLjk5NSwwMCIsImxpc3RfcHJpY2VfZGlzcGxheSI6IkFSUyQyLjI5NSwwMCIsImRpc2NvdW50IjoxNSwiZGlzY291bnRfZGlzcGxheSI6Ii0xNSUifSwiQ0xQIjp7Imxpc3RfcHJpY2UiOjIzOTAwLCJwcmljZSI6MTQ5MDAsInByaWNlX2Rpc3BsYXkiOiJDTFAkMTQuOTAwIiwibGlzdF9wcmljZV9kaXNwbGF5IjoiQ0xQJDIzLjkwMCIsImRpc2NvdW50Ijo0MCwiZGlzY291bnRfZGlzcGxheSI6Ii00MCUifSwiTVhOIjp7Imxpc3RfcHJpY2UiOjY3OSwicHJpY2UiOjM5OSwicHJpY2VfZGlzcGxheSI6Ik1leCQzOTkuMDAiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJNZXgkNjc5LjAwIiwiZGlzY291bnQiOjQwLCJkaXNjb3VudF9kaXNwbGF5IjoiLTQwJSJ9LCJDT1AiOnsibGlzdF9wcmljZSI6MTE5MDAwLCJwcmljZSI6NzQ5MDAsInByaWNlX2Rpc3BsYXkiOiJDT0wkNzQuOTAwIiwibGlzdF9wcmljZV9kaXNwbGF5IjoiQ09MJDExOS4wMDAiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIlBFTiI6eyJsaXN0X3ByaWNlIjoxMDkuOTUsInByaWNlIjo3OS45NSwicHJpY2VfZGlzcGxheSI6IlNcLy43OSw5NSIsImxpc3RfcHJpY2VfZGlzcGxheSI6IlNcLy4xMDksOTUiLCJkaXNjb3VudCI6MjUsImRpc2NvdW50X2Rpc3BsYXkiOiItMjUlIn0sIkNOWSI6eyJsaXN0X3ByaWNlIjoyMDksInByaWNlIjoxMzksInByaWNlX2Rpc3BsYXkiOiJcdTAwYTUxMzkuMDAiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJcdTAwYTUyMDkuMDAiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIkhLRCI6eyJsaXN0X3ByaWNlIjoyMjksInByaWNlIjoxNDksInByaWNlX2Rpc3BsYXkiOiJISyQxNDkuMDAiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJISyQyMjkuMDAiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIlRXRCI6eyJsaXN0X3ByaWNlIjo4NzksInByaWNlIjo1NzksInByaWNlX2Rpc3BsYXkiOiJOVCQ1NzkiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJOVCQ4NzkiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIklEUiI6eyJsaXN0X3ByaWNlIjo0MzkwMDAsInByaWNlIjoyODkwMDAsInByaWNlX2Rpc3BsYXkiOiJScDI4OS4wMDAiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJScDQzOS4wMDAiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIkpQWSI6eyJsaXN0X3ByaWNlIjozMTk1LCJwcmljZSI6MjA5NSwicHJpY2VfZGlzcGxheSI6Ilx1MDBhNTIsMDk1IiwibGlzdF9wcmljZV9kaXNwbGF5IjoiXHUwMGE1MywxOTUiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIlZORCI6eyJsaXN0X3ByaWNlIjo2OTkwMDAsInByaWNlIjo0NTkwMDAsInByaWNlX2Rpc3BsYXkiOiI0NTkuMDAwXHUyMGFiIiwibGlzdF9wcmljZV9kaXNwbGF5IjoiNjk5LjAwMFx1MjBhYiIsImRpc2NvdW50IjozNSwiZGlzY291bnRfZGlzcGxheSI6Ii0zNSUifSwiU0dEIjp7Imxpc3RfcHJpY2UiOjM5Ljk1LCJwcmljZSI6MjYuOTUsInByaWNlX2Rpc3BsYXkiOiJTJDI2Ljk1IiwibGlzdF9wcmljZV9kaXNwbGF5IjoiUyQzOS45NSIsImRpc2NvdW50Ijo0MCwiZGlzY291bnRfZGlzcGxheSI6Ii0zNSUifSwiSUxTIjp7Imxpc3RfcHJpY2UiOjEwNC45NSwicHJpY2UiOjY5Ljk1LCJwcmljZV9kaXNwbGF5IjoiXHUyMGFhNjkuOTUiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJcdTIwYWExMDQuOTUiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIlRSWSI6eyJsaXN0X3ByaWNlIjoyMjksInByaWNlIjoxOTksInByaWNlX2Rpc3BsYXkiOiJcdTIwYmExOTkuMDAiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiJcdTIwYmEyMjkuMDAiLCJkaXNjb3VudCI6MTUsImRpc2NvdW50X2Rpc3BsYXkiOiItMTUlIn0sIlVBSCI6eyJsaXN0X3ByaWNlIjo4MzksInByaWNlIjo1NTksInByaWNlX2Rpc3BsYXkiOiI1NTlcdTAwYTBcdTIwYjQiLCJsaXN0X3ByaWNlX2Rpc3BsYXkiOiI4MzlcdTAwYTBcdTIwYjQiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn0sIklOUiI6eyJsaXN0X3ByaWNlIjoyMjk1LCJwcmljZSI6MTQ5NSwicHJpY2VfZGlzcGxheSI6Ilx1MjBiOVx1MDBhMDEsNDk1IiwibGlzdF9wcmljZV9kaXNwbGF5IjoiXHUyMGI5XHUwMGEwMiwyOTUiLCJkaXNjb3VudCI6MzUsImRpc2NvdW50X2Rpc3BsYXkiOiItMzUlIn19LCJ0Y29fY29kZSI6IkRJRFAtVEgiLCJ0Y29fZ3JvdXAiOiJUSCIsInRjb19pZCI6IjI3MDM4MjY1IiwidGNvX2lkXzJTZWxsIjoiMTg0NDE4MTMiLCJ0Y29faWRfMlNlbGxfTSI6IjM3MjI2MjEzIiwiY291bnRyeV9ydWxlcyI6W3siY291bnRyeSI6WyIlQVNJQV8xJSIsIiVBRlJJQ0FfMSUiLCIlRVVST1BFX0VVUk9aT05FXzElIiwiJUVVUk9QRV9OT1RfRVVST1pPTkVfMSUiLCIlT0NFQU5JQV8xJSIsIiVOT1JUSF9BTUVSSUNBXzElIiwiJVNPVVRIX0FNRVJJQ0FfMSUiXSwiZmllbGRzIjp7InByaWNlcyI6W119fSx7ImNvdW50cnkiOlsiJUFTSUFfMS41JSIsIiVFVVJPUEVfRVVST1pPTkVfMS41JSIsIiVFVVJPUEVfTk9UX0VVUk9aT05FXzEuNSUiLCIlT0NFQU5JQV8xLjUlIiwiJU5PUlRIX0FNRVJJQ0FfMS41JSIsIiVTT1VUSF9BTUVSSUNBXzEuNSUiXSwiZmllbGRzIjp7InByaWNlcyI6eyJVU0QiOnsibGlzdF9wcmljZSI6IjMwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxNC45NSAgICAgICAgICAifSwiRVVSIjp7Imxpc3RfcHJpY2UiOiIzMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTQuOTUgICAgICAgICAgIn0sIkdCUCI6eyJsaXN0X3ByaWNlIjoiMjYuOTUgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEzLjk1ICAgICAgICAgICJ9LCJDQUQiOnsibGlzdF9wcmljZSI6IjM5Ljk1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxOS45NSAgICAgICAgICAgICAifSwiQVVEIjp7Imxpc3RfcHJpY2UiOiIzOS45NSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTkuOTUgICAgICAgICAgICAgIn0sIkNIRiI6eyJsaXN0X3ByaWNlIjoiMjkuOTUgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDE1Ljk1ICAgICAgICAgICJ9LCJTRUsiOnsibGlzdF9wcmljZSI6IjI5OS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxNDkuMDAgICAgICAgICAgICAgICAgICAgICAgIn0sIkRLSyI6eyJsaXN0X3ByaWNlIjoiMjE5LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEwOS4wMCAgICAgICAgICAgICAgICAgICAgICAifSwiUExOIjp7Imxpc3RfcHJpY2UiOiIxMzkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNjkuOTUgICAgICAgICAgICAgICAgICAgIn0sIkJSTCI6eyJsaXN0X3ByaWNlIjoiMTY5LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDc5Ljk1ICAgICAgICAgICAgICAgICAgICAifSwiQVJTIjp7Imxpc3RfcHJpY2UiOiIyLDI5NS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgMSw0OTUuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJDTFAiOnsibGlzdF9wcmljZSI6IjIzLDkwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAxMCw5MDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJNWE4iOnsibGlzdF9wcmljZSI6IjY3OS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAyOTkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIkNPUCI6eyJsaXN0X3ByaWNlIjoiMTE5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgIDU1LDkwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiUEVOIjp7Imxpc3RfcHJpY2UiOiIxMDkuOTUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNTkuOTUgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiQ05ZIjp7Imxpc3RfcHJpY2UiOiIyMDkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTA0Ljk1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIkhLRCI6eyJsaXN0X3ByaWNlIjoiMjI5LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDExOS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJUV0QiOnsibGlzdF9wcmljZSI6Ijg3OS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICA0MzkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiSURSIjp7Imxpc3RfcHJpY2UiOiI0MzksMDAwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgMjE5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJKUFkiOnsibGlzdF9wcmljZSI6IjMsMTk1LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAxLDU5NS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIlZORCI6eyJsaXN0X3ByaWNlIjoiNjk5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgIDM0OSwwMDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJTR0QiOnsibGlzdF9wcmljZSI6IjM5Ljk1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxOS45NSAgICAgICAgICAgICAgICAgICAgICAgIn0sIklMUyI6eyJsaXN0X3ByaWNlIjoiMTA0Ljk1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDQ5Ljk1ICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIlRSWSI6eyJsaXN0X3ByaWNlIjoiMjI5LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDE5OS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJVQUgiOnsibGlzdF9wcmljZSI6IjgzOS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICA0MTkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiUlVCIjp7Imxpc3RfcHJpY2UiOiIyLDM5NS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgMSwxOTUuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJJTlIiOnsibGlzdF9wcmljZSI6IjIsMjk1LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAxLDA5NS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifX0sInRjb19jb2RlIjoiRElEUC1UTSIsInRjb19ncm91cCI6IlRNIiwidGNvX2lkIjoiMjcxMjM0NzMiLCJ0Y29faWRfMlNlbGwiOiIyMjEwNDEwNCIsInRjb19pZF8yU2VsbF9NIjoiMzcyMjYyMTQifX0seyJjb3VudHJ5IjpbIiVBU0lBXzIlIiwiJUFGUklDQV8yJSIsIiVFVVJPUEVfRVVST1pPTkVfMiUiLCIlRVVST1BFX05PVF9FVVJPWk9ORV8yJSIsIiVPQ0VBTklBXzIlIiwiJU5PUlRIX0FNRVJJQ0FfMiUiLCIlU09VVEhfQU1FUklDQV8yJSJdLCJmaWVsZHMiOnsicHJpY2VzIjp7IlVTRCI6eyJsaXN0X3ByaWNlIjoiMzAuMDAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDkuOTUgICAgICAgICAgICAgICJ9LCJFVVIiOnsibGlzdF9wcmljZSI6IjMwLjAwICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA5Ljk1ICAgICAgICAgICAgICAifSwiR0JQIjp7Imxpc3RfcHJpY2UiOiIyNi45NSAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOC40NSAgICAgICAgICAgICAgIn0sIkNBRCI6eyJsaXN0X3ByaWNlIjoiMzkuOTUgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEzLjk1ICAgICAgICAgICAgICAgICAgICJ9LCJBVUQiOnsibGlzdF9wcmljZSI6IjM5Ljk1ICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxMy45NSAgICAgICAgICAgICAgICAgICAifSwiQ0hGIjp7Imxpc3RfcHJpY2UiOiIyOS45NSAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOS45NSAgICAgICAgICAgICAgIn0sIlNFSyI6eyJsaXN0X3ByaWNlIjoiMjk5LjAwICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDEwNC45NSAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiREtLIjp7Imxpc3RfcHJpY2UiOiIyMTkuMDAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNjkuOTUgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJQTE4iOnsibGlzdF9wcmljZSI6IjEzOS4wMCAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgICAgICA0NC45NSAgICAgICAgICAgICAgICAgICAgICAgICAifSwiQlJMIjp7Imxpc3RfcHJpY2UiOiIxNjkuMDAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNDkuOTUgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJBUlMiOnsibGlzdF9wcmljZSI6IjIsMjk1LjAwICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICA5NzkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIkNMUCI6eyJsaXN0X3ByaWNlIjoiMjMsOTAwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgIDcsNjk1LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiTVhOIjp7Imxpc3RfcHJpY2UiOiI2NzkuMDAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgMTk5LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJDT1AiOnsibGlzdF9wcmljZSI6IjExOSwwMDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAzNyw5MDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiUEVOIjp7Imxpc3RfcHJpY2UiOiIxMDkuOTUgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgMzkuOTUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiQ05ZIjp7Imxpc3RfcHJpY2UiOiIyMDkuMDAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAgICAgNjkuOTUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIkhLRCI6eyJsaXN0X3ByaWNlIjoiMjI5LjAwICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgIDc0Ljk1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJUV0QiOnsibGlzdF9wcmljZSI6Ijg3OS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgICAgICAyODkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiSURSIjp7Imxpc3RfcHJpY2UiOiI0MzksMDAwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgMTQ5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIkpQWSI6eyJsaXN0X3ByaWNlIjoiMywxOTUuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgIDEsMDk1LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiVk5EIjp7Imxpc3RfcHJpY2UiOiI2OTksMDAwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgMjI5LDAwMC4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJTR0QiOnsibGlzdF9wcmljZSI6IjM5Ljk1ICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAxMy45NSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIklMUyI6eyJsaXN0X3ByaWNlIjoiMTA0Ljk1ICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgIDMyLjk1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIlRSWSI6eyJsaXN0X3ByaWNlIjoiMjI5LjAwICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgICAgIDEyNC45NSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiVUFIIjp7Imxpc3RfcHJpY2UiOiI4MzkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAgMjk5LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIlJVQiI6eyJsaXN0X3ByaWNlIjoiMiwzOTUuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiwicHJpY2UiOiIgICAgICAgICAgICAgICAgIDc3OS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJJTlIiOnsibGlzdF9wcmljZSI6IjIsMjk1LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICA3NTkuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifX0sInRjb19jb2RlIjoiRElEUC1UTCIsInRjb19ncm91cCI6IlRMIiwidGNvX2lkIjoiMjcxMjQwMTciLCJ0Y29faWRfMlNlbGwiOiIxMDkzNzQ3NCIsInRjb19pZF8yU2VsbF9NIjoiMzcyMjYyMTUifX0seyJjb3VudHJ5IjpbIiVBU0lBX0lORE9DSElOQSUiLCIlQVNJQV8zJSIsIiVBRlJJQ0FfMyUiLCIlRVVST1BFX05PVF9FVVJPWk9ORV8zJSIsIiVTT1VUSF9BTUVSSUNBXzMlIl0sImZpZWxkcyI6eyJwcmljZXMiOnsiVVNEIjp7Imxpc3RfcHJpY2UiOiIgICAgIDIwLjAwICAgICAgICAgICIsInByaWNlIjoiICAgICAgICA2LjY5ICAgICAgICAgICJ9LCJJTlIiOnsibGlzdF9wcmljZSI6IiAgICAgMSw0OTUuMDAgICAgICAgICAgIiwicHJpY2UiOiIgICAgIDQ5OS4wMCAgICAgICAgICAgICJ9LCJJRFIiOnsibGlzdF9wcmljZSI6IjQzOSwwMDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICA5OSwwMDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJWTkQiOnsibGlzdF9wcmljZSI6IjY5OSwwMDAuMDAgICAgICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAxNTQsMDAwLjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIlRSWSI6eyJsaXN0X3ByaWNlIjoiMjI5LjAwICAgICAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgIDk5Ljk1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIn0sIlVBSCI6eyJsaXN0X3ByaWNlIjoiODM5LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgICAgIDE5OS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifSwiUlVCIjp7Imxpc3RfcHJpY2UiOiIyLDM5NS4wMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAiLCJwcmljZSI6IiAgICAgICAgNDk5LjAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ9LCJCUkwiOnsibGlzdF9wcmljZSI6IjE2OS4wMCAgICAgICAgICAgICAgICAgICIsInByaWNlIjoiICAgICAgICAgICAgICAgICAgICAzNC45NSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAifX0sInRjb19jb2RlIjoiRElEUC1USSIsInRjb19ncm91cCI6IlRJIiwidGNvX2lkIjoiMjcxMjQwMTkiLCJ0Y29faWRfMlNlbGwiOiIyNDM2NTYzMCIsInRjb19pZF8yU2VsbF9NIjoiMzcyMjYyMTYifX1dfSwibG9jYWxpemVkX3VybF9wcmVmaXhfbSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZy5ndXJ1XC9wdC1iclwvIiwidXJsX3ByZWZpeF9tIjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImxvY2FsaXplZF91cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcL3B0LWJyXC8iLCJ1cmxfcHJlZml4IjoiaHR0cHM6XC9cL3JlZmFjdG9yaW5nLmd1cnVcLyIsImNoaW5lc2VfaG9tZSI6Imh0dHBzOlwvXC9yZWZhY3RvcmluZ2d1cnUuY25cLyIsInVzZXJfZWNob19hbGlhcyI6InJlZmFjdG9yaW5nIiwidXNlcl9lY2hvX2hvc3QiOiJmZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1IiwidXNlcl9lY2hvX3ByaXZhdGVfZm9ydW0iOiIyIiwidXNlcl9lY2hvX2xvY2FsZSI6InB0LWJyIiwidXNlcl9lY2hvX3B1YmxpY19mb3J1bSI6IjMiLCJ1c2VyX2VjaG9fcHVibGljX2ZvcnVtX3VybCI6Imh0dHBzOlwvXC9mZWVkYmFjay5yZWZhY3RvcmluZy5ndXJ1XC8iLCJ1c2VyX2VjaG9fc3NvX3Rva2VuIjoiIn0=");
+</script>
+
+    <script defer>
+        if (window.dataLayer && window.google_optimize) {
+            window.dataLayer.push({'event': 'optimize.activate'});
+        }
+    </script>
+ 
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+        h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+        (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+        {'GTM-M58XZN4':true});</script>
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com/">
+<script>
+    var getCookie = function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    };
+    var eraseCookie = function (name) {
+        document.cookie = name+'=; Path=/; Max-Age=-99999999;';
+    };
+
+    window.google_analytics = 'UA-521840-40';
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+
+    var ga_queue = [];
+    window.gaOnCreate = function(){
+        ga_queue.push(arguments);
+    };
+
+            doTracking();
+    
+    function doTracking(clientId) {
+        window.gaOnCreate = function(){
+            ga.apply(this, arguments);
+        };
+
+        var options = {
+            'siteSpeedSampleRate': 100
+        };
+        if (clientId) {
+            options.clientId = clientId;
+        }
+        ga('create', 'UA-521840-40', options);
+
+                    ga('require', 'GTM-M58XZN4');
+            window.google_optimize = 'GTM-M58XZN4';
+        
+        // Fix broken Social Login referrer.
+        window.social_login_provider = window.social_login_provider || getCookie('social_login_provider');
+        if (window.social_login_provider) {
+            ga('set', 'referrer', null);
+            ga('send', 'social', window.social_login_provider, 'login', window.location.href);
+            eraseCookie('social_login_provider');
+        }
+
+        var user_id = getCookie('user_id');
+        if (user_id) {
+            ga('set', 'userId', user_id);
+        } else {
+            ga('set', 'userId', null);
+        }
+
+        var location = document.location.href;
+        if (typeof window.analytics_path_prefix === 'string') {
+            if (/^(https?:\/\/[^\/]+?)\/$/.test(location)) {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix);
+            }
+            else {
+                location = location.replace(/(https?:\/\/[^\/]+?)\//, '$1' + window.analytics_path_prefix + '/');
+            }
+            ga('set', 'location', location);
+        }
+
+        if (typeof window.analytics_location_prefix === 'string') {
+            location = location.replace(/(https?:\/\/[^\/]+?)\//, window.analytics_location_prefix);
+            ga('set', 'location', location);
+        }
+
+        ga('require', 'ec');
+        ga('send', 'pageview', (typeof window.analytics_path_prefix === 'string' ? window.analytics_path_prefix : '') + document.location.pathname);
+
+        ga_queue.forEach(function(item){
+            ga.apply(this, item);
+        });
+    }
+</script>
+
+<script defer>
+    window.socialLikesButtons = {
+                facebook: {
+            counterUrl: "",
+            convertNumber: null
+        },
+                        };
+</script>
+
+<script defer>
+    var CodeMirrorScripts = ["/js/codemirror.min.js?id=24aa863dfde7c99eb17d4102684aea27"];
+</script>
+
+
+
+    <script>window.loadContent = true;window.loadCart = true;</script>
+</body>
+
+<!-- Mirrored from refactoring.guru/pt-br/design-patterns/book by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jun 2022 19:20:44 GMT -->
+</html>
